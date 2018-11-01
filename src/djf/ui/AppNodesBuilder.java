@@ -5,6 +5,7 @@ import djf.modules.AppGUIModule;
 import djf.modules.AppLanguageModule;
 import static djf.modules.AppLanguageModule.FILE_PROTOCOL;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -17,9 +18,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
@@ -48,6 +53,7 @@ public class AppNodesBuilder {
         languageSettings = initLanguageSettings;
     }
 
+    
     public CheckBox buildCheckBox(Object nodeId,
             Pane parentPane,
             String styleClass,
@@ -63,20 +69,20 @@ public class AppNodesBuilder {
         return checkBox;
     }
     
-        public CheckBox buildCheckBox(Object nodeId,
-            GridPane parent,
-            int col, int row, int colSpan, int rowSpan,
-            String styleClass,
-            boolean enabled) {
-        CheckBox checkBox = new CheckBox();
-        initNode(nodeId.toString(), checkBox, parent, col, row, colSpan, rowSpan, styleClass, enabled);
+    public CheckBox buildCheckBox(Object nodeId,
+        GridPane parent,
+        int col, int row, int colSpan, int rowSpan,
+        String styleClass,
+        boolean enabled) {
+    CheckBox checkBox = new CheckBox();
+    initNode(nodeId.toString(), checkBox, parent, col, row, colSpan, rowSpan, styleClass, enabled);
 
-        // MAKE SURE THE LANGUAGE MANAGER HAS IT
-        // SO THAT IT CAN CHANGE THE LANGUAGE AS NEEDED
-        initLabeledNode(nodeId, checkBox);
+    // MAKE SURE THE LANGUAGE MANAGER HAS IT
+    // SO THAT IT CAN CHANGE THE LANGUAGE AS NEEDED
+    initLabeledNode(nodeId, checkBox);
 
-        // AND RETURN IT
-        return checkBox;
+    // AND RETURN IT
+    return checkBox;
     }
 
     public ColorPicker buildColorPicker(Object nodeId,
@@ -120,6 +126,30 @@ public class AppNodesBuilder {
         // MAKE AND INIT THE COMBO BOX
         ComboBox comboBox = initComboBox(optionsListProperty, defaultValueProperty);
         initNode(nodeId, comboBox, parent, col, row, colSpan, rowSpan, styleClass, enabled);        
+        return comboBox;
+    }
+    
+    public ComboBox buildComboBox(Object nodeId,
+            List<String> optionsList,
+            String defaultValue,
+            Pane parentPane,
+            String styleClass,
+            boolean enabled) {
+        ComboBox comboBox = new ComboBox();
+        ObservableList<String> items = comboBox.getItems();
+        
+        if (defaultValue != null) {
+            items.add(defaultValue);
+            comboBox.getSelectionModel().select(defaultValue);
+        }
+        if (optionsList != null) {
+            for (String s : optionsList) {
+                if (!items.contains(s)) {
+                    items.add(s);
+                }
+            }
+        }
+        initNode(nodeId, comboBox, parentPane, styleClass, enabled); 
         return comboBox;
     }
     
@@ -288,6 +318,7 @@ public class AppNodesBuilder {
         initNode(nodeId, box, parentPane, styleClass, enabled);
         return box;
     }
+    
     public VBox buildVBox(Object nodeId,
             GridPane parent,
             int col, int row, int colSpan, int rowSpan,
@@ -297,6 +328,35 @@ public class AppNodesBuilder {
         initNode(nodeId, box, parent, col, row, colSpan, rowSpan, styleClass, enabled);
         return box;
     }
+    
+    public TabPane buildTabPane(Object nodeId,
+            Pane parentPane,
+            String styleClass,
+            boolean enabled){
+        TabPane tab = new TabPane();
+        initNode(nodeId, tab, parentPane, styleClass, enabled);
+        return tab;
+    }
+    
+    public Tab buildTab(Object nodeId,
+            TabPane parentPane,
+            String styleClass,
+            boolean enabled){
+        Tab tab = new Tab();
+        
+        if (parentPane != null) {
+            parentPane.getTabs().add(tab);
+        }
+
+        // SET THE STYLE
+        tab.getStyleClass().add(styleClass);
+
+        // ENABLE/DISABLE
+        tab.setDisable(!enabled);
+        languageSettings.addLabeledControlProperty(nodeId.toString() + "_TEXT", tab.textProperty());
+        return tab;
+    }
+    
     public Button buildIconButton(Object nodeId,
             Pane parentPane,
             String styleClass,
@@ -516,6 +576,20 @@ public class AppNodesBuilder {
         // AND RETURN THE COMPLETED BUTTON
         return textField;
     }
+    public TextArea buildTextArea(Object nodeId,
+            Pane parentPane,
+            String styleClass,
+            boolean enabled) {
+        // NOW MAKE THE TEXT FIELD
+        TextArea textArea = new TextArea();
+
+        // INITIALIZE THE OTHER SETTINGS
+        initNode(nodeId, textArea, parentPane, styleClass, enabled);
+
+        // AND RETURN THE COMPLETED BUTTON
+        return textArea;
+    }
+    
     public TextField buildTextField(Object nodeId,
             GridPane parent,
             int col, int row, int colSpan, int rowSpan,
@@ -537,6 +611,19 @@ public class AppNodesBuilder {
     public TextField setPromptText(Object nodeId, TextField tf){
         languageSettings.addLabeledControlProperty(nodeId.toString(), tf.promptTextProperty());
         return tf;
+    }
+    
+    public TitledPane buildTitledPane(Object nodeId,
+            Pane parentPane,
+            String styleClass,
+            boolean enabled){
+        TitledPane titledPane = new TitledPane();
+        if (parentPane != null) {
+            parentPane.getChildren().add(titledPane);
+        }
+        initNode(nodeId, titledPane,styleClass,enabled);
+        languageSettings.addLabeledControlProperty(nodeId.toString() + "_TEXT", titledPane.textProperty());
+        return titledPane;
     }
     
     public TableView buildTableView(Object nodeId,

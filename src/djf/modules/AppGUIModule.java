@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import properties_manager.PropertiesManager;
 import djf.AppTemplate;
@@ -317,11 +316,16 @@ public class AppGUIModule {
         // PROPERLY THE AppClipboardComponent MUST ALREADY EXIST
         clipboardToolbar = new HBox();
         topToolbarPane.getChildren().add(clipboardToolbar);
+        
 
         // THIS IS AN ALL OR NOTHING TOOLBAR
         Button cutButton = nodesBuilder.buildIconButton(CUT_BUTTON, clipboardToolbar, CLASS_DJF_ICON_BUTTON, DISABLED);
         Button copyButton = nodesBuilder.buildIconButton(COPY_BUTTON, clipboardToolbar, CLASS_DJF_ICON_BUTTON, DISABLED);
         Button pasteButton = nodesBuilder.buildIconButton(PASTE_BUTTON, clipboardToolbar, CLASS_DJF_ICON_BUTTON, DISABLED);
+        
+        cutButton.setOnAction(e->{app.getClipboardComponent().cut();});
+        copyButton.setOnAction(e->{app.getClipboardComponent().copy();});
+        pasteButton.setOnAction(e->{app.getClipboardComponent().paste();});
     }
 
     public void registerClipboardComponent() {

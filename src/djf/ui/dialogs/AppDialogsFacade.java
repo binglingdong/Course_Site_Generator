@@ -79,9 +79,6 @@ public class AppDialogsFacade {
         languageDialog.setContentText(contentText);
 
         Optional<String> result= languageDialog.showAndWait();
-//        result.
-//        
-        
         
         String selectedLanguage = languageDialog.getSelectedItem();
         
