@@ -9,6 +9,6 @@ package csg;
  *
  * @author bingling.dong
  */
-public class MeetingTimePropertyType {
+public enum MeetingTimePropertyType {
     
 }

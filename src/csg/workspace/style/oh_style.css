@@ -25,16 +25,16 @@
     
     /*  THE NEURAL SWATCH IS USED FOR THE BACKGROUNDS IN PLACES WHERE
         THERE ARE NO OTHER CONTROLS*/
-    SWATCH_NEUTRAL:             #DDE9E8;
+    SWATCH_NEUTRAL:             #FCE5FC;
     /*  THE COMPLEMENT SWATCH IS USED FOR BACKGROUND AREAS OF THINGS
         LAYERED ON TOP OF THE BACKGROUND */
-    SWATCH_COMPLEMENT:          #CAE9FF;
+    SWATCH_COMPLEMENT:          #F5B3F5;
     /*  THE ACCENT SWATCH IS USED FOR BORDERS OF THINGS LIKE TOOLBAR
         THAT ARE USED FOR ORGANIZING GROUPS OF COMPONENTS */
     SWATCH_ACCENT:              #1B4965;
     SWATCH_ACCENT_ALT:          #4E7C98;
     /*  THIS BLEND SWATCH IS USED FOR GRADIENT TRANSITIONS */
-    SWATCH_BLEND:               #5FA8D3;
+    SWATCH_BLEND:               #990991;
     
     -fx-font-family: "Times New Roman";
 }
@@ -43,14 +43,14 @@
 
 /* THE TOOLBAR RUNNING THE LENGTH OF THE TOP OF THE UI */
 .djf_top_toolbar {
-    -fx-background-color:   SWATCH_NEUTRAL;
+    -fx-background-color:   #FFFFFF;
     -fx-border-color:       SWATCH_ACCENT;
     -fx-border-width:       2;
     -fx-border-radius:      15;
 }
 /* A TOOLBAR IN THE TOP TOOLBAR LIKELY WITH BUTTONS */
 .djf_toolbar_pane {
-    -fx-background-color:   SWATCH_COMPLEMENT;
+    -fx-background-color:   SWATCH_NEUTRAL;
     -fx-border-color:       SWATCH_ACCENT;
     -fx-border-width:       2;
     -fx-border-radius:      15;
@@ -104,6 +104,57 @@
 .djf_welcome_new_button:pressed{
     -fx-background-color: SWATCH_NEUTRAL;
 }
+
+/*Format the TABS*/
+.tab-header-background {
+    -fx-background-color: #FFFFFF ;
+}
+
+.tab-pane .tab{
+    -fx-background-color: #f9effc;
+    -fx-background-radius: 4;
+}
+
+.tab-pane .tab:selected{
+    -fx-background-color: linear-gradient(SWATCH_COMPLEMENT, #7a0c96); 
+    -fx-background-radius: 4;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #572663;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #FFFFFF;
+}
+
+.tab-pane {
+    -fx-background-color: linear-gradient(SWATCH_COMPLEMENT, #7a0c96); 
+}
+
+.panes_foreground{
+    -fx-background-color: #ededed;
+    -fx-background-radius: 10;
+}
+
+.major_labels{
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+}
+
+.minor_labels{
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+}
+
+.site_style_buttons{
+    -fx-border-width: 1px;
+}
+
 /*.oh_header_label{
     -fx-font-size: 13pt;
     -fx-font-weight: bold;

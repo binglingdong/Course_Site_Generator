@@ -6,7 +6,7 @@
         <!-- CHINESE LANGUAGE SETTINGS FOR DESKTOP JAVA FRAMEWORK CONTROLS -->
 
         <!-- WELCOME DIALOG TEXT -->
-        <property name="WELCOME_DIALOG_TITLE"               value="欢迎来到办公时间"></property>
+        <property name="WELCOME_DIALOG_TITLE"               value="欢迎来到课程网站生成器"></property>
         <property name="WELCOME_DIALOG_RECENT_WORK_LABEL"   value="最近记录"></property>
         <property name="WELCOME_DIALOG_NEW_BUTTON_TEXT"  value="创建新纪录"></property>
 

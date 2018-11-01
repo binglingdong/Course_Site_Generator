@@ -9,9 +9,9 @@
 <properties>
     <property_list>        
         <!-- DESKTOP JAVA FRAMEWORK CONTROLS SETTINGS -->
-        <property name="APP_TITLE"	    value="Office Hours"></property>
-        <property name="APP_BANNER"         value="OfficeHoursWelcomeBanner.png"></property>
-	<property name="APP_LOGO"	    value="OfficeHoursLogo.png"></property>
+        <property name="APP_TITLE"	    value="Course Site Generator"></property>
+        <property name="APP_BANNER"         value="CourseSiteGeneratorWelcomeBanner.png"></property>
+	<property name="APP_LOGO"	    value="CourseSiteGeneratorLogo.png"></property>
         <property name="APP_EXPORT_PAGE"    value="index.html"></property>
         <property name="APP_HELP_PAGE"      value="Help.html"></property>
 	<property name="APP_CSS"	    value="oh_style.css"></property>

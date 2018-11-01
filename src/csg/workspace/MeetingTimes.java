@@ -5,10 +5,24 @@
  */
 package csg.workspace;
 
+import csg.CourseSiteGeneratorApp;
+import javafx.scene.control.Tab;
+
 /**
  *
  * @author bingling.dong
  */
 public class MeetingTimes {
+    private Tab MTTab; 
+    CourseSiteGeneratorApp app;
+    
+    public MeetingTimes(Tab tab, CourseSiteGeneratorApp app){
+        MTTab= tab;
+        this.app = app;
+    }
+    
+    public void initLayout(){
+        
+    }
     
 }

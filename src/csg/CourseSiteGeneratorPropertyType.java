@@ -9,6 +9,11 @@ package csg;
  *
  * @author bingling.dong
  */
-public class CourseSiteGeneratorPropertyType {
-    
+public enum CourseSiteGeneratorPropertyType {
+    TAB_PANE,
+    TAB_SITE,
+    TAB_SYLLABUS,
+    TAB_MEETING_TIMES,
+    TAB_OFFICE_HOURS,
+    TAB_SCHEDULE
 }

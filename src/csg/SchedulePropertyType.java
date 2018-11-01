@@ -9,6 +9,6 @@ package csg;
  *
  * @author bingling.dong
  */
-public class SchedulePropertyType {
-    
+public enum SchedulePropertyType {
+    SCHEDULE_PANE,
 }

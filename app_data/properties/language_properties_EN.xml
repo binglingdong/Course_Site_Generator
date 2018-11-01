@@ -6,9 +6,9 @@
         <!-- ENGLISH LANGUAGE SETTINGS FOR DESKTOP JAVA FRAMEWORK CONTROLS -->
 
         <!-- WELCOME DIALOG TEXT -->
-        <property name="WELCOME_DIALOG_TITLE"               value="Welcome to Office Hours"></property>
+        <property name="WELCOME_DIALOG_TITLE"               value="Welcome to Course Site Generator"></property>
         <property name="WELCOME_DIALOG_RECENT_WORK_LABEL"   value="Recent Work"></property>
-        <property name="WELCOME_DIALOG_NEW_BUTTON_TEXT"  value="Create New Office Hours"></property>
+        <property name="WELCOME_DIALOG_NEW_BUTTON_TEXT"  value="Create new Course Site"></property>
 
         <!-- GENERIC APP ERROR MESSAGES -->
         <property name="APP_ERROR_TITLE"            value="Application Error"></property>
@@ -19,11 +19,11 @@
         <property name="PROPERTIES_ERROR_CONTENT"   value="There was an Error Loading a Properties File"></property>
 
         <!-- FILE TOOLBAR TOOLTIPS -->
-        <property name="NEW_BUTTON_TOOLTIP"         value="New Office Hours"></property>
-        <property name="LOAD_BUTTON_TOOLTIP"        value="Load Office Hours"></property>
-        <property name="CLOSE_BUTTON_TOOLTIP"       value="Close Office Hours"></property>
-        <property name="SAVE_BUTTON_TOOLTIP"        value="Save Office Hours"></property>
-        <property name="EXPORT_BUTTON_TOOLTIP"      value="Export Office Hours"></property>
+        <property name="NEW_BUTTON_TOOLTIP"         value="New Course Site"></property>
+        <property name="LOAD_BUTTON_TOOLTIP"        value="Load Course Site"></property>
+        <property name="CLOSE_BUTTON_TOOLTIP"       value="Close Course Site"></property>
+        <property name="SAVE_BUTTON_TOOLTIP"        value="Save Course Site"></property>
+        <property name="EXPORT_BUTTON_TOOLTIP"      value="Export Course Site"></property>
         <property name="EXIT_BUTTON_TOOLTIP"        value="Exit"></property>
 
         <!-- CLIPBOARD TOOLBAR TOOLTIPS -->
@@ -80,6 +80,67 @@
         <!-- ENGLISH LANGUAGE SETTINGS SPECIFICALLY FOR TDLM CONTROLS -->
 
         <!-- LANGUAGE-DEPENDENT TEXT FOR OH WORKSPACE CONTROLS -->
+        <!--tabs-->
+        <property name="TAB_SITE_TEXT"                                  value="Site"></property>
+        <property name="TAB_SYLLABUS_TEXT"                              value="Syllabus"></property>
+        <property name="TAB_MEETING_TIMES_TEXT"                         value="Meeting Times"></property>
+        <property name="TAB_OFFICE_HOURS_TEXT"                          value="Office Hours"></property>
+        <property name="TAB_SCHEDULE_TEXT"                              value="Schedule"></property>
+        
+        <!--SITE-->
+        <property name="SITE_BANNER_LABEL_TEXT"                         value="Banner"></property>
+        <property name="SITE_BANNER_COURSE_SUBJECT_LABEL_TEXT"          value="Subject: "></property>
+        <property name="SITE_BANNER_COURSE_NUMBER_LABEL_TEXT"           value="Number: "></property>
+        <property name="SITE_BANNER_COURSE_SEMESTER_LABEL_TEXT"         value="Semester: "></property>
+        <property name="SITE_BANNER_COURSE_YEAR_LABEL_TEXT"             value="Year: "></property>
+        <property name="SITE_BANNER_COURSE_TITLE_LABEL_TEXT"            value="Title: "></property>
+        <property name="SITE_BANNER_EXPORT_DIR_LABEL_TEXT"              value="Export Dir: "></property>
+        <property name="SITE_BANNER_EXPORT_DIR_ADDRESS_TEXT"            value=".\\export\\CSE..."></property>
+        
+        <property name="SITE_PAGE_LABEL_TEXT"                           value="Pages"></property>
+        <property name="SITE_PAGE_HOME_CHECKBOX_TEXT"                   value="Home"></property>
+        <property name="SITE_PAGE_SYLLABUS_CHECKBOX_TEXT"               value="Syllabus"></property>
+        <property name="SITE_PAGE_SCHEDULE_CHECKBOX_TEXT"               value="Schedule"></property>
+        <property name="SITE_PAGE_HWS_CHECKBOX_TEXT"                    value="HWs"></property>
+        
+        <property name="SITE_STYLE_LABEL_TEXT"                          value="Style"></property>
+        <property name="SITE_STYLE_FAVICON_BUTTON_TEXT"                 value="Favicon: "></property>
+        <property name="SITE_STYLE_NAVBAR_BUTTON_TEXT"                  value="Navbar Image: "></property>
+        <property name="SITE_STYLE_LEFT_FOOTER_BUTTON_TEXT"             value="Left Footer Image:"></property>
+        <property name="SITE_STYLE_RIGHT_FOOTER_BUTTON_TEXT"            value="Right Footer Image: "></property>
+        <property name="SITE_STYLE_FONT_COLORS_LABEL_TEXT"              value="Fonts and Colors Style Sheet: "></property>
+        <property name="SITE_STYLE_FONT_NOTE_LABEL_TEXT"                value="Note: StyleSheets should be placed inside work/css to be selectable"></property>
+       
+        <property name="SITE_INSTRUCTOR_LABEL_TEXT"                     value="Instructor"></property>
+        <property name="SITE_INSTRUCTOR_NAME_LABEL_TEXT"                value="Name: "></property>
+        <property name="SITE_INSTRUCTOR_ROOM_LABEL_TEXT"                value="Room: "></property>
+        <property name="SITE_INSTRUCTOR_EMAIL_LABEL_TEXT"               value="Email: "></property>
+        <property name="SITE_INSTRUCTOR_HOMEPAGE_LABEL_TEXT"            value="Home Page: "></property>
+        <property name="SITE_INSTRUCTOR_OFFICEHOUR_TITLEDPANE_TEXT"     value="Office Hours"></property>
+        
+        <!--Syllabus-->
+        <property name="SYLLABUS_DES_TITLEDPANE_TEXT"                   value="Description: "></property>
+        <property name="SYLLABUS_TOPICS_TITLEDPANE_TEXT"                value="Topics: "></property>
+        <property name="SYLLABUS_PREREQ_TITLEDPANE_TEXT"                value="Prerequisites: "></property>
+        <property name="SYLLABUS_OUTCOMES_TITLEDPANE_TEXT"              value="Outcomes: "></property>
+        <property name="SYLLABUS_TEXTBOOKS_TITLEDPANE_TEXT"             value="Textbooks: "></property>
+        <property name="SYLLABUS_GRADEDCOM_TITLEDPANE_TEXT"             value="Graded Components: "></property>
+        <property name="SYLLABUS_GRADING_NOTE_TITLEDPANE_TEXT"          value="Grading Note: "></property>
+        <property name="SYLLABUS_ACADEMIC_DIS_TITLEDPANE_TEXT"          value="Academic Dishonesty: "></property>
+        <property name="SYLLABUS_SPECIAL_ASSISTANCE_TITLEDPANE_TEXT"    value="Special Assistance: "></property>
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <property name="OH_TAS_HEADER_LABEL_TEXT"           value="Teaching Assistants"></property>
         <property name="OH_ADD_TA_BUTTON_TEXT"              value="Add TA"></property>
         <property name="OH_OFFICE_HOURS_HEADER_LABEL_TEXT"  value="Office Hours"></property>
