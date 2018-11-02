@@ -129,31 +129,66 @@
         <property name="SYLLABUS_ACADEMIC_DIS_TITLEDPANE_TEXT"          value="Academic Dishonesty: "></property>
         <property name="SYLLABUS_SPECIAL_ASSISTANCE_TITLEDPANE_TEXT"    value="Special Assistance: "></property>
         
+        <!-- MT -->
+        <property name="MT_LECUTRE_LABEL_TEXT"                          value="Lectures"></property>
+        <property name="MT_ADD_LECUTRE_BUTTON_TEXT"                     value="+"></property>
+        <property name="MT_REMOVE_LECTURE_BUTTON_TEXT"                  value="-"></property>
+        <property name="MT_REC_LABEL_TEXT"                              value="Recitations "></property>
+        <property name="MT_ADD_REC_BUTTON_TEXT"                         value="+"></property>
+        <property name="MT_REMOVE_REC_BUTTON_TEXT"                      value="-"></property>
+        <property name="MT_LAB_LABEL_TEXT"                              value="Labs"></property>
+        <property name="MT_ADD_LAB_BUTTON_TEXT"                         value="+"></property>
+        <property name="MT_REMOVE_LAB_BUTTON_TEXT"                      value="-"></property>
+        <property name="MT_LECTURE_SECTION_COLUMN_TEXT"                 value="Section"></property>
+        <property name="MT_LECTURE_DAYS_COLUMN_TEXT"                    value="Days"></property>
+        <property name="MT_LECTURE_TIMES_COLUMN_TEXT"                   value="Time"></property>
+        <property name="MT_LECTURE_ROOM_COLUMN_TEXT"                    value="Room"></property>
+        <property name="MT_REC_SECTION_COLUMN_TEXT"                     value="Section"></property>
+        <property name="MT_REC_DAYSANDTIME_COLUMN_TEXT"                 value="Days and Time"></property>
+        <property name="MT_REC_ROOM_COLUMN_TEXT"                        value="Room"></property>
+        <property name="MT_REC_TA1_COLUMN_TEXT"                         value="TA1"></property>
+        <property name="MT_REC_TA2_COLUMN_TEXT"                         value="TA2"></property>
+        <property name="MT_LAB_SECTION_COLUMN_TEXT"                     value="Section"></property>
+        <property name="MT_LAB_DAYSANDTIME_COLUMN_TEXT"                 value="Days and Time"></property>
+        <property name="MT_LAB_ROOM_COLUMN_TEXT"                        value="Room"></property>
+        <property name="MT_LAB_TA1_COLUMN_TEXT"                         value="TA1"></property>
+        <property name="MT_LAB_TA2_COLUMN_TEXT"                         value="TA2"></property>
+        
+        <!-- OH -->
+        <property name="OH_TAS_HEADER_LABEL_TEXT"                       value="Teaching Assistants"></property>
+        <property name="OH_ADD_TA_BUTTON_TEXT"                          value="Add TA"></property>
+        <property name="OH_OFFICE_HOURS_HEADER_LABEL_TEXT"              value="Office Hours"></property>
+        <property name="OH_NAME_TABLE_COLUMN_TEXT"                      value="Name"></property>
+        <property name="OH_EMAIL_TABLE_COLUMN_TEXT"                     value="Email"></property>
+        <property name="OH_SLOTS_TABLE_COLUMN_TEXT"                     value="Time Slots"></property>
+        <property name="OH_START_TIME_TABLE_COLUMN_TEXT"                value="Start Time"></property>
+        <property name="OH_END_TIME_TABLE_COLUMN_TEXT"                  value="End Time"></property>
+        <property name="OH_MONDAY_TABLE_COLUMN_TEXT"                    value="Monday"></property>
+        <property name="OH_TUESDAY_TABLE_COLUMN_TEXT"                   value="Tuesday"></property>
+        <property name="OH_WEDNESDAY_TABLE_COLUMN_TEXT"                 value="Wednesday"></property>
+        <property name="OH_THURSDAY_TABLE_COLUMN_TEXT"                  value="Thursday"></property>
+        <property name="OH_FRIDAY_TABLE_COLUMN_TEXT"                    value="Friday"></property>
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <property name="OH_TAS_HEADER_LABEL_TEXT"           value="Teaching Assistants"></property>
-        <property name="OH_ADD_TA_BUTTON_TEXT"              value="Add TA"></property>
-        <property name="OH_OFFICE_HOURS_HEADER_LABEL_TEXT"  value="Office Hours"></property>
-        <property name="OH_NAME_TABLE_COLUMN_TEXT"          value="Name"></property>
-        <property name="OH_EMAIL_TABLE_COLUMN_TEXT"         value="Email"></property>
-        <property name="OH_SLOTS_TABLE_COLUMN_TEXT"         value="Time Slots"></property>
-        <property name="OH_START_TIME_TABLE_COLUMN_TEXT"    value="Start Time"></property>
-        <property name="OH_END_TIME_TABLE_COLUMN_TEXT"      value="End Time"></property>
-        <property name="OH_MONDAY_TABLE_COLUMN_TEXT"        value="Monday"></property>
-        <property name="OH_TUESDAY_TABLE_COLUMN_TEXT"       value="Tuesday"></property>
-        <property name="OH_WEDNESDAY_TABLE_COLUMN_TEXT"     value="Wednesday"></property>
-        <property name="OH_THURSDAY_TABLE_COLUMN_TEXT"      value="Thursday"></property>
-        <property name="OH_FRIDAY_TABLE_COLUMN_TEXT"        value="Friday"></property>
+        <!-- SCHEUDLE -->
+        <property name="CALENDAR_BOUNDARIES_LABEL_TEXT"                 value="Calendar Boundaries"></property>
+        <property name="CALENDAR_BOUNDARIES_STARTING_LABEL_TEXT"        value="Starting Monday: "></property>
+        <property name="CALENDAR_BOUNDARIES_ENDING_LABEL_TEXT"          value="Ending Friday: "></property>
+        <property name="CALENDAR_SCHEDULE_ITEMS_REMOVE_BUTTON_TEXT"     value="-"></property>
+        <property name="CALENDAR_SCHEDULE_ITMES_LABEL_TEXT"             value="Schedule Items"></property>
+        <property name="CALENDAR_SCHEUDLE_ITMES_TYPE_COLUMN_TEXT"       value="Type"></property>
+        <property name="CALENDAR_SCHEUDLE_ITMES_DATE_COLUMN_TEXT"       value="Date"></property>
+        <property name="CALENDAR_SCHEUDLE_ITMES_TITLE_COLUMN_TEXT"      value="Title"></property>
+        <property name="CALENDAR_SCHEUDLE_ITMES_TOPIC_COLUMN_TEXT"      value="Topic"></property>
+        <property name="CALENDAR_ADD_EDIT_LABEL_TEXT"                   value="Add/Edit"></property>
+        <property name="CALENDAR_ADD_EDIT_TYPE_LABEL_TEXT"              value="Type: "></property>
+        <property name="CALENDAR_ADD_EDIT_DATE_LABEL_TEXT"              value="Date: "></property>
+        <property name="CALENDAR_ADD_EDIT_TITLE_LABEL_TEXT"             value="Title: "></property>
+        <property name="CALENDAR_ADD_EDIT_TOPIC_LABEL_TEXT"             value="Topic: "></property>
+        <property name="CALENDAR_ADD_EDIT_LINK_LABEL_TEXT"              value="Link: "></property>
+        <property name="CALENDAR_ADD_EDIT_BUTTON_TEXT"                  value="Add/Update"></property>
+        <property name="CALENDAR_CLEAR_BUTTON_TEXT"                     value="Clear"></property>
+    
+
 
         <!-- TO SWITCH BACK TO ANOTHER LANGUAGE -->
         <property name="LANGUAGE_DIALOG_TITLE"          value="App Language Selection"></property>

@@ -23,5 +23,9 @@ public class Style {
     public static final String CLASS_MINOR_LABELS       = "minor_labels";       // the secondary labels for all panes. 
     public static final String CLASS_INPUT_CONTROL      = "inputs";             // all textfield, textarea, etc.
     public static final String CLASS_LABEL_BACKGROUND   = "smallest_labels";    // for smallest labels. 
+    public static final String CLASS_TABLEVIEW          = "tableViews";         // all of the tables 
     public static final String CLASS_SITE_STYLE_BUTTONS = "site_style_buttons"; // site style buttons.  
+    public static final String CLASS_ADD_REMOVE_BUTTON  = "add_remove_buttons"; // +/- buttons.  
+    public static final String CLASS_TABLE_COLUMNS      = "table_columns";
+    public static final String CLASS_SCHEDULE_BUTTONS   = "schedule_buttons";   //buttons on schedult tab
 }

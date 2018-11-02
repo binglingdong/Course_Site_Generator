@@ -140,6 +140,9 @@
     -fx-background-color: #ededed;
     -fx-background-radius: 10;
 }
+.panes_background{
+    -fx-background-color: linear-gradient(SWATCH_COMPLEMENT, #7a0c96);
+}
 
 .major_labels{
     -fx-font-size: 20pt;
@@ -153,6 +156,10 @@
 
 .site_style_buttons{
     -fx-border-width: 1px;
+}
+
+.meeting_time_buttons{
+    -fx-font-weight: bold;
 }
 
 /*.oh_header_label{
