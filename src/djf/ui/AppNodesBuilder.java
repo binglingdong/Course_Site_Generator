@@ -14,9 +14,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -626,6 +628,19 @@ public class AppNodesBuilder {
         return titledPane;
     }
     
+    public ScrollPane buildScrollPane(
+        Object nodeId,
+        Pane parentPane,
+        String styleClass,
+        boolean enabled){
+        ScrollPane sp= new ScrollPane();
+        if (parentPane != null) {
+            parentPane.getChildren().add(sp);
+        }
+        initNode(nodeId,sp,styleClass,enabled);
+        return sp;
+    }
+    
     public TableView buildTableView(Object nodeId,
             Pane parentPane,
             String styleClass,
@@ -639,6 +654,17 @@ public class AppNodesBuilder {
         // AND RETURN THE COMPLETED BUTTON
         return tableView;
     }
+    
+    public DatePicker buildDatePicker(Object nodeId,
+            GridPane parent,
+            int col, int row, int colSpan, int rowSpan,
+            String styleClass,
+            boolean enabled){
+        DatePicker dp= new DatePicker();
+        initNode(nodeId, dp, parent, col, row, colSpan, rowSpan, styleClass, enabled);
+        return dp;
+    }
+    
     public TableView buildTableView(Object nodeId,
             GridPane parent,
             int col, int row, int colSpan, int rowSpan,
