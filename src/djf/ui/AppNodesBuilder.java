@@ -155,6 +155,33 @@ public class AppNodesBuilder {
         return comboBox;
     }
     
+     public ComboBox buildComboBox(Object nodeId,
+            List<String> optionsList,
+            String defaultValue,
+            GridPane parent,
+            int col, int row, int colSpan, int rowSpan,
+            String styleClass,
+            boolean enabled) {
+        // MAKE AND INIT THE COMBO BOX
+        ComboBox comboBox = new ComboBox();
+        ObservableList<String> items = comboBox.getItems();
+        
+        if (defaultValue != null) {
+            items.add(defaultValue);
+            comboBox.getSelectionModel().select(defaultValue);
+        }
+        if (optionsList != null) {
+            for (String s : optionsList) {
+                if (!items.contains(s)) {
+                    items.add(s);
+                }
+            }
+        }
+        
+        initNode(nodeId, comboBox, parent, col, row, colSpan, rowSpan, styleClass, enabled);        
+        return comboBox;
+    }
+    
     private ComboBox initComboBox(
             Object optionsListProperty,
             Object defaultValueProperty) {
@@ -447,8 +474,7 @@ public class AppNodesBuilder {
         // AND RETURN THE COMPLETED BUTTON
         return button;
     }
-    
-
+   
     public ToggleButton buildIconToggleButton(Object nodeId,
             Pane parentPane,
             String styleClass,
@@ -578,6 +604,7 @@ public class AppNodesBuilder {
         // AND RETURN THE COMPLETED BUTTON
         return textField;
     }
+    
     public TextArea buildTextArea(Object nodeId,
             Pane parentPane,
             String styleClass,
@@ -611,7 +638,7 @@ public class AppNodesBuilder {
     }
     
     public TextField setPromptText(Object nodeId, TextField tf){
-        languageSettings.addLabeledControlProperty(nodeId.toString(), tf.promptTextProperty());
+        languageSettings.addLabeledControlProperty(nodeId.toString() + "_TEXT", tf.promptTextProperty());
         return tf;
     }
     
