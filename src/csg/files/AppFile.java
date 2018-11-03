@@ -9,23 +9,211 @@ import djf.components.AppDataComponent;
 import djf.components.AppFileComponent;
 import java.io.IOException;
 import csg.CourseSiteGeneratorApp;
+import csg.data.AppData;
+import csg.data.TeachingAssistantPrototype;
+import csg.data.TimeSlot;
+import csg.data.TimeSlot.DayOfWeek;
+import csg.workspace.MainWorkspace;
+import csg.workspace.OfficeHours;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonWriter;
+import javax.json.JsonWriterFactory;
+import javax.json.stream.JsonGenerator;
 
 /**
  *
  * @author bingling.dong
  */
 public class AppFile implements AppFileComponent {
-    CourseSiteGeneratorApp App;
+    CourseSiteGeneratorApp app;
+    static final String JSON_UNDERGRAD_TAS = "undergrad_tas";
+    static final String JSON_GRAD_TAS= "grad_tas";
+    static final String JSON_NAME = "name";
+    static final String JSON_EMAIL = "email";
+    static final String JSON_TYPE = "type";
+    static final String JSON_TIMESLOTS = "time";
+    static final String JSON_OFFICE_HOURS = "officeHours";
+    static final String JSON_START_HOUR = "startHour";
+    static final String JSON_END_HOUR = "endHour";
+    static final String JSON_START_TIME = "time";
+    static final String JSON_DAY_OF_WEEK = "day";
+    static final String JSON_MONDAY = "monday";
+    static final String JSON_TUESDAY = "tuesday";
+    static final String JSON_WEDNESDAY = "wednesday";
+    static final String JSON_THURSDAY = "thursday";
+    static final String JSON_FRIDAY = "friday";
+    
     public AppFile(CourseSiteGeneratorApp App){
-        this.App= App;
+        this.app= App;
     }
-    @Override
-    public void saveData(AppDataComponent data, String filePath) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     @Override
     public void loadData(AppDataComponent data, String filePath) throws IOException {
+	// CLEAR THE OLD DATA OUT
+	AppData dataManager = (AppData)data;
+        dataManager.reset();
+        MainWorkspace workspace= (MainWorkspace)app.getWorkspaceComponent();
+        OfficeHours ohws = workspace.getOh();
+ 
+	// LOAD THE JSON FILE WITH ALL THE DATA
+	JsonObject json = loadJSONFile(filePath);
+
+	// LOAD THE START AND END HOURS
+	String startHour = json.getString(JSON_START_HOUR);
+        String endHour = json.getString(JSON_END_HOUR);
+        dataManager.initHours(startHour, endHour);
+
+        // NOW LOAD ALL THE UNDERGRAD TAs
+        ArrayList<TeachingAssistantPrototype> copyTAs= dataManager.getTABackup();
+//        ArrayList <TimeSlot> copyOH= ohws.getCopyOH();
+        JsonArray jsonUnderTAArray = json.getJsonArray(JSON_UNDERGRAD_TAS);
+        
+        for (int i = 0; i < jsonUnderTAArray.size(); i++) {
+            JsonObject jsonTA = jsonUnderTAArray.getJsonObject(i);
+            String name = jsonTA.getString(JSON_NAME);
+            String email= jsonTA.getString(JSON_EMAIL);
+            String type= jsonTA.getString(JSON_TYPE);
+            TeachingAssistantPrototype ta = new TeachingAssistantPrototype(name,email,0,type);
+            dataManager.addTA(ta);
+            if (!copyTAs.contains(ta))copyTAs.add(ta);
+        }
+        
+        JsonArray jsonGradTAArray = json.getJsonArray(JSON_GRAD_TAS);
+        for (int i = 0; i < jsonGradTAArray.size(); i++) {
+            JsonObject jsonTA = jsonGradTAArray.getJsonObject(i);
+            String name = jsonTA.getString(JSON_NAME);
+            String email= jsonTA.getString(JSON_EMAIL);
+            String type= jsonTA.getString(JSON_TYPE);
+            TeachingAssistantPrototype ta = new TeachingAssistantPrototype(name,email,0,type);
+            dataManager.addTA(ta);
+            if (!copyTAs.contains(ta))copyTAs.add(ta);
+        }
+        
+        JsonArray jsonOHArray= json.getJsonArray(JSON_OFFICE_HOURS);
+        ohws.initCopyOH(Integer.parseInt(startHour), Integer.parseInt(endHour));
+        
+        for(int i=0; i<jsonOHArray.size();i++){
+            JsonObject jsonOH= jsonOHArray.getJsonObject(i);
+            String time= jsonOH.getString(JSON_TIMESLOTS);
+            String day= jsonOH.getString(JSON_DAY_OF_WEEK);
+            String name= jsonOH.getString(JSON_NAME);
+            
+            TeachingAssistantPrototype ta= dataManager.getTAWithName(name);
+            TimeSlot slots= dataManager.getTimeSlot(time);
+            dataManager.addOH(slots, ta, DayOfWeek.valueOf(day));
+            
+            TimeSlot copyTime= ohws.getTimeSlotInCopyOH(slots);
+            ArrayList<TeachingAssistantPrototype> taListForThatDay_Copy= copyTime.getTas().get(DayOfWeek.valueOf(day));
+            taListForThatDay_Copy.add(ta);
+        }
+        
+        ohws.updateTaTableForRadio(dataManager.getTeachingAssistants());
+        ohws.resetOHToMatchTA(dataManager,dataManager.getOfficeHours());
+        ohws.removeOHToMatchTA(dataManager, dataManager.getTeachingAssistants(), dataManager.getOfficeHours());
+    }
+      
+    // HELPER METHOD FOR LOADING DATA FROM A JSON FORMAT
+    private JsonObject loadJSONFile(String jsonFilePath) throws IOException {
+	InputStream is = new FileInputStream(jsonFilePath);
+	JsonReader jsonReader = Json.createReader(is);
+	JsonObject json = jsonReader.readObject();
+	jsonReader.close();
+	is.close();
+	return json;
+    }
+
+    @Override
+    public void saveData(AppDataComponent data, String filePath) throws IOException {
+        
+	AppData dataManager = (AppData)data;
+
+	// NOW BUILD THE TA JSON OBJCTS TO SAVE
+	JsonArrayBuilder underTaArrayBuilder = Json.createArrayBuilder();//that is the content of the array
+        JsonArrayBuilder gradTaArrayBuilder= Json.createArrayBuilder();
+	ArrayList<TeachingAssistantPrototype> tasIterator = dataManager.getTABackup();
+        for (TeachingAssistantPrototype ta: tasIterator){
+            JsonObject taJson = Json.createObjectBuilder()
+                .add(JSON_NAME, ta.getName()).add(JSON_EMAIL,ta.getEmail()).add(JSON_TYPE, ta.getType()).build();
+            
+            if(ta.getType().equals("Undergraduate")){
+                underTaArrayBuilder.add(taJson);
+            }
+            else gradTaArrayBuilder.add(taJson);
+        }
+	JsonArray undergradTAsArray = underTaArrayBuilder.build();
+        JsonArray gradTAsArray = gradTaArrayBuilder.build();
+
+        //DO THE SAME THING FOR THE OFFICE HOURS
+        JsonArrayBuilder OHArrayBuilder= Json.createArrayBuilder();
+        Iterator<TimeSlot> OHIterator= dataManager.getOHBackup().iterator();
+        while(OHIterator.hasNext()){
+            TimeSlot time= OHIterator.next();
+            HashMap allTheTAsForTheTime= time.getTas();  //for that time slot
+            for(DayOfWeek day: DayOfWeek.values()){
+                ArrayList<TeachingAssistantPrototype> listOfTa= (ArrayList)allTheTAsForTheTime.get(day);
+                for(TeachingAssistantPrototype ta: listOfTa){
+                    
+                    JsonObject timeJson= Json.createObjectBuilder().add(JSON_START_TIME,time.getStartTime().replace(":", "_"))
+                            .add(JSON_DAY_OF_WEEK,day.toString()).add(JSON_NAME, ta.getName()).add(JSON_TYPE, ta.getType())
+                            .build();
+                    OHArrayBuilder.add(timeJson);
+                }
+            }  
+        }
+        JsonArray officeHour= OHArrayBuilder.build();
+   
+	// THEN PUT IT ALL TOGETHER IN A JsonObject
+	JsonObject dataManagerJSO = Json.createObjectBuilder()
+		.add(JSON_START_HOUR, "" + dataManager.getStartHour())
+		.add(JSON_END_HOUR, "" + dataManager.getEndHour())
+                .add(JSON_UNDERGRAD_TAS, undergradTAsArray)
+                .add(JSON_GRAD_TAS, gradTAsArray)
+                .add(JSON_OFFICE_HOURS, officeHour)
+		.build();
+	
+   
+        
+	// AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
+	Map<String, Object> properties = new HashMap<>(1);
+	properties.put(JsonGenerator.PRETTY_PRINTING, true);
+	JsonWriterFactory writerFactory = Json.createWriterFactory(properties);
+	StringWriter sw = new StringWriter();
+	JsonWriter jsonWriter = writerFactory.createWriter(sw);
+	jsonWriter.writeObject(dataManagerJSO);
+	jsonWriter.close();
+        
+
+	// INIT THE WRITER
+	OutputStream os = new FileOutputStream(filePath);
+	JsonWriter jsonFileWriter = Json.createWriter(os);
+	jsonFileWriter.writeObject(dataManagerJSO);
+	String prettyPrinted = sw.toString();
+	PrintWriter pw = new PrintWriter(filePath);
+	pw.write(prettyPrinted);
+	pw.close();
+    }
+    
+    
+    // IMPORTING/EXPORTING DATA IS USED WHEN WE READ/WRITE DATA IN AN
+    // ADDITIONAL FORMAT USEFUL FOR ANOTHER PURPOSE, LIKE ANOTHER APPLICATION
+
+    @Override
+    public void importData(AppDataComponent data, String filePath) throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -33,10 +221,5 @@ public class AppFile implements AppFileComponent {
     public void exportData(AppDataComponent data, String filePath) throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void importData(AppDataComponent data, String filePath) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
+    

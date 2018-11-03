@@ -5,6 +5,9 @@
  */
 package csg.transaction;
 
+import csg.data.AppData;
+import csg.data.TeachingAssistantPrototype;
+import csg.workspace.OfficeHours;
 import jtps.jTPS_Transaction;
 
 /**
@@ -12,15 +15,31 @@ import jtps.jTPS_Transaction;
  * @author bingling.dong
  */
 public class PasteTA_Cut_Transaction implements jTPS_Transaction{
-
+    TeachingAssistantPrototype selectedTA;
+    OfficeHours ohws;
+    AppData data;
+    
+    public PasteTA_Cut_Transaction(TeachingAssistantPrototype selectedTA, OfficeHours ohws, AppData data){
+        this.selectedTA= selectedTA;
+        this.ohws= ohws;
+        this.data= data;
+    }
+    
     @Override
     public void doTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.getTABackup().add(selectedTA);
+        ohws.updateTaTableForRadio(data.getTeachingAssistants());
+        ohws.resetOHToMatchTA(data, data.getOfficeHours());
+        ohws.removeOHToMatchTA(data, data.getTeachingAssistants(), data.getOfficeHours());
+        ohws.updateBgColorForCell();
     }
 
     @Override
     public void undoTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.getTABackup().remove(selectedTA);
+        ohws.updateTaTableForRadio(data.getTeachingAssistants());
+        ohws.resetOHToMatchTA(data, data.getOfficeHours());
+        ohws.removeOHToMatchTA(data, data.getTeachingAssistants(), data.getOfficeHours());
+        ohws.updateBgColorForCell();
     }
-    
 }

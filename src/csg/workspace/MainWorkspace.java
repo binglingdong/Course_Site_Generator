@@ -21,6 +21,12 @@ import javafx.scene.layout.BorderPane;
  * @author bingling.dong
  */
 public class MainWorkspace extends AppWorkspaceComponent{
+    private MeetingTimes meetingTimes;
+    private Site site;
+    private OfficeHours oh;
+    private Syllabus syllabus;
+    private Schedule schedule;
+    
     public MainWorkspace(CourseSiteGeneratorApp app) {
         super(app);
 
@@ -60,27 +66,62 @@ public class MainWorkspace extends AppWorkspaceComponent{
         OHTab.setClosable(false);
         ScheduleTab.setClosable(false);
         
-        
         workspace = new BorderPane();
         // AND PUT EVERYTHING IN THE WORKSPACE
         ((BorderPane)workspace).setCenter(mainPane);
         mainPane.tabMinWidthProperty().bind((workspace.widthProperty().divide(mainPane.getTabs().size()).subtract(20)));
-        MeetingTimes mt= new MeetingTimes(MTTab, (CourseSiteGeneratorApp) app);
-        Site site= new Site(SiteTab, (CourseSiteGeneratorApp) app);
-        OfficeHours oh= new OfficeHours(OHTab, (CourseSiteGeneratorApp) app);
-        Syllabus syl= new Syllabus(SyllabusTab, (CourseSiteGeneratorApp) app);
-        Schedule sch= new Schedule(ScheduleTab, (CourseSiteGeneratorApp) app);
+        meetingTimes= new MeetingTimes(MTTab, (CourseSiteGeneratorApp) app);
+        site= new Site(SiteTab, (CourseSiteGeneratorApp) app);
+        oh= new OfficeHours(OHTab, (CourseSiteGeneratorApp) app);
+        syllabus= new Syllabus(SyllabusTab, (CourseSiteGeneratorApp) app);
+        schedule= new Schedule(ScheduleTab, (CourseSiteGeneratorApp) app);
         
-        mt.initLayout();
+        meetingTimes.initLayout();
         site.initLayout();
         oh.initLayout();
-        syl.initLayout();
-        sch.initLayout();
+        syllabus.initLayout();
+        schedule.initLayout();
     }
 
     private void initControllers() {
     }
 
     private void initFoolproofDesign() {
+        
+    }
+
+    /**
+     * @return the meetingTimes
+     */
+    public MeetingTimes getMeetingTimes() {
+        return meetingTimes;
+    }
+
+    /**
+     * @return the site
+     */
+    public Site getSite() {
+        return site;
+    }
+
+    /**
+     * @return the oh
+     */
+    public OfficeHours getOh() {
+        return oh;
+    }
+
+    /**
+     * @return the syllabus
+     */
+    public Syllabus getSyllabus() {
+        return syllabus;
+    }
+
+    /**
+     * @return the schedule
+     */
+    public Schedule getSchedule() {
+        return schedule;
     }
 }

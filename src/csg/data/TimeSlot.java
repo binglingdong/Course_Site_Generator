@@ -32,12 +32,8 @@ public class TimeSlot {
             dayText.put(dow, new SimpleStringProperty());
         }
     }
-
     
     // ACCESSORS AND MUTATORS
-
-    
-    
     public String getStartTime() {
         return startTime.getValue();
     }
@@ -129,7 +125,6 @@ public class TimeSlot {
         }
     }
     
-
     /**
      * @return the tas
      */
@@ -150,6 +145,4 @@ public class TimeSlot {
     public void setTas(HashMap<DayOfWeek, ArrayList<TeachingAssistantPrototype>> tas) {
         this.tas = tas;
     }
-
-    
 }

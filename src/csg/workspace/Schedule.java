@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -86,6 +87,7 @@ public class Schedule {
         Button removeButton = csgBuilder.buildTextButton(CALENDAR_SCHEDULE_ITEMS_REMOVE_BUTTON, hb1, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         Label scheduleItemLabel = csgBuilder.buildLabel(CALENDAR_SCHEDULE_ITMES_LABEL, hb1, CLASS_MINOR_LABELS, ENABLED);
         TableView scheudleItemsTableView = csgBuilder.buildTableView(CALENDAR_SCHEDULE_ITEMS_TABLEVIEW, parentPane, CLASS_TABLEVIEW, ENABLED);
+        VBox.setVgrow(scheudleItemsTableView, Priority.ALWAYS);
         
         TableColumn typeTableColumn = csgBuilder.buildTableColumn(CALENDAR_SCHEUDLE_ITMES_TYPE_COLUMN, scheudleItemsTableView, CLASS_TABLE_COLUMNS);
         typeTableColumn.setCellValueFactory(new PropertyValueFactory<String, String>("type"));

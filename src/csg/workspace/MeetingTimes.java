@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -53,6 +54,7 @@ public class MeetingTimes {
         Button removeLecture= csgBuilder.buildTextButton(MT_REMOVE_LECTURE_BUTTON, hb1, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         Label lecutreLabels = csgBuilder.buildLabel(MT_LECUTRE_LABEL, hb1, CLASS_MINOR_LABELS, ENABLED);
         TableView lectures = csgBuilder.buildTableView(MT_LECTURE_TABLEVIEW, vb1, CLASS_TABLEVIEW, ENABLED);
+        VBox.setVgrow(lectures, Priority.ALWAYS);
         initLectureTable(lectures);
         
         //RECITATION PANE
@@ -64,7 +66,8 @@ public class MeetingTimes {
         Label RecLabels = csgBuilder.buildLabel(MT_REC_LABEL, hb2, CLASS_MINOR_LABELS, ENABLED);
         TableView recitations = csgBuilder.buildTableView(MT_REC_TABLEVIEW, vb2, CLASS_TABLEVIEW, ENABLED);
         initRecTable(recitations);
-
+        VBox.setVgrow(recitations, Priority.ALWAYS);  
+        
         //LAB PANE
         HBox hb3 =csgBuilder.buildHBox("", vb3, CLASS_PANES_FOREGROUND, ENABLED);
         hb3.setSpacing(10);
@@ -74,6 +77,7 @@ public class MeetingTimes {
         Label labLabels = csgBuilder.buildLabel(MT_LAB_LABEL, hb3, CLASS_MINOR_LABELS, ENABLED);
         TableView labs = csgBuilder.buildTableView(MT_LAB_TABLEVIEW, vb3, CLASS_TABLEVIEW, ENABLED);
         initLabTable(labs);
+        VBox.setVgrow(labs, Priority.ALWAYS);
         
         MTTab.setContent(mainPane);
     }
