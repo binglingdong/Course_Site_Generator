@@ -150,7 +150,7 @@
 }
 
 .minor_labels{
-    -fx-font-size: 14pt;
+    -fx-font-size: 13pt;
     -fx-font-weight: bold;
 }
 
@@ -160,6 +160,10 @@
 
 .meeting_time_buttons{
     -fx-font-weight: bold;
+}
+.add_remove_buttons{
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
 }
 
 /*.oh_header_label{

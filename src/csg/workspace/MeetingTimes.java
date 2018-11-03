@@ -13,6 +13,7 @@ import djf.ui.AppNodesBuilder;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,6 +37,8 @@ public class MeetingTimes {
     
     public void initLayout(){
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
+        ScrollPane sp = csgBuilder.buildScrollPane("", null, CLASS_PANES_BACKGROUND, ENABLED);
+        
         VBox mainPane=  csgBuilder.buildVBox(MT_Pane, null, CLASS_PANES_BACKGROUND, ENABLED);
         mainPane.setSpacing(10);
         mainPane.setPadding(new Insets(7,7,7,7));
@@ -79,7 +82,10 @@ public class MeetingTimes {
         initLabTable(labs);
         VBox.setVgrow(labs, Priority.ALWAYS);
         
-        MTTab.setContent(mainPane);
+        sp.setFitToWidth(true);
+        sp.setFitToHeight(true);
+        sp.setContent(mainPane);
+        MTTab.setContent(sp);
     }
     
     public void initLectureTable(TableView lectures){

@@ -14,6 +14,7 @@ import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
@@ -34,6 +35,7 @@ public class Syllabus {
     
     public void initLayout(){
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
+        ScrollPane sp = csgBuilder.buildScrollPane("", null, CLASS_PANES_BACKGROUND, ENABLED);
         VBox mainPane=  csgBuilder.buildVBox(SYLLABUS_PANE, null, CLASS_PANES_BACKGROUND, ENABLED);
         
         TextArea desTextArea = csgBuilder.buildTextArea(SYLLABUS_DES_TEXTAREA, null, CLASS_INPUT_CONTROL, ENABLED);
@@ -71,6 +73,9 @@ public class Syllabus {
            TitledPane tp= (TitledPane)t;
            tp.setExpanded(false);
         }
-        SyllabusTab.setContent(mainPane);
+        sp.setContent(mainPane);
+        sp.setFitToWidth(true);
+        sp.setFitToHeight(true);
+        SyllabusTab.setContent(sp);
     }
 }
