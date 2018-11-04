@@ -16,6 +16,7 @@ import djf.components.AppClipboardComponent;
 import static djf.modules.AppLanguageModule.FILE_PROTOCOL;
 import djf.modules.AppLanguageModule.LanguageException;
 import djf.ui.AppNodesBuilder;
+import java.awt.Window;
 import java.net.URL;
 import java.util.HashMap;
 import javafx.collections.ObservableList;
@@ -410,9 +411,9 @@ public class AppGUIModule {
         // SET THE APP PANE PREFERRED SIZE ACCORDING TO THE PREFERENCES
         double prefWidth = Double.parseDouble(props.getProperty(PREF_WIDTH));
         double prefHeight = Double.parseDouble(props.getProperty(PREF_HEIGHT));
+
         appPane.setPrefWidth(prefWidth);
         appPane.setPrefHeight(prefHeight);
-
         // SET THE APP ICON
         String imagesPath = props.getProperty(APP_PATH_IMAGES);
         String appLogo = FILE_PROTOCOL + imagesPath + props.getProperty(APP_LOGO);

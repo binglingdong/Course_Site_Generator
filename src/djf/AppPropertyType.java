@@ -80,8 +80,7 @@ public enum AppPropertyType {
     // LOADED FROM LANGUAGE SPECIFIC language_properties_XX.xml
     // WHERE XX WOULD BE THE LANGUAGE CODE, LIKE EN (English)
    
-    
-    
+   
     // NEW FEEDBACK DIALOGS
     NEW_SUCCESS_TITLE,  NEW_SUCCESS_CONTENT,
     NEW_ERROR_TITLE,    NEW_ERROR_CONTENT,
@@ -111,5 +110,13 @@ public enum AppPropertyType {
     //PROMPT TEXT
     OH_NAME_TEXT_FIELD,
     OH_NAME_EMAIL_FIELD,
-
+    
+    //SITE TAB IMAGE LOGOS
+    APP_SITE_FAVICON,
+    APP_SITE_NAVBAR,
+    APP_LEFT_FOOTER,
+    APP_RIGHT_FOOTER,
+    
+    //CSS file
+    APP_STIE_STYLE_CSS_PATH,
 }
