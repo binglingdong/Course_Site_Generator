@@ -90,7 +90,7 @@ public class OfficeHours {
         hbox1.setSpacing(20);
         hbox1.setAlignment(Pos.CENTER_LEFT);
         Button removeTAButton = csgBuilder.buildTextButton(OH_TA_REMOVE_BUTTON, hbox1, CLASS_ADD_REMOVE_BUTTON, ENABLED);
-        Label taLabel = csgBuilder.buildLabel(OH_TAS_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(OH_TAS_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
         csgBuilder.buildRadioButton(OH_TA_RADIO_TYPE_ALL, hbox1, CLASS_INPUT_CONTROL, ENABLED, taTypes,true);
         csgBuilder.buildRadioButton(OH_TA_RADIO_TYPE_UNDERGRADUATE, hbox1, CLASS_INPUT_CONTROL, ENABLED, taTypes,false);
         csgBuilder.buildRadioButton(OH_TA_RADIO_TYPE_GRADUATE, hbox1, CLASS_INPUT_CONTROL, ENABLED, taTypes,false);
@@ -151,15 +151,15 @@ public class OfficeHours {
         hbox1.setPadding(new Insets(5,5,5,5));
         hbox1.setSpacing(10);
         
-        Label ohLabel = csgBuilder.buildLabel(OH_OFFICE_HOURS_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(OH_OFFICE_HOURS_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
         Region r = new Region();
         hbox1.getChildren().add(r);
         HBox.setHgrow(r, Priority.ALWAYS);
-        Label startTimeLabel = csgBuilder.buildLabel(OH_OFFICE_HOURS_START_TIME_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(OH_OFFICE_HOURS_START_TIME_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> startTimeList = new ArrayList<>();
         startTimeList.add("9:00am");
         ComboBox startTimeCombo= csgBuilder.buildComboBox(OH_OFFICE_HOURS_START_TIME_COMBO, startTimeList, "9:00am", hbox1, CLASS_INPUT_CONTROL, ENABLED);
-        Label endTimeLabel = csgBuilder.buildLabel(OH_OFFICE_HOURS_END_TIME_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(OH_OFFICE_HOURS_END_TIME_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> endTimeList = new ArrayList<>();
         startTimeList.add("10:00pm");
         ComboBox endTimeCombo= csgBuilder.buildComboBox(OH_OFFICE_HOURS_END_TIME_COMBO, endTimeList, "10:00pm", hbox1, CLASS_INPUT_CONTROL, ENABLED);

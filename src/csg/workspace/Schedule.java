@@ -73,9 +73,9 @@ public class Schedule {
     
     public void initCalendarPane(GridPane parentPane){
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
-        Label calendarBoundariesLabel = csgBuilder.buildLabel(CALENDAR_BOUNDARIES_LABEL,parentPane, 0, 0, 2, 1, CLASS_MINOR_LABELS, ENABLED);
-        Label startingLabel = csgBuilder.buildLabel(CALENDAR_BOUNDARIES_STARTING_LABEL, parentPane, 0, 1, 1, 1, CLASS_LABEL_BACKGROUND, ENABLED);
-        Label endingLabel = csgBuilder.buildLabel(CALENDAR_BOUNDARIES_ENDING_LABEL, parentPane, 3, 1, 1, 1, CLASS_LABEL_BACKGROUND, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_BOUNDARIES_LABEL,parentPane, 0, 0, 2, 1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_BOUNDARIES_STARTING_LABEL, parentPane, 0, 1, 1, 1, CLASS_LABEL_BACKGROUND, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_BOUNDARIES_ENDING_LABEL, parentPane, 3, 1, 1, 1, CLASS_LABEL_BACKGROUND, ENABLED);
         DatePicker startingDate = csgBuilder.buildDatePicker(CALENDAR_BOUNDARIES_STARTING_DATEPICKER, parentPane, 1, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         DatePicker endingDate = csgBuilder.buildDatePicker(CALENDAR_BOUNDARIES_ENDING_DATEPICKER, parentPane, 4, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
     }
@@ -85,7 +85,7 @@ public class Schedule {
         HBox hb1 = csgBuilder.buildHBox("", parentPane, CLASS_PANES_FOREGROUND, ENABLED);
         hb1.setSpacing(10);
         Button removeButton = csgBuilder.buildTextButton(CALENDAR_SCHEDULE_ITEMS_REMOVE_BUTTON, hb1, CLASS_ADD_REMOVE_BUTTON, ENABLED);
-        Label scheduleItemLabel = csgBuilder.buildLabel(CALENDAR_SCHEDULE_ITMES_LABEL, hb1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_SCHEDULE_ITMES_LABEL, hb1, CLASS_MINOR_LABELS, ENABLED);
         TableView scheudleItemsTableView = csgBuilder.buildTableView(CALENDAR_SCHEDULE_ITEMS_TABLEVIEW, parentPane, CLASS_TABLEVIEW, ENABLED);
         VBox.setVgrow(scheudleItemsTableView, Priority.ALWAYS);
         
@@ -108,12 +108,12 @@ public class Schedule {
     
     public void initAddAndEditPane(GridPane parentPane){
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
-        Label addAndEditLabel = csgBuilder.buildLabel(CALENDAR_ADD_EDIT_LABEL, parentPane, 0, 0, 1, 1, CLASS_MINOR_LABELS, ENABLED);
-        Label typeLabel = csgBuilder.buildLabel(CALENDAR_ADD_EDIT_TYPE_LABEL, parentPane, 0, 1, 1, 1, CLASS_MINOR_LABELS, ENABLED);
-        Label dateLabel = csgBuilder.buildLabel(CALENDAR_ADD_EDIT_DATE_LABEL, parentPane, 0, 2, 1, 1, CLASS_MINOR_LABELS, ENABLED);
-        Label titleLabel = csgBuilder.buildLabel(CALENDAR_ADD_EDIT_TITLE_LABEL, parentPane, 0, 3, 1, 1, CLASS_MINOR_LABELS, ENABLED);
-        Label topicLabel = csgBuilder.buildLabel(CALENDAR_ADD_EDIT_TOPIC_LABEL, parentPane, 0, 4, 1, 1, CLASS_MINOR_LABELS, ENABLED);
-        Label linkLabel = csgBuilder.buildLabel(CALENDAR_ADD_EDIT_LINK_LABEL, parentPane, 0, 5, 1, 1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_ADD_EDIT_LABEL, parentPane, 0, 0, 1, 1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_ADD_EDIT_TYPE_LABEL, parentPane, 0, 1, 1, 1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_ADD_EDIT_DATE_LABEL, parentPane, 0, 2, 1, 1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_ADD_EDIT_TITLE_LABEL, parentPane, 0, 3, 1, 1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_ADD_EDIT_TOPIC_LABEL, parentPane, 0, 4, 1, 1, CLASS_MINOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(CALENDAR_ADD_EDIT_LINK_LABEL, parentPane, 0, 5, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         
         ArrayList<String> list= new ArrayList<>();
         list.add("Options");

@@ -20,8 +20,9 @@
         <property name="APP_PATH_ICONS"     value="./images/icons/"></property>
         <property name="APP_PATH_IMAGES"    value="./images/"></property>
         <property name="APP_PATH_WEB"       value="./app_data/web/"></property>
-        <property name="PREF_WIDTH"         value="800"></property>
-        <property name="PREF_HEIGHT"        value="600"></property>
+        <property name="APP_STIE_STYLE_CSS_PATH" value="./work/css/"></property>
+        <property name="PREF_WIDTH"         value="1200"></property>
+        <property name="PREF_HEIGHT"        value="800"></property>
         <property name="START_MAXIMIZED"    value="true"></property>
 
         <!-- TOP TOOLBARS AND CONTROLS TO INCLUDE -->
@@ -61,7 +62,12 @@
         <property name="CUT_BUTTON_ICON"        value="Cut.png"></property>
         <property name="COPY_BUTTON_ICON"       value="Copy.png"></property>
         <property name="PASTE_BUTTON_ICON"      value="Paste.png"></property>
-        <!-- OH BUTTONS TOOLBAR -->
+        
+        <!-- SITE TAB IMAGE LOGOS -->
+        <property name="APP_SITE_FAVICON"	    value="SBU.png"></property>
+        <property name="APP_SITE_NAVBAR"            value="SBUDarkRedShieldLogo.png"></property>
+	<property name="APP_LEFT_FOOTER"	    value="SBUWhiteShieldLogo.jpg"></property>
+        <property name="APP_RIGHT_FOOTER"	    value="SBUCSLogo.png"></property>
         
         <!-- THIS IS THE FILE WE'LL USE TO MAKE OUR EXPORTED WEB FILE -->
 

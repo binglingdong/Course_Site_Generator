@@ -68,7 +68,9 @@
 
         <!-- INVALID DIALOG -->
         <property name= "INVALID_COMMAND_TITLE"             value= "Invalid Command"></property>
-        <property name= "DIDNT_CHOOSE_TA_INVALID_CLICK_CONTENT" value= "Please pick a TA or click the valid cell"></property>
+        <property name= "DIDNT_CHOOSE_TA_INVALID_CLICK_CONTENT" value= "Please pick a TA or click the valid cell. "></property>
+        <property name= "INVALID_IMAGE_TITLE"               value= "Image Loading Error"></property>
+        <property name= "IO_IMAGE_EXCEPTION_CONTENT"        value= "Cannot load the image."></property>
         
 
 

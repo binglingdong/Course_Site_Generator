@@ -63,38 +63,149 @@
         <property name="SAVE_VERIFY_CONTENT"	value="您想先保存未保存的作品吗？"></property>
 
         <!-- ABOUT DIALOG -->
-        <property name="ABOUT_TITLE"            value="关于OH"></property>
-        <property name="ABOUT_CONTENT"          value="OH, the Office Hours Manager - Debugging Enterprises - © 2018"></property>
+        <property name="ABOUT_TITLE"            value="关于Course Site Generator"></property>
+        <property name="ABOUT_CONTENT"          value="Course Site Generator - Debugging Enterprises - © 2018"></property>
 
-        <!-- INVALID EMAIL OR NAME DIALOG -->
-        <property name= "INVALID_EMAIL_TITLE"   value= "错误邮件地址"></property>
-        <property name= "INVALID_EMAIL_CONTENT" value= "您输入的电子邮件地址无效，请重新输入..."></property>
-        <property name= "OH_MISSING_TA_NAME_OR_EMAIL_MESSAGE" value= "缺失TA姓名或邮箱"></property>
-        <property name= "OH_MISSING_TA_NAME_OR_EMAIL_TITLE_LABEL" value= "缺失资料"></property>
-        <property name= "INVALID_COMMAND_TITLE" value= "无效指令"></property>
-        <property name= "DIDNT_CHOOSE_TA_INVALID_CLICK_CONTENT" value= "请先选择TA或者双击有效的格子。"></property>
-        <property name= "REPEATING_NAME_FOR_ADDING_TA_TITLE" value= "姓名已存在"></property>
-        <property name= "REPEATING_NAME_FOR_ADDING_TA_MESSAGE" value= "请重新输入TA姓名"></property>
-        <property name= "REPEATING_EMAIL_FOR_ADDING_TA_TITLE" value= "邮箱已存在"></property>
-        <property name= "REPEATING_EMAIL_FOR_ADDING_TA_MESSAGE" value= "请重新输入TA邮箱"></property>
-        
-        <!-- ENGLISH LANGUAGE SETTINGS SPECIFICALLY FOR TDLM CONTROLS -->
-
+        <!-- INVALID DIALOG -->
+        <property name= "INVALID_COMMAND_TITLE"             value= "无效指令"></property>
+        <property name= "DIDNT_CHOOSE_TA_INVALID_CLICK_CONTENT" value= "请先选一个TA或者点击一个cell。"></property>
+        <property name= "INVALID_IMAGE_TITLE"               value= "图片加载出错"></property>
+        <property name= "IO_IMAGE_EXCEPTION_CONTENT"        value= "无法加载图片。"></property>
+       
+       
+       
         <!-- LANGUAGE-DEPENDENT TEXT FOR OH WORKSPACE CONTROLS -->
-        <property name="OH_TAS_HEADER_LABEL_TEXT"           value="助教"></property>
-        <property name="OH_ADD_TA_BUTTON_TEXT"              value="添加 TA"></property>
-        <property name="OH_OFFICE_HOURS_HEADER_LABEL_TEXT"  value="工作时间"></property>
-        <property name="OH_NAME_TABLE_COLUMN_TEXT"          value="姓名"></property>
-        <property name="OH_EMAIL_TABLE_COLUMN_TEXT"         value="邮箱"></property>
-        <property name="OH_SLOTS_TABLE_COLUMN_TEXT"         value="时间"></property>
-        <property name="OH_START_TIME_TABLE_COLUMN_TEXT"    value="开始时间"></property>
-        <property name="OH_END_TIME_TABLE_COLUMN_TEXT"      value="结束时间"></property>
-        <property name="OH_MONDAY_TABLE_COLUMN_TEXT"        value="星期一"></property>
-        <property name="OH_TUESDAY_TABLE_COLUMN_TEXT"       value="星期二"></property>
-        <property name="OH_WEDNESDAY_TABLE_COLUMN_TEXT"     value="星期三"></property>
-        <property name="OH_THURSDAY_TABLE_COLUMN_TEXT"      value="星期四"></property>
-        <property name="OH_FRIDAY_TABLE_COLUMN_TEXT"        value="星期五"></property>
+        <!--tabs-->
+        <property name="TAB_SITE_TEXT"                                  value="网站"></property>
+        <property name="TAB_SYLLABUS_TEXT"                              value="教学大纲"></property>
+        <property name="TAB_MEETING_TIMES_TEXT"                         value="上课时间"></property>
+        <property name="TAB_OFFICE_HOURS_TEXT"                          value="办公室时间"></property>
+        <property name="TAB_SCHEDULE_TEXT"                              value="课程"></property>
+        
+        <!--SITE-->
+        <property name="SITE_BANNER_LABEL_TEXT"                         value="标语"></property>
+        <property name="SITE_BANNER_COURSE_SUBJECT_LABEL_TEXT"          value="课程类型:"></property>
+        <property name="SITE_BANNER_COURSE_NUMBER_LABEL_TEXT"           value="课程号码:"></property>
+        <property name="SITE_BANNER_COURSE_SEMESTER_LABEL_TEXT"         value="课程学期:"></property>
+        <property name="SITE_BANNER_COURSE_YEAR_LABEL_TEXT"             value="课程学年:"></property>
+        <property name="SITE_BANNER_COURSE_TITLE_LABEL_TEXT"            value="题目:"></property>
+        <property name="SITE_BANNER_EXPORT_DIR_LABEL_TEXT"              value="输出目录:"></property>
+        <property name="SITE_BANNER_EXPORT_DIR_ADDRESS_TEXT"            value=".\export\CSE..."></property>
 
+        <property name="SITE_PAGE_LABEL_TEXT"                           value="页面"></property>
+        <property name="SITE_PAGE_HOME_CHECKBOX_TEXT"                   value="主页"></property>
+        <property name="SITE_PAGE_SYLLABUS_CHECKBOX_TEXT"               value="教学大纲"></property>
+        <property name="SITE_PAGE_SCHEDULE_CHECKBOX_TEXT"               value="课表"></property>
+        <property name="SITE_PAGE_HWS_CHECKBOX_TEXT"                    value="作业"></property>
+
+        <property name="SITE_STYLE_LABEL_TEXT"                          value="样式"></property>
+        <property name="SITE_STYLE_FAVICON_BUTTON_TEXT"                 value="网站图标:"></property>
+        <property name="SITE_STYLE_NAVBAR_BUTTON_TEXT"                  value="导航栏图片: "></property>
+        <property name="SITE_STYLE_LEFT_FOOTER_BUTTON_TEXT"             value="左页脚图像:"></property>
+        <property name="SITE_STYLE_RIGHT_FOOTER_BUTTON_TEXT"            value="右页脚图像: "></property>
+        <property name="SITE_STYLE_FONT_COLORS_LABEL_TEXT"              value="字体和颜色样式表: "></property>
+        <property name="SITE_STYLE_FONT_NOTE_LABEL_TEXT"                value="注意: 样式表必须放在work/css才能被选择"></property>
+       
+        <property name="SITE_INSTRUCTOR_LABEL_TEXT"                     value="导师"></property>
+        <property name="SITE_INSTRUCTOR_NAME_LABEL_TEXT"                value="姓名: "></property>
+        <property name="SITE_INSTRUCTOR_ROOM_LABEL_TEXT"                value="教室: "></property>
+        <property name="SITE_INSTRUCTOR_EMAIL_LABEL_TEXT"               value="电子邮件: "></property>
+        <property name="SITE_INSTRUCTOR_HOMEPAGE_LABEL_TEXT"            value="主页: "></property>
+        <property name="SITE_INSTRUCTOR_OFFICEHOUR_TITLEDPANE_TEXT"     value="办公时间"></property>
+        
+        <!--Syllabus-->
+        <property name="SYLLABUS_DES_TITLEDPANE_TEXT"                   value="描述: "></property>
+        <property name="SYLLABUS_TOPICS_TITLEDPANE_TEXT"                value="主题: "></property>
+        <property name="SYLLABUS_PREREQ_TITLEDPANE_TEXT"                value="前置要求: "></property>
+        <property name="SYLLABUS_OUTCOMES_TITLEDPANE_TEXT"              value="结果: "></property>
+        <property name="SYLLABUS_TEXTBOOKS_TITLEDPANE_TEXT"             value="课本: "></property>
+        <property name="SYLLABUS_GRADEDCOM_TITLEDPANE_TEXT"             value="成绩组成: "></property>
+        <property name="SYLLABUS_GRADING_NOTE_TITLEDPANE_TEXT"          value="改分笔记: "></property>
+        <property name="SYLLABUS_ACADEMIC_DIS_TITLEDPANE_TEXT"          value="学术造假: "></property>
+        <property name="SYLLABUS_SPECIAL_ASSISTANCE_TITLEDPANE_TEXT"    value="特别援助: "></property>
+        
+        <!-- MT -->
+        <property name="MT_LECUTRE_LABEL_TEXT"                          value="主课"></property>
+        <property name="MT_ADD_LECUTRE_BUTTON_TEXT"                     value="+"></property>
+        <property name="MT_REMOVE_LECTURE_BUTTON_TEXT"                  value="-"></property>
+        <property name="MT_REC_LABEL_TEXT"                              value="副课 "></property>
+        <property name="MT_ADD_REC_BUTTON_TEXT"                         value="+"></property>
+        <property name="MT_REMOVE_REC_BUTTON_TEXT"                      value="-"></property>
+        <property name="MT_LAB_LABEL_TEXT"                              value="实验课"></property>
+        <property name="MT_ADD_LAB_BUTTON_TEXT"                         value="+"></property>
+        <property name="MT_REMOVE_LAB_BUTTON_TEXT"                      value="-"></property>
+        <property name="MT_LECTURE_SECTION_COLUMN_TEXT"                 value="节号"></property>
+        <property name="MT_LECTURE_DAYS_COLUMN_TEXT"                    value="天数"></property>
+        <property name="MT_LECTURE_TIMES_COLUMN_TEXT"                   value="时间"></property>
+        <property name="MT_LECTURE_ROOM_COLUMN_TEXT"                    value="教室"></property>
+        <property name="MT_REC_SECTION_COLUMN_TEXT"                     value="节号"></property>
+        <property name="MT_REC_DAYSANDTIME_COLUMN_TEXT"                 value="时间"></property>
+        <property name="MT_REC_ROOM_COLUMN_TEXT"                        value="教室"></property>
+        <property name="MT_REC_TA1_COLUMN_TEXT"                         value="助教1"></property>
+        <property name="MT_REC_TA2_COLUMN_TEXT"                         value="助教2"></property>
+        <property name="MT_LAB_SECTION_COLUMN_TEXT"                     value="节号"></property>
+        <property name="MT_LAB_DAYSANDTIME_COLUMN_TEXT"                 value="时间"></property>
+        <property name="MT_LAB_ROOM_COLUMN_TEXT"                        value="教室"></property>
+        <property name="MT_LAB_TA1_COLUMN_TEXT"                         value="助教1"></property>
+        <property name="MT_LAB_TA2_COLUMN_TEXT"                         value="助教2"></property>
+        
+        <!-- OH -->
+        <property name="OH_TA_REMOVE_BUTTON_TEXT"                       value="-"></property>
+        <property name="OH_TAS_LABEL_TEXT"                              value="助教们"></property>
+        <property name="OH_TA_RADIO_TYPE_ALL_TEXT"                      value="所有"></property>
+        <property name="OH_TA_RADIO_TYPE_UNDERGRADUATE_TEXT"            value="本科"></property>
+        <property name="OH_TA_RADIO_TYPE_GRADUATE_TEXT"                 value="研究"></property>
+        <property name="OH_TA_NAME_TABLE_COLUMN_TEXT"                   value="姓名"></property>
+        <property name="OH_TA_EMAIL_TABLE_COLUMN_TEXT"                  value="电子邮件"></property>
+        <property name="OH_TA_SLOTS_TABLE_COLUMN_TEXT"                  value="时间"></property>
+        <property name="OH_TA_TYPE_TABLE_COLUMN_TEXT"                   value="类型"></property>
+        <property name="OH_TA_ADD_NAME_TEXT_FIELD_TEXT"                 value="姓名"></property>
+        <property name="OH_TA_ADD_EMAIL_TEXT_FIELD_TEXT"                value="电子邮件"></property>
+        <property name="OH_TA_ADD_BUTTON_TEXT"                          value="添加"></property>
+        
+        <property name="OH_OFFICE_HOURS_LABEL_TEXT"                     value="办公时间"></property>
+        <property name="OH_OFFICE_HOURS_START_TIME_LABEL_TEXT"          value="开始时间: "></property>
+        <property name="OH_OFFICE_HOURS_END_TIME_LABEL_TEXT"            value="结束时间: "></property>
+        
+        <property name="OH_START_TIME_TABLE_COLUMN_TEXT"                value="开始时间"></property>
+        <property name="OH_END_TIME_TABLE_COLUMN_TEXT"                  value="结束时间"></property>
+        <property name="OH_MONDAY_TABLE_COLUMN_TEXT"                    value="星期一"></property>
+        <property name="OH_TUESDAY_TABLE_COLUMN_TEXT"                   value="星期二"></property>
+        <property name="OH_WEDNESDAY_TABLE_COLUMN_TEXT"                 value="星期三"></property>
+        <property name="OH_THURSDAY_TABLE_COLUMN_TEXT"                  value="星期四"></property>
+        <property name="OH_FRIDAY_TABLE_COLUMN_TEXT"                    value="星期五"></property>
+        
+            <!--Dialog for editing TA-->
+        <property name= "OH_EDIT_TITLE"                                 value= "编辑助教"></property>
+        <property name= "OH_EDIT_HEADER"                                value= "编辑助教"></property>
+        <property name= "OH_EDIT_NAME"                                  value= "姓名: "></property>
+        <property name= "OH_EDIT_EMAIL"                                 value= "电子邮件: "></property>
+        <property name= "OH_EDIT_TYPE"                                  value= "类型: "></property>
+        <property name= "OH_EDIT_TYPE_UNDER"                            value= "本科"></property>
+        <property name= "OH_EDIT_TYPE_GRA"                              value= "研究"></property>
+        <property name= "OH_EDIT_OK"                                    value= "确定"></property>
+        <property name= "OH_EDIT_CANCEL"                                value= "取消"></property>
+        
+        <!-- SCHEUDLE -->
+        <property name="CALENDAR_BOUNDARIES_LABEL_TEXT"                 value="日期限制"></property>
+        <property name="CALENDAR_BOUNDARIES_STARTING_LABEL_TEXT"        value="开始日期: "></property>
+        <property name="CALENDAR_BOUNDARIES_ENDING_LABEL_TEXT"          value="结束日期: "></property>
+        <property name="CALENDAR_SCHEDULE_ITEMS_REMOVE_BUTTON_TEXT"     value="-"></property>
+        <property name="CALENDAR_SCHEDULE_ITMES_LABEL_TEXT"             value="项目"></property>
+        <property name="CALENDAR_SCHEUDLE_ITMES_TYPE_COLUMN_TEXT"       value="类型"></property>
+        <property name="CALENDAR_SCHEUDLE_ITMES_DATE_COLUMN_TEXT"       value="日期"></property>
+        <property name="CALENDAR_SCHEUDLE_ITMES_TITLE_COLUMN_TEXT"      value="标题"></property>
+        <property name="CALENDAR_SCHEUDLE_ITMES_TOPIC_COLUMN_TEXT"      value="主题"></property>
+        <property name="CALENDAR_ADD_EDIT_LABEL_TEXT"                   value="添加／编辑"></property>
+        <property name="CALENDAR_ADD_EDIT_TYPE_LABEL_TEXT"              value="类型: "></property>
+        <property name="CALENDAR_ADD_EDIT_DATE_LABEL_TEXT"              value="日期: "></property>
+        <property name="CALENDAR_ADD_EDIT_TITLE_LABEL_TEXT"             value="标题: "></property>
+        <property name="CALENDAR_ADD_EDIT_TOPIC_LABEL_TEXT"             value="主题: "></property>
+        <property name="CALENDAR_ADD_EDIT_LINK_LABEL_TEXT"              value="链接: "></property>
+        <property name="CALENDAR_ADD_EDIT_BUTTON_TEXT"                  value="添加／更新"></property>
+        <property name="CALENDAR_CLEAR_BUTTON_TEXT"                     value="清除"></property>
+    
+        
         <!-- TO SWITCH BACK TO ANOTHER LANGUAGE -->
         <property name="LANGUAGE_DIALOG_TITLE"          value="语言选项"></property>
         <property name="LANGUAGE_DIALOG_HEADER_TEXT"    value="选择一种语言"></property>
@@ -103,10 +214,6 @@
         <property name="WORK_FILE_EXT"          value="*.json"></property>
 	<property name="WORK_FILE_EXT_DESC"     value="教学助理文件"></property>
         
-        <!-- PROMPT TEXT FOR TEXTFIELDS-->
-        <property name="OH_NAME_TEXT_FIELD"     value="姓名"></property>
-        <property name="OH_EMAIL_TEXT_FIELD"     value="邮箱"></property>
-
     </property_list>
     
     <property_options_list>

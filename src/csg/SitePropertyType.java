@@ -50,6 +50,10 @@ public enum SitePropertyType {
     SITE_STYLE_FONT_COLORS_COMBO,
     SITE_STYLE_FONT_NOTE_LABEL,
     
+        //Invalid image
+    INVALID_IMAGE_TITLE,
+    IO_IMAGE_EXCEPTION_CONTENT,
+    
     //INSTRUCTOR
     SITE_INSTRUCTOR_PANE,
     SITE_INSTRUCTOR_LABEL,
@@ -64,7 +68,7 @@ public enum SitePropertyType {
     SITE_INSTRUCTOR_OFFICEHOUR_TITLEDPANE,
     SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA,
     
-    
+   
     
     
     
