@@ -46,7 +46,7 @@ public abstract class AppWorkspaceComponent {
     public void activate() {
         if (!activated) {
             // PUT THE WORKSPACE IN THE GUI
-            app.getGUIModule().getAppPane().setCenter(workspace);            
+            app.getGUIModule().getAppPane().setCenter(workspace);
             activated = true;
         }
     }
@@ -80,4 +80,5 @@ public abstract class AppWorkspaceComponent {
     // BY THE CONCRETE WORKSPACE
    
     public abstract void showNewDialog();
+    public abstract void reset();
 }

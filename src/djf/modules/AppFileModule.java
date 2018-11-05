@@ -81,6 +81,7 @@ public class AppFileModule {
         
         // MAKE SURE THE WORKSPACE IS ACTIVATED
         app.getWorkspaceComponent().activate();
+        app.getWorkspaceComponent().reset();
         
         // WORK IS NOT SAVED
         saved = false;
