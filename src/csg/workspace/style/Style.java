@@ -27,6 +27,7 @@ public class Style {
     public static final String CLASS_SITE_STYLE_BUTTONS = "site_style_buttons"; // site style buttons.  
     public static final String CLASS_ADD_REMOVE_BUTTON  = "add_remove_buttons"; // +/- buttons.  
     public static final String CLASS_TABLE_COLUMNS      = "table_columns";
+    public static final String CLASS_PREDEFINED_TABLE_COLUMNS  = "predefined_table_columns";
     public static final String CLASS_SCHEDULE_BUTTONS   = "schedule_buttons";   //buttons on schedult tab
     public static final String CLASS_OH_BUTTONS         = "oh_buttons";         //buttons on the oh tab
 }

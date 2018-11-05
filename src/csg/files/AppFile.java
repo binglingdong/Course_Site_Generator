@@ -105,7 +105,6 @@ public class AppFile implements AppFileComponent {
         }
         
         JsonArray jsonOHArray= json.getJsonArray(JSON_OFFICE_HOURS);
-        ohws.initCopyOH(Integer.parseInt(startHour), Integer.parseInt(endHour));
         
         for(int i=0; i<jsonOHArray.size();i++){
             JsonObject jsonOH= jsonOHArray.getJsonObject(i);

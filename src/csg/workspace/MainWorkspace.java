@@ -124,4 +124,13 @@ public class MainWorkspace extends AppWorkspaceComponent{
     public Schedule getSchedule() {
         return schedule;
     }
+
+    @Override
+    public void reset() {
+        site.reset();
+        syllabus.reset();
+        schedule.reset();
+    }
+    
+    
 }

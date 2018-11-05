@@ -6,8 +6,6 @@
 package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
-import static csg.OfficeHoursPropertyType.DIDNT_CHOOSE_TA_INVALID_CLICK_CONTENT;
-import static csg.OfficeHoursPropertyType.INVALID_COMMAND_TITLE;
 import static csg.SitePropertyType.*;
 import static csg.workspace.style.Style.*;
 import static djf.AppPropertyType.APP_LEFT_FOOTER;
@@ -16,6 +14,7 @@ import static djf.AppPropertyType.APP_RIGHT_FOOTER;
 import static djf.AppPropertyType.APP_SITE_FAVICON;
 import static djf.AppPropertyType.APP_SITE_NAVBAR;
 import static djf.AppPropertyType.APP_STIE_STYLE_CSS_PATH;
+import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
 import djf.ui.dialogs.AppDialogsFacade;
@@ -28,6 +27,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -166,22 +166,27 @@ public class Site {
         ImageView faviconImageView = new ImageView(faviconImage);
         faviconImageView.setFitHeight(40);
         faviconImageView.setPreserveRatio(true);
+        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_FAVICON_IMAGEVIEW, faviconImageView);
         
         Image NavbarImage= loadImage(APP_SITE_NAVBAR);
         ImageView NavbarImageView = new ImageView(NavbarImage);
         NavbarImageView.setFitHeight(40);
         NavbarImageView.setPreserveRatio(true);
+        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_NAVBAR_IMAGEVIEW, NavbarImageView);
         
         
         Image LeftFooterImage = loadImage(APP_LEFT_FOOTER);
         ImageView LeftFooterImageView = new ImageView(LeftFooterImage);
         LeftFooterImageView.setFitHeight(40);
         LeftFooterImageView.setPreserveRatio(true);
+        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_LEFT_IMAGEVIEW, LeftFooterImageView);
         
+         
         Image RightFooterImage = loadImage(APP_RIGHT_FOOTER);
         ImageView RightFooterImageView = new ImageView(RightFooterImage);
         RightFooterImageView.setFitHeight(40);
         RightFooterImageView.setPreserveRatio(true);
+        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_RIGHT_IMAGEVIEW, RightFooterImageView);
         
         gp.add(faviconImageView, 1, 0, 1, 1);
         gp.add(NavbarImageView, 1, 1, 1, 1);
@@ -197,7 +202,7 @@ public class Site {
         FontsHbox.setSpacing(30);
         
         csgBuilder.buildLabel(SITE_STYLE_FONT_COLORS_LABEL, FontsHbox, CLASS_MINOR_LABELS, ENABLED);
-        ComboBox cssSheets= csgBuilder.buildComboBox(label, null, "", FontsHbox, CLASS_INPUT_CONTROL, ENABLED);
+        ComboBox cssSheets= csgBuilder.buildComboBox(SITE_STYLE_FONT_COLORS_COMBO, null, "", FontsHbox, CLASS_INPUT_CONTROL, ENABLED);
         csgBuilder.buildLabel(SITE_STYLE_FONT_NOTE_LABEL, parentPane, CLASS_MINOR_LABELS, ENABLED);
 
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -286,11 +291,41 @@ public class Site {
             File file = fileChooser.showOpenDialog(null);
              
             try {
-                BufferedImage bufferedImage = ImageIO.read(file);
-                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                iv.setImage(image);
+                if(file!=null){
+                    BufferedImage bufferedImage = ImageIO.read(file);
+                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                    iv.setImage(image);
+                }
             } catch (IOException ex) {
                 AppDialogsFacade.showMessageDialog(app.getGUIModule().getWindow(),INVALID_IMAGE_TITLE, IO_IMAGE_EXCEPTION_CONTENT);
             }
+    }
+    
+    public void reset(){
+       AppGUIModule gui= app.getGUIModule();
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getSelectionModel().select(null);
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO)).getSelectionModel().select(null);
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SEMESTER_COMBO)).getSelectionModel().select(null);
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_YEAR_COMBO)).getSelectionModel().select(null);
+       ((TextField)gui.getGUINode(SITE_BANNER_COURSE_TITLE_TEXTFIELD)).clear();
+       
+       ((CheckBox)gui.getGUINode(SITE_PAGE_HOME_CHECKBOX)).setSelected(false);
+       ((CheckBox)gui.getGUINode(SITE_PAGE_SYLLABUS_CHECKBOX)).setSelected(false);
+       ((CheckBox)gui.getGUINode(SITE_PAGE_SCHEDULE_CHECKBOX)).setSelected(false);
+       ((CheckBox)gui.getGUINode(SITE_PAGE_HWS_CHECKBOX)).setSelected(false);
+       
+       ((ComboBox)gui.getGUINode(SITE_STYLE_FONT_COLORS_COMBO)).getSelectionModel().select(null);
+       ((ImageView)gui.getGUINode(SITE_STYLE_IMAGE_FAVICON_IMAGEVIEW)).setImage(loadImage(APP_SITE_FAVICON));
+       ((ImageView)gui.getGUINode(SITE_STYLE_IMAGE_NAVBAR_IMAGEVIEW)).setImage(loadImage(APP_SITE_NAVBAR));
+       ((ImageView)gui.getGUINode(SITE_STYLE_IMAGE_LEFT_IMAGEVIEW)).setImage(loadImage(APP_LEFT_FOOTER));
+       ((ImageView)gui.getGUINode(SITE_STYLE_IMAGE_RIGHT_IMAGEVIEW)).setImage(loadImage(APP_RIGHT_FOOTER));
+       
+       ((TextField)gui.getGUINode(SITE_INSTRUCTOR_NAME_TEXTFIELD)).clear();
+       ((TextField)gui.getGUINode(SITE_INSTRUCTOR_ROOM_TEXTFIELD)).clear();
+       ((TextField)gui.getGUINode(SITE_INSTRUCTOR_EMAIL_TEXTFIELD)).clear();
+       ((TextField)gui.getGUINode(SITE_INSTRUCTOR_HOMEPAGE_TEXTFIELD)).clear();
+       
+       ((TitledPane)gui.getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TITLEDPANE)).setExpanded(false);
+       ((TextArea)gui.getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA)).clear();
     }
 }

@@ -15,6 +15,7 @@ import csg.transaction.AddOH_Transaction;
 import csg.workspace.controller.OHController;
 import csg.workspace.dialogs.OfficeHoursDialogs;
 import csg.workspace.foolproof.OfficeHoursFoolproofDesign;
+import csg.workspace.foolproof.TimePickerFoolProof;
 import static csg.workspace.style.Style.*;
 import static djf.AppPropertyType.APP_CLIPBOARD_FOOLPROOF_SETTINGS;
 import djf.modules.AppFoolproofModule;
@@ -31,7 +32,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tab;
@@ -89,7 +89,7 @@ public class OfficeHours {
         hbox1.setPadding(new Insets(5,5,0,5));
         hbox1.setSpacing(20);
         hbox1.setAlignment(Pos.CENTER_LEFT);
-        Button removeTAButton = csgBuilder.buildTextButton(OH_TA_REMOVE_BUTTON, hbox1, CLASS_ADD_REMOVE_BUTTON, ENABLED);
+        csgBuilder.buildTextButton(OH_TA_REMOVE_BUTTON, hbox1, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         csgBuilder.buildLabel(OH_TAS_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
         csgBuilder.buildRadioButton(OH_TA_RADIO_TYPE_ALL, hbox1, CLASS_INPUT_CONTROL, ENABLED, taTypes,true);
         csgBuilder.buildRadioButton(OH_TA_RADIO_TYPE_UNDERGRADUATE, hbox1, CLASS_INPUT_CONTROL, ENABLED, taTypes,false);
@@ -143,6 +143,7 @@ public class OfficeHours {
             app.getFoolproofModule().updateControls(APP_CLIPBOARD_FOOLPROOF_SETTINGS);
         });
         
+        
     }
     
     public void initOHs(VBox parentPane){
@@ -156,18 +157,15 @@ public class OfficeHours {
         hbox1.getChildren().add(r);
         HBox.setHgrow(r, Priority.ALWAYS);
         csgBuilder.buildLabel(OH_OFFICE_HOURS_START_TIME_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
-        ArrayList<String> startTimeList = new ArrayList<>();
-        startTimeList.add("9:00am");
-        ComboBox startTimeCombo= csgBuilder.buildComboBox(OH_OFFICE_HOURS_START_TIME_COMBO, startTimeList, "9:00am", hbox1, CLASS_INPUT_CONTROL, ENABLED);
+        ArrayList<String> timeList = new ArrayList<>();
+        csgBuilder.buildComboBox(OH_OFFICE_HOURS_START_TIME_COMBO, timeList, null, hbox1, CLASS_INPUT_CONTROL, ENABLED);
         csgBuilder.buildLabel(OH_OFFICE_HOURS_END_TIME_LABEL, hbox1, CLASS_MINOR_LABELS, ENABLED);
-        ArrayList<String> endTimeList = new ArrayList<>();
-        startTimeList.add("10:00pm");
-        ComboBox endTimeCombo= csgBuilder.buildComboBox(OH_OFFICE_HOURS_END_TIME_COMBO, endTimeList, "10:00pm", hbox1, CLASS_INPUT_CONTROL, ENABLED);
+        csgBuilder.buildComboBox(OH_OFFICE_HOURS_END_TIME_COMBO, timeList, null, hbox1, CLASS_INPUT_CONTROL, ENABLED);
         
         // SETUP THE OFFICE HOURS TABLE
         TableView<TimeSlot> officeHoursTable = csgBuilder.buildTableView(OH_OFFICE_HOURS_TABLE_VIEW, parentPane, CLASS_TABLEVIEW, ENABLED);
-        TableColumn startTimeColumn = csgBuilder.buildTableColumn(OH_START_TIME_TABLE_COLUMN, officeHoursTable, CLASS_TABLE_COLUMNS);
-        TableColumn endTimeColumn = csgBuilder.buildTableColumn(OH_END_TIME_TABLE_COLUMN, officeHoursTable, CLASS_TABLE_COLUMNS);
+        TableColumn startTimeColumn = csgBuilder.buildTableColumn(OH_START_TIME_TABLE_COLUMN, officeHoursTable, CLASS_PREDEFINED_TABLE_COLUMNS);
+        TableColumn endTimeColumn = csgBuilder.buildTableColumn(OH_END_TIME_TABLE_COLUMN, officeHoursTable, CLASS_PREDEFINED_TABLE_COLUMNS);
         TableColumn mondayColumn = csgBuilder.buildTableColumn(OH_MONDAY_TABLE_COLUMN, officeHoursTable, CLASS_TABLE_COLUMNS);
         TableColumn tuesdayColumn = csgBuilder.buildTableColumn(OH_TUESDAY_TABLE_COLUMN, officeHoursTable, CLASS_TABLE_COLUMNS);
         TableColumn wednesdayColumn = csgBuilder.buildTableColumn(OH_WEDNESDAY_TABLE_COLUMN, officeHoursTable, CLASS_TABLE_COLUMNS);
@@ -209,11 +207,6 @@ public class OfficeHours {
                 AppData data=(AppData)app.getDataComponent();
                 ArrayList <TimeSlot> OHBackup= data.getOHBackup();
                 boolean validCol= data.isDayOfWeekColumn(cellCol);
-
-                // SETUP THE COPYOH IF IS EMPTY (FIRST TIME)
-                if(OHBackup.isEmpty()){
-                     initCopyOH(data.getStartHour(),data.getEndHour());
-                }
                 
                 //If the ta is selected
                 if(validCol&& data.isTASelected()){
@@ -257,6 +250,8 @@ public class OfficeHours {
             officeHoursTable.refresh();
             updateBgColorForCell();
         });
+        
+        
     }
     
     private void initControllers() {
@@ -280,7 +275,6 @@ public class OfficeHours {
             }           
         });
         
-        AppData data= (AppData)app.getDataComponent();
         //update the button after every action. 
         //update the copylist also
         (nameTextField).setOnAction(e -> {
@@ -302,9 +296,29 @@ public class OfficeHours {
             controller.processAddTA(this);
         });
         
+        //INIT REMOVE BUTTOn
+        Button removeTAButton = (Button)gui.getGUINode(OH_TA_REMOVE_BUTTON);
+        removeTAButton.setOnAction(e->{
+            controller.processRemoveTA(this);
+        });
         
-        TableView officeHoursTableView = (TableView) gui.getGUINode(OH_OFFICE_HOURS_TABLE_VIEW);
+        //INIT TIME RANGE PICKER
+        ComboBox startTime = (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
+        ComboBox endTime= (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
+        endTime.setDisable(true);
+        startTime.getSelectionModel().selectedItemProperty().addListener(e->{
+            app.getFoolproofModule().updateControls(OH_TIME_RANGE_FOOLPROOF_SETTINGS);
+            endTime.setDisable(false);
+            startTime.setDisable(true);
+        });
+        endTime.getSelectionModel().selectedItemProperty().addListener(e->{
+            app.getFoolproofModule().updateControls(OH_TIME_RANGE_FOOLPROOF_SETTINGS);
+            endTime.setDisable(true);
+            startTime.setDisable(false);
+        });
+        
         // DON'T LET ANYONE SORT THE TABLES
+        TableView officeHoursTableView = (TableView) gui.getGUINode(OH_OFFICE_HOURS_TABLE_VIEW);
         for (int i = 0; i < officeHoursTableView.getColumns().size(); i++) {
             ((TableColumn)officeHoursTableView.getColumns().get(i)).setSortable(false);
         }
@@ -317,6 +331,8 @@ public class OfficeHours {
         AppFoolproofModule foolproofSettings = app.getFoolproofModule(); //has a hashmap of all the settings
         foolproofSettings.registerModeSettings(OH_FOOLPROOF_SETTINGS,
                 new OfficeHoursFoolproofDesign((CourseSiteGeneratorApp)app));
+        foolproofSettings.registerModeSettings(OH_TIME_RANGE_FOOLPROOF_SETTINGS, 
+                new TimePickerFoolProof(app, this));
     }
     
     //UPDATE THE TA TABLE ACCORDING TO RADIO BUTTON
@@ -361,43 +377,7 @@ public class OfficeHours {
         };
         Collections.sort(allTAs, comparator);
     }
-    
-    //INITIALING THE 24 TIMESLOTS FOR COPYOH SO THERE'S NO NULL POINTER
-    public void initCopyOH(int startHour, int endHour){
-        AppData data= (AppData) app.getDataComponent();
-        ArrayList <TimeSlot> OHBackup= data.getOHBackup();
-        
-        for (int i = startHour; i <= endHour; i++) {
-            TimeSlot timeSlot = new TimeSlot(   this.getTimeString(i, true),
-                                                this.getTimeString(i, false));
-            OHBackup.add(timeSlot);
-            
-            TimeSlot halfTimeSlot = new TimeSlot(   this.getTimeString(i, false),
-                                                    this.getTimeString(i+1, true));
-            OHBackup.add(halfTimeSlot);
-        }
-    }
-    
-    private String getTimeString(int militaryHour, boolean onHour) {
-        String minutesText = "00";
-        if (!onHour) {
-            minutesText = "30";
-        }
 
-        // FIRST THE START AND END CELLS
-        int hour = militaryHour;
-        if (hour > 12) {
-            hour -= 12;
-        }
-        String cellText = "" + hour + ":" + minutesText;
-        if (militaryHour < 12) {
-            cellText += "am";
-        } else {
-            cellText += "pm";
-        }
-        return cellText;
-    }
-    
     public TimeSlot getTimeSlotInCopyOH(TimeSlot originalTime){
         AppData data= (AppData) app.getDataComponent();
         ArrayList <TimeSlot> OHBackup= data.getOHBackup();
@@ -464,8 +444,8 @@ public class OfficeHours {
                     super.updateItem(item, empty);
                     if (item == null || empty) {
                         setText(null);
-                        
-                    } else {
+                    } 
+                    else {
                         if(selectedTA==null){
                             setText(item);
                             this.setStyle("");

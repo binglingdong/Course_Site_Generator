@@ -7,7 +7,10 @@ package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
 import static csg.SchedulePropertyType.*;
+import static csg.SitePropertyType.SITE_BANNER_COURSE_YEAR_COMBO;
+import static csg.SitePropertyType.SITE_INSTRUCTOR_HOMEPAGE_TEXTFIELD;
 import static csg.workspace.style.Style.*;
+import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
 import java.util.ArrayList;
@@ -129,6 +132,15 @@ public class Schedule {
         
         Button addOrUpdateButton = csgBuilder.buildTextButton(CALENDAR_ADD_EDIT_BUTTON, parentPane, 0, 6, 2, 1, CLASS_SCHEDULE_BUTTONS, ENABLED);
         Button clearButton = csgBuilder.buildTextButton(CALENDAR_CLEAR_BUTTON, parentPane, 2, 6, 2, 1, CLASS_SCHEDULE_BUTTONS, ENABLED);
-       
+    }
+    
+    
+    ///////////////////////////// STILL NEED MORE IMPLEMENTATION/////////////////////////////
+    public void reset(){
+        AppGUIModule gui= app.getGUIModule();
+        ((ComboBox)gui.getGUINode(CALENDAR_ADD_EDIT_TYPE_COMBO)).getSelectionModel().select("Option");
+        ((TextField)gui.getGUINode(CALENDAR_ADD_EDIT_TITLE_TEXTFIELD)).clear();
+        ((TextField)gui.getGUINode(CALENDAR_ADD_EDIT_TOPIC_TEXTFIELD)).clear();
+        ((TextField)gui.getGUINode(CALENDAR_ADD_EDIT_LINK_TEXTFIELD)).clear();
     }
 }

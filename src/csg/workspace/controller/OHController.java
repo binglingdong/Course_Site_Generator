@@ -10,10 +10,13 @@ import static csg.OfficeHoursPropertyType.*;
 import csg.data.AppData;
 import csg.data.TeachingAssistantPrototype;
 import csg.transaction.AddTA_Transaction;
+import csg.transaction.RemoveTA_Transaction;
 import csg.workspace.OfficeHours;
 import djf.modules.AppGUIModule;
 import java.util.ArrayList;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 /**
@@ -54,6 +57,16 @@ public class OHController {
         
         app.getFoolproofModule().updateControls(OH_FOOLPROOF_SETTINGS);
     }
+    
+    public void processRemoveTA(OfficeHours ohws){
+        AppGUIModule gui = app.getGUIModule();
+        AppData data=(AppData)app.getDataComponent();
+        TableView taTable = (TableView)gui.getGUINode(OH_TAS_TABLE_VIEW);
+        TeachingAssistantPrototype selectedTA= (TeachingAssistantPrototype)taTable.getSelectionModel().getSelectedItem();
+        RemoveTA_Transaction removeTATransaction = new RemoveTA_Transaction(data, selectedTA, ohws);
+        app.processTransaction(removeTATransaction);
+        app.getFoolproofModule().updateControls(OH_FOOLPROOF_SETTINGS);
+    }   
 }
 
 

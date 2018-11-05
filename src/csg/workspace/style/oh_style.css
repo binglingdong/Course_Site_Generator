@@ -166,42 +166,12 @@
     -fx-background-radius: 10;
 }
 
-/*.oh_header_label{
-    -fx-font-size: 13pt;
-    -fx-font-weight: bold;
-    -fx-padding: 10 10 10 10;
-}
-
-.oh_time_column{
-    -fx-background-color:#245475;
-    -fx-text-fill:#ffffff;
-    -fx-font-weight: bold;
-
-}
-
-.oh_time_column.table-cell{
-        -fx-font-family:"Osaka"
-}
-
-.oh_time_column.column-header{
-    -fx-background-color:SWATCH_NEUTRAL;
-}
-
-
-.oh_column.column-header{
-    -fx-font-size: 11pt;
-    -fx-background-color:SWATCH_NEUTRAL;
+.predefined_table_columns{
+    -fx-background-color:#CCD8DC;
     -fx-font-weight: bold;
 }
 
-.oh_pane{
-   -fx-background-color:#EAEAEA; 
+.predefined_table_columns.column-header{
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
 }
-
-.oh_day_of_week_column.column-header{
-    -fx-background-color:SWATCH_NEUTRAL;
-}
-
-.oh_day_of_week_column.table-cell{
-     -fx-font-weight: bold;
-}*/

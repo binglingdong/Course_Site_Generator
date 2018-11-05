@@ -6,10 +6,13 @@
 package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
+import static csg.SitePropertyType.SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA;
+import static csg.SitePropertyType.SITE_INSTRUCTOR_OFFICEHOUR_TITLEDPANE;
 import static csg.SyllabusPropertyType.*;
 import static csg.workspace.style.Style.CLASS_INPUT_CONTROL;
 import static csg.workspace.style.Style.CLASS_PANES_BACKGROUND;
 import static csg.workspace.style.Style.CLASS_PANES_FOREGROUND;
+import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
 import javafx.collections.ObservableList;
@@ -77,5 +80,28 @@ public class Syllabus {
         sp.setFitToWidth(true);
         sp.setFitToHeight(true);
         SyllabusTab.setContent(sp);
+    }
+    
+    public void reset(){
+        AppGUIModule gui= app.getGUIModule();
+        ((TitledPane)gui.getGUINode(SYLLABUS_DES_TITLEDPANE)).setExpanded(false);
+        ((TitledPane)gui.getGUINode(SYLLABUS_TOPICS_TITLEDPANE)).setExpanded(false);
+        ((TitledPane)gui.getGUINode(SYLLABUS_PREREQ_TITLEDPANE)).setExpanded(false);
+        ((TitledPane)gui.getGUINode(SYLLABUS_OUTCOMES_TITLEDPANE)).setExpanded(false);
+        ((TitledPane)gui.getGUINode(SYLLABUS_TEXTBOOKS_TITLEDPANE)).setExpanded(false);
+        ((TitledPane)gui.getGUINode(SYLLABUS_GRADEDCOM_TITLEDPANE)).setExpanded(false);
+        ((TitledPane)gui.getGUINode(SYLLABUS_GRADING_NOTE_TITLEDPANE)).setExpanded(false);
+        ((TitledPane)gui.getGUINode(SYLLABUS_ACADEMIC_DIS_TITLEDPANE)).setExpanded(false);
+        ((TitledPane)gui.getGUINode(SYLLABUS_SPECIAL_ASSISTANCE_TITLEDPANE)).setExpanded(false);
+        
+        ((TextArea)gui.getGUINode(SYLLABUS_DES_TEXTAREA)).clear();
+        ((TextArea)gui.getGUINode(SYLLABUS_TOPICS_TEXTAREA)).clear();
+        ((TextArea)gui.getGUINode(SYLLABUS_PREREQ_TEXTAREA)).clear();
+        ((TextArea)gui.getGUINode(SYLLABUS_OUTCOMES_TEXTAREA)).clear();
+        ((TextArea)gui.getGUINode(SYLLABUS_TEXTBOOKS_TEXTAREA)).clear();
+        ((TextArea)gui.getGUINode(SYLLABUS_GRADEDCOM_TEXTAREA)).clear();
+        ((TextArea)gui.getGUINode(SYLLABUS_GRADING_NOTE_TEXTAREA)).clear();
+        ((TextArea)gui.getGUINode(SYLLABUS_ACADEMIC_DIS_TEXTAREA)).clear();
+        ((TextArea)gui.getGUINode(SYLLABUS_SPECIAL_ASSISTANCE_TEXTAREA)).clear();
     }
 }

@@ -7,14 +7,16 @@ package csg.data;
 
 import djf.components.AppDataComponent;
 import csg.CourseSiteGeneratorApp;
+import static csg.OfficeHoursPropertyType.OH_OFFICE_HOURS_END_TIME_COMBO;
+import static csg.OfficeHoursPropertyType.OH_OFFICE_HOURS_START_TIME_COMBO;
 import static csg.OfficeHoursPropertyType.OH_OFFICE_HOURS_TABLE_VIEW;
 import static csg.OfficeHoursPropertyType.OH_TAS_TABLE_VIEW;
 import csg.data.TimeSlot.DayOfWeek;
-import csg.workspace.MainWorkspace;
 import djf.modules.AppGUIModule;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 
 /**
@@ -23,19 +25,25 @@ import javafx.scene.control.TableView;
  */
 public class AppData implements AppDataComponent{
     CourseSiteGeneratorApp app;
-    // NOTE THAT THIS DATA STRUCTURE WILL DIRECTLY STORE THE
-    // DATA IN THE ROWS OF THE TABLE VIEW
+    //MT
+    private ObservableList<Lecture> lectures;
+    private ObservableList<Recitation> recitations;
+    private ObservableList<Lab> labs;
+    
+    //OH
     private ObservableList<TeachingAssistantPrototype> teachingAssistants;
     private ObservableList<TimeSlot> officeHours;
     private ArrayList <TeachingAssistantPrototype> TABackup= new ArrayList<>();
-    private ArrayList <TimeSlot> OHBackup= new ArrayList<>();
-   
-    
+    private ArrayList <TimeSlot> OHBackup= new ArrayList<>(); 
+    private ArrayList <String> startTimeRangeBackup = new ArrayList<>();
+    private ArrayList <String> endTimeRangeBackup = new ArrayList<>();
     int startHour;
     int endHour;
-    // DEFAULT VALUES FOR START AND END HOURS IN MILITARY HOURS
+        // DEFAULT VALUES FOR START AND END HOURS IN MILITARY HOURS
     public static final int MIN_START_HOUR = 9;
     public static final int MAX_END_HOUR = 20;
+    
+    //SCHEDULE
     
     
     
@@ -52,6 +60,8 @@ public class AppData implements AppDataComponent{
         endHour = MAX_END_HOUR;
         
         resetOfficeHours();
+        resetOHBackup();
+        initTimeRange();
     }
     
     public void resetOfficeHours() {
@@ -69,8 +79,42 @@ public class AppData implements AppDataComponent{
                                                     this.getTimeString(i+1, true));
             officeHours.add(halfTimeSlot);
         }
-    }
+    } 
     
+    public void initTimeRange(){
+        //INIT TIME RANGE COMBO BOX
+        AppGUIModule gui = app.getGUIModule();
+        startTimeRangeBackup.clear();
+        endTimeRangeBackup.clear();
+        ComboBox startTime = (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
+        ComboBox endTime= (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
+        
+        for(TimeSlot time:OHBackup){
+            String timeString = time.getStartTime();
+            if(!startTime.getItems().contains(timeString)){
+                startTime.getItems().add(timeString);
+                startTimeRangeBackup.add(timeString);
+            }
+        }
+        for(TimeSlot time:OHBackup){
+            String timeString2 = time.getEndTime();
+            if(!endTime.getItems().contains(timeString2)){
+                endTime.getItems().add(timeString2);
+                endTimeRangeBackup.add(timeString2);
+            }
+        }
+    }
+    public void resetOHBackup() {
+        for (int i = startHour; i <= endHour; i++) {
+            TimeSlot timeSlot = new TimeSlot(   this.getTimeString(i, true),
+                                                this.getTimeString(i, false));
+            OHBackup.add(timeSlot);
+            
+            TimeSlot halfTimeSlot = new TimeSlot(   this.getTimeString(i, false),
+                                                    this.getTimeString(i+1, true));
+            OHBackup.add(halfTimeSlot);
+        }
+    }
     private String getTimeString(int militaryHour, boolean onHour) {
         String minutesText = "00";
         if (!onHour) {
@@ -101,6 +145,8 @@ public class AppData implements AppDataComponent{
             endHour = initEndHour;
         }
         resetOfficeHours();
+        resetOHBackup();
+        initTimeRange();
     }
     
     /**
@@ -118,7 +164,10 @@ public class AppData implements AppDataComponent{
             TimeSlot timeSlot = officeHours.get(i);
             timeSlot.reset();
         }
-        OHBackup.clear();
+        for (int i = 0; i < officeHours.size(); i++) {
+            TimeSlot timeSlot = OHBackup.get(i);
+            timeSlot.reset();
+        }
     }
     
     // ACCESSOR METHODS
@@ -185,6 +234,27 @@ public class AppData implements AppDataComponent{
         }
         return null;
     }
+    
+    public TimeSlot getStartTimeSlotUsingRegularTime(String startTime) {
+        Iterator<TimeSlot> timeSlotsIterator = officeHours.iterator();
+        while (timeSlotsIterator.hasNext()) {
+            TimeSlot timeSlot = timeSlotsIterator.next();
+            if (timeSlot.getStartTime().equals(startTime))
+                return timeSlot;
+        }
+        return null;
+    }
+    
+    public TimeSlot getEndTimeSlotUsingRegularTime(String endTime) {
+        Iterator<TimeSlot> timeSlotsIterator = officeHours.iterator();
+        while (timeSlotsIterator.hasNext()) {
+            TimeSlot timeSlot = timeSlotsIterator.next();
+            if (timeSlot.getEndTime().equals(endTime))
+                return timeSlot;
+        }
+        return null;
+    }
+    
      public void addOH(TimeSlot time,TeachingAssistantPrototype selectedTA, DayOfWeek day){
         ArrayList<TeachingAssistantPrototype> tas= time.getTas().get(day); //tas: the list of TAs of that cell
         tas.add(selectedTA);
@@ -228,7 +298,7 @@ public class AppData implements AppDataComponent{
             default:                               
         }
     }
-
+    
     /**
     * @return the teachingAssistants
     */
@@ -256,4 +326,16 @@ public class AppData implements AppDataComponent{
     public ArrayList <TimeSlot> getOHBackup() {
         return OHBackup;
     }
+    
+    public ArrayList<String>getStartTimeRangeBackup(){
+        return startTimeRangeBackup;
+    }
+
+    /**
+     * @return the endTimeRangeBackup
+     */
+    public ArrayList <String> getEndTimeRangeBackup() {
+        return endTimeRangeBackup;
+    }
+    
 }
