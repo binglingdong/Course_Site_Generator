@@ -431,6 +431,25 @@ public class OfficeHours {
                 }
             }
         }
+        ComboBox startTime = (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
+        ComboBox endTime= (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
+        String selectedStartingTime = (String)startTime.getSelectionModel().getSelectedItem();
+        if(selectedStartingTime!=null){
+            TimeSlot selectedStartTimeSlot = data.getStartTimeSlotUsingRegularTime(selectedStartingTime);
+            int startIndex =  data.getOfficeHours().indexOf(selectedStartTimeSlot);
+            for(int j=0; j<startIndex;j=j+1){
+                data.getOfficeHours().remove(0);
+            }
+        }
+        String selectedEndingTime = (String)endTime.getSelectionModel().getSelectedItem();
+        if(selectedEndingTime!= null){
+            int size= data.getOfficeHours().size();
+            TimeSlot selectedEndTimeSlot = data.getEndTimeSlotUsingRegularTime(selectedEndingTime);
+            int endIndex =  data.getOfficeHours().indexOf(selectedEndTimeSlot)+1;
+            for(int j=endIndex; j<size;j++){
+                data.getOfficeHours().remove(endIndex);
+            }
+        }
     }
     
     public void updateBgColorForCell(){
