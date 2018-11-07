@@ -14,12 +14,12 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class CutTA_Transaction implements jTPS_Transaction{
+public class OH_CutTA_Transaction implements jTPS_Transaction{
     OfficeHours ohws;
     TeachingAssistantPrototype selectedTA;
     AppData data;
     
-    public CutTA_Transaction(OfficeHours ohws, TeachingAssistantPrototype selectedTA, AppData data){
+    public OH_CutTA_Transaction(OfficeHours ohws, TeachingAssistantPrototype selectedTA, AppData data){
         this.ohws=ohws;
         this.selectedTA= selectedTA;
         this.data=data;

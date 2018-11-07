@@ -15,7 +15,7 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class PasteTA_Copy_Transaction implements jTPS_Transaction{
+public class OH_PasteTA_Copy_Transaction implements jTPS_Transaction{
     TeachingAssistantPrototype TAToBePasted;
     OfficeHours ohws;
     AppData data;
@@ -26,7 +26,7 @@ public class PasteTA_Copy_Transaction implements jTPS_Transaction{
     int copyJforEmail;
     int index;
 
-    public PasteTA_Copy_Transaction(TeachingAssistantPrototype selectedTA,OfficeHours ohws,AppData data
+    public OH_PasteTA_Copy_Transaction(TeachingAssistantPrototype selectedTA,OfficeHours ohws,AppData data
                                , ArrayList<Integer> numberOfPasteForName, ArrayList<Integer> numberOfPasteForEmail, int index){
         this.TAToBePasted= selectedTA;
         this.ohws= ohws;

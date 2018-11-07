@@ -14,20 +14,20 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class PasteTA_Cut_Transaction implements jTPS_Transaction{
+public class OH_RemoveTA_Transaction implements jTPS_Transaction {
+    AppData data;
     TeachingAssistantPrototype selectedTA;
     OfficeHours ohws;
-    AppData data;
     
-    public PasteTA_Cut_Transaction(TeachingAssistantPrototype selectedTA, OfficeHours ohws, AppData data){
-        this.selectedTA= selectedTA;
+    public OH_RemoveTA_Transaction(AppData initData, TeachingAssistantPrototype ta, OfficeHours ohws){
+        data= initData;
         this.ohws= ohws;
-        this.data= data;
+        selectedTA= ta;
     }
     
     @Override
     public void doTransaction() {
-        data.getTABackup().add(selectedTA);
+        data.getTABackup().remove(selectedTA);
         ohws.updateTaTableForRadio(data.getTeachingAssistants());
         ohws.resetOHToMatchTA(data, data.getOfficeHours());
         ohws.removeOHToMatchTA(data, data.getTeachingAssistants(), data.getOfficeHours());
@@ -36,10 +36,11 @@ public class PasteTA_Cut_Transaction implements jTPS_Transaction{
 
     @Override
     public void undoTransaction() {
-        data.getTABackup().remove(selectedTA);
+        data.getTABackup().add(selectedTA);
         ohws.updateTaTableForRadio(data.getTeachingAssistants());
         ohws.resetOHToMatchTA(data, data.getOfficeHours());
         ohws.removeOHToMatchTA(data, data.getTeachingAssistants(), data.getOfficeHours());
         ohws.updateBgColorForCell();
     }
+    
 }

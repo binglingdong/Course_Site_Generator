@@ -9,8 +9,10 @@ import csg.CourseSiteGeneratorApp;
 import static csg.OfficeHoursPropertyType.*;
 import csg.data.AppData;
 import csg.data.TeachingAssistantPrototype;
-import csg.transaction.AddTA_Transaction;
-import csg.transaction.RemoveTA_Transaction;
+import csg.data.TimeSlot;
+import csg.transaction.OH_AddTA_Transaction;
+import csg.transaction.OH_ChangeTimeRange_Transaction;
+import csg.transaction.OH_RemoveTA_Transaction;
 import csg.workspace.OfficeHours;
 import djf.modules.AppGUIModule;
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class OHController {
             ta = new TeachingAssistantPrototype(name,email,0,"Undergraduate");
         }
 
-        AddTA_Transaction addTATransaction = new AddTA_Transaction(data, ta, data.getTABackup(),ohws);
+        OH_AddTA_Transaction addTATransaction = new OH_AddTA_Transaction(data, ta, data.getTABackup(),ohws);
         app.processTransaction(addTATransaction);
         
         // NOW CLEAR THE TEXT FIELDS
@@ -63,10 +65,31 @@ public class OHController {
         AppData data=(AppData)app.getDataComponent();
         TableView taTable = (TableView)gui.getGUINode(OH_TAS_TABLE_VIEW);
         TeachingAssistantPrototype selectedTA= (TeachingAssistantPrototype)taTable.getSelectionModel().getSelectedItem();
-        RemoveTA_Transaction removeTATransaction = new RemoveTA_Transaction(data, selectedTA, ohws);
+        OH_RemoveTA_Transaction removeTATransaction = new OH_RemoveTA_Transaction(data, selectedTA, ohws);
         app.processTransaction(removeTATransaction);
         app.getFoolproofModule().updateControls(OH_FOOLPROOF_SETTINGS);
     }   
+    
+    public void processTimeChange(ComboBox thisBox, ComboBox otherBox, String newValue, OfficeHours ohws){
+        AppData data= (AppData)app.getDataComponent();
+        ohws.resetOHToMatchTA(data, data.getOfficeHours());
+        ohws.removeOHToMatchTA(data, data.getTeachingAssistants(), data.getOfficeHours());
+        ArrayList<String> defaultList = data.getDefaultTimeRangeBackup();
+        ArrayList<String> newList = new ArrayList<>();
+        int index = defaultList.indexOf(newValue);
+        if(thisBox==app.getGUIModule().getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO)){//IF this box is the starttime
+            for(int i=index+1; i<defaultList.size(); i++){
+                newList.add(defaultList.get(i));
+            }
+        }
+        else{       //if it's endtime
+            for(int i=0; i<index; i++){
+                newList.add(defaultList.get(i));
+            }
+        }
+        OH_ChangeTimeRange_Transaction transaction = new OH_ChangeTimeRange_Transaction(thisBox, otherBox, newList, app);
+        app.processTransaction(transaction);
+    }
 }
 
 

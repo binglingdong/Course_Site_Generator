@@ -20,7 +20,7 @@ import javafx.scene.control.ToggleGroup;
  *
  * @author McKillaGorilla
  */
-public class EditingTAFoolproofDesign implements FoolproofDesign {
+public class OH_EditingTAFoolproofDesign implements FoolproofDesign {
     AppData data;
     TextField nameTf;
     TextField emailTf; 
@@ -31,7 +31,7 @@ public class EditingTAFoolproofDesign implements FoolproofDesign {
     RadioButton under;
     RadioButton gra;
     
-    public EditingTAFoolproofDesign(AppData data, TextField nameTf,TextField emailTf, 
+    public OH_EditingTAFoolproofDesign(AppData data, TextField nameTf,TextField emailTf, 
                                     Dialog dialog, TeachingAssistantPrototype selectedTA, ButtonType okButton,
                                     ToggleGroup tg, RadioButton under, RadioButton gra) {
         this.data=data;

@@ -30,4 +30,5 @@ public class Style {
     public static final String CLASS_PREDEFINED_TABLE_COLUMNS  = "predefined_table_columns";
     public static final String CLASS_SCHEDULE_BUTTONS   = "schedule_buttons";   //buttons on schedult tab
     public static final String CLASS_OH_BUTTONS         = "oh_buttons";         //buttons on the oh tab
+    public static final String CLASS_TITILEDPANE        = "titledpanes";
 }

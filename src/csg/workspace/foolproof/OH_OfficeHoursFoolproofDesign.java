@@ -19,10 +19,10 @@ import javafx.scene.control.TextField;
 
 
 
-public class OfficeHoursFoolproofDesign implements FoolproofDesign {
+public class OH_OfficeHoursFoolproofDesign implements FoolproofDesign {
     CourseSiteGeneratorApp app;
     
-    public OfficeHoursFoolproofDesign(CourseSiteGeneratorApp initApp) {
+    public OH_OfficeHoursFoolproofDesign(CourseSiteGeneratorApp initApp) {
         app = initApp;
     }
 

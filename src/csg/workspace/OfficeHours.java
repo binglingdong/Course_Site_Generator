@@ -11,11 +11,10 @@ import csg.data.AppData;
 import csg.data.TeachingAssistantPrototype;
 import csg.data.TimeSlot;
 import csg.data.TimeSlot.DayOfWeek;
-import csg.transaction.AddOH_Transaction;
+import csg.transaction.OH_AddOH_Transaction;
 import csg.workspace.controller.OHController;
 import csg.workspace.dialogs.OfficeHoursDialogs;
-import csg.workspace.foolproof.OfficeHoursFoolproofDesign;
-import csg.workspace.foolproof.TimePickerFoolProof;
+import csg.workspace.foolproof.OH_OfficeHoursFoolproofDesign;
 import static csg.workspace.style.Style.*;
 import static djf.AppPropertyType.APP_CLIPBOARD_FOOLPROOF_SETTINGS;
 import djf.modules.AppFoolproofModule;
@@ -125,6 +124,8 @@ public class OfficeHours {
         
         //Set the grow of the table to true. Set the sortable to false;
         VBox.setVgrow(taTable, Priority.ALWAYS);
+        taTable.prefHeightProperty().bind(parentPane.heightProperty().divide(3));
+
         for (int i = 0; i < taTable.getColumns().size(); i++) {
              ((TableColumn)taTable.getColumns().get(i)).setSortable(false);
         }
@@ -215,7 +216,7 @@ public class OfficeHours {
                     TimeSlot timeSlot = officeHoursTable.getSelectionModel().getSelectedItem();
                     TimeSlot copy_timeSlot= getTimeSlotInCopyOH(timeSlot);
                     //Create a transaction for adding timeslots, and process the transaction
-                    AddOH_Transaction addOH_transaction = new AddOH_Transaction(data,timeSlot,selectedTA ,day, copy_timeSlot,OHBackup, officeHoursTable.getItems(), this);
+                    OH_AddOH_Transaction addOH_transaction = new OH_AddOH_Transaction(data,timeSlot,selectedTA ,day, copy_timeSlot,OHBackup, officeHoursTable.getItems(), this);
                     app.processTransaction(addOH_transaction);
                 }
                 else{
@@ -296,7 +297,7 @@ public class OfficeHours {
             controller.processAddTA(this);
         });
         
-        //INIT REMOVE BUTTOn
+        //INIT REMOVE BUTTON
         Button removeTAButton = (Button)gui.getGUINode(OH_TA_REMOVE_BUTTON);
         removeTAButton.setOnAction(e->{
             controller.processRemoveTA(this);
@@ -305,16 +306,17 @@ public class OfficeHours {
         //INIT TIME RANGE PICKER
         ComboBox startTime = (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
         ComboBox endTime= (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
-        endTime.setDisable(true);
-        startTime.getSelectionModel().selectedItemProperty().addListener(e->{
-            app.getFoolproofModule().updateControls(OH_TIME_RANGE_FOOLPROOF_SETTINGS);
-            endTime.setDisable(false);
-            startTime.setDisable(true);
+        startTime.getItems().add("9:00am");
+        endTime.getItems().add("9:00pm");
+        startTime.getSelectionModel().select("9:00am");
+        endTime.getSelectionModel().select("9:00pm");
+        
+        
+        startTime.getSelectionModel().selectedItemProperty().addListener((e, oldValue, newValue)->{
+            controller.processTimeChange(startTime, endTime, (String)newValue, this);
         });
-        endTime.getSelectionModel().selectedItemProperty().addListener(e->{
-            app.getFoolproofModule().updateControls(OH_TIME_RANGE_FOOLPROOF_SETTINGS);
-            endTime.setDisable(true);
-            startTime.setDisable(false);
+        endTime.getSelectionModel().selectedItemProperty().addListener((e, oldValue, newValue)->{
+            controller.processTimeChange(endTime, startTime, (String)newValue, this);
         });
         
         // DON'T LET ANYONE SORT THE TABLES
@@ -330,9 +332,7 @@ public class OfficeHours {
     private void initFoolproofDesign() {
         AppFoolproofModule foolproofSettings = app.getFoolproofModule(); //has a hashmap of all the settings
         foolproofSettings.registerModeSettings(OH_FOOLPROOF_SETTINGS,
-                new OfficeHoursFoolproofDesign((CourseSiteGeneratorApp)app));
-        foolproofSettings.registerModeSettings(OH_TIME_RANGE_FOOLPROOF_SETTINGS, 
-                new TimePickerFoolProof(app, this));
+                new OH_OfficeHoursFoolproofDesign((CourseSiteGeneratorApp)app));
     }
     
     //UPDATE THE TA TABLE ACCORDING TO RADIO BUTTON
@@ -444,15 +444,16 @@ public class OfficeHours {
                     super.updateItem(item, empty);
                     if (item == null || empty) {
                         setText(null);
+                        this.setStyle(null);
                     } 
                     else {
                         if(selectedTA==null){
                             setText(item);
-                            this.setStyle("");
+                            this.setStyle(null);
                         }
                         else{
                             setText(item);
-                            if(getText().equals("")) this.setStyle("");
+                            if(getText().equals("")) this.setStyle(null);
                             else{
                                 String[] arr= getText().split("\n");
                                 for(String s: arr){
@@ -460,7 +461,7 @@ public class OfficeHours {
                                         this.setStyle("-fx-background-color: #fcdbde;");
                                         break;
                                     }
-                                    else this.setStyle(""); 
+                                    else this.setStyle(null); 
                                 }
                             }
                         }

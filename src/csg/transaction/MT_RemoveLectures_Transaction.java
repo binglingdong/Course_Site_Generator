@@ -11,8 +11,7 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class ScheduleSelect_Transaction implements jTPS_Transaction
-{
+public class MT_RemoveLectures_Transaction implements jTPS_Transaction{
 
     @Override
     public void doTransaction() {

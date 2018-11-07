@@ -15,7 +15,7 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class EditTA_Transaction implements jTPS_Transaction{
+public class OH_EditTA_Transaction implements jTPS_Transaction{
     String newName;
     String newEmail;
     String newType;
@@ -27,7 +27,7 @@ public class EditTA_Transaction implements jTPS_Transaction{
     String oriEmail;
     String oriType;
     
-    public EditTA_Transaction(String newName, String newEmail, String newType, 
+    public OH_EditTA_Transaction(String newName, String newEmail, String newType, 
                               TeachingAssistantPrototype selectedTA,TableView<TeachingAssistantPrototype> taTable,
                               OfficeHours ohws, AppData data){
         this.newEmail= newEmail;

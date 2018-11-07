@@ -11,7 +11,7 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class EditSyllabusTextField_Transaction implements jTPS_Transaction{
+public class Schedule_EditScheduleItems_Transaction implements jTPS_Transaction{
 
     @Override
     public void doTransaction() {

@@ -11,7 +11,7 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class AddMTLectures_Transaction implements jTPS_Transaction{
+public class Site_EditDropdown_Transaction implements jTPS_Transaction{
 
     @Override
     public void doTransaction() {

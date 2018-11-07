@@ -18,7 +18,7 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class AddOH_Transaction implements jTPS_Transaction {
+public class OH_AddOH_Transaction implements jTPS_Transaction {
     AppData data;
     TimeSlot timeSlot;
     DayOfWeek theDay;
@@ -28,7 +28,7 @@ public class AddOH_Transaction implements jTPS_Transaction {
     ObservableList<TimeSlot> originalOH;
     OfficeHours ohws;
     
-    public AddOH_Transaction(AppData initData, TimeSlot initTime, TeachingAssistantPrototype TA,
+    public OH_AddOH_Transaction(AppData initData, TimeSlot initTime, TeachingAssistantPrototype TA,
             DayOfWeek theDay, TimeSlot copyTime, ArrayList <TimeSlot> copyOH,  ObservableList<TimeSlot> originalOH
             ,OfficeHours ohws) {
         data = initData;

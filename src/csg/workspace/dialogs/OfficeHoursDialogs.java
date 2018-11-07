@@ -24,9 +24,9 @@ import javafx.stage.Stage;
 import static csg.OfficeHoursPropertyType.*;
 import csg.data.AppData;
 import csg.data.TeachingAssistantPrototype;
-import csg.transaction.EditTA_Transaction;
+import csg.transaction.OH_EditTA_Transaction;
 import csg.workspace.OfficeHours;
-import csg.workspace.foolproof.EditingTAFoolproofDesign;
+import csg.workspace.foolproof.OH_EditingTAFoolproofDesign;
 
 import properties_manager.PropertiesManager;
 
@@ -97,7 +97,7 @@ public class OfficeHoursDialogs {
         dialog.getDialogPane().lookupButton(okButton).setDisable(true);
         
         app.getFoolproofModule().registerModeSettings(EDIT_TA_FOOLPROOF_SETTINGS, 
-        new EditingTAFoolproofDesign((AppData)app.getDataComponent(),nameTf, emailTf, dialog, selectedTA, okButton, tg, under, gra));
+        new OH_EditingTAFoolproofDesign((AppData)app.getDataComponent(),nameTf, emailTf, dialog, selectedTA, okButton, tg, under, gra));
 
         nameTf.textProperty().addListener(e->{ 
             app.getFoolproofModule().updateControls(EDIT_TA_FOOLPROOF_SETTINGS);
@@ -123,7 +123,7 @@ public class OfficeHoursDialogs {
                 }
                 else newType= "Undergraduate";
                 
-                EditTA_Transaction editTATransaction = new EditTA_Transaction(newName, newEmail, newType,selectedTA, taTable, ohws,data);
+                OH_EditTA_Transaction editTATransaction = new OH_EditTA_Transaction(newName, newEmail, newType,selectedTA, taTable, ohws,data);
                 app.processTransaction(editTATransaction);
             }
         }

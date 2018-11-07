@@ -11,7 +11,8 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class EditSiteTextArea_Transaction implements jTPS_Transaction{
+public class Schedule_ScheduleSelect_Transaction implements jTPS_Transaction
+{
 
     @Override
     public void doTransaction() {

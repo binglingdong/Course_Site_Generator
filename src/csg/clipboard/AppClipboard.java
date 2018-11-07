@@ -10,9 +10,9 @@ import csg.CourseSiteGeneratorApp;
 import static csg.OfficeHoursPropertyType.OH_TAS_TABLE_VIEW;
 import csg.data.AppData;
 import csg.data.TeachingAssistantPrototype;
-import csg.transaction.CutTA_Transaction;
-import csg.transaction.PasteTA_Copy_Transaction;
-import csg.transaction.PasteTA_Cut_Transaction;
+import csg.transaction.OH_CutTA_Transaction;
+import csg.transaction.OH_PasteTA_Copy_Transaction;
+import csg.transaction.OH_PasteTA_Cut_Transaction;
 import csg.workspace.MainWorkspace;
 import csg.workspace.OfficeHours;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class AppClipboard implements AppClipboardComponent {
         cutOrCopy.add(true);
         numberOfPastesForName.add(1);                           //new TA added to the clipboard, it has not yet been pasted. 
         numberOfPastesForEmail.add(1);                          //if it's been pasted, the first one will be 1. 
-        CutTA_Transaction cutTATransaction = new CutTA_Transaction(ohws, selectedTA,data);
+        OH_CutTA_Transaction cutTATransaction = new OH_CutTA_Transaction(ohws, selectedTA,data);
         app.processTransaction(cutTATransaction);
     }
 
@@ -89,16 +89,16 @@ public class AppClipboard implements AppClipboardComponent {
         
         if(alreadyExist==false){    // if the ta didnt exist, add it like normal. either with or without oh
             if(whetherCut==false){  //meaning the item was copied
-                PasteTA_Copy_Transaction pasteTATransaction= new PasteTA_Copy_Transaction(TA_clone,ohws,data,numberOfPastesForName,numberOfPastesForEmail,index);
+                OH_PasteTA_Copy_Transaction pasteTATransaction= new OH_PasteTA_Copy_Transaction(TA_clone,ohws,data,numberOfPastesForName,numberOfPastesForEmail,index);
                 app.processTransaction(pasteTATransaction);
             }
             else{                   //meaning the item was cutted
-                PasteTA_Cut_Transaction pasteTACutTransaction = new PasteTA_Cut_Transaction(taInClipboard,ohws,data);
+                OH_PasteTA_Cut_Transaction pasteTACutTransaction = new OH_PasteTA_Cut_Transaction(taInClipboard,ohws,data);
                 app.processTransaction(pasteTACutTransaction);
             }
         }
         else{       //if the ta already exists, add it all with no oh paste
-            PasteTA_Copy_Transaction pasteTATransaction= new PasteTA_Copy_Transaction(TA_clone,ohws,data,numberOfPastesForName,numberOfPastesForEmail,index);
+            OH_PasteTA_Copy_Transaction pasteTATransaction= new OH_PasteTA_Copy_Transaction(TA_clone,ohws,data,numberOfPastesForName,numberOfPastesForEmail,index);
             app.processTransaction(pasteTATransaction);
         }
         

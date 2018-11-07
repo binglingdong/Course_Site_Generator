@@ -175,3 +175,16 @@
     -fx-background-color: transparent;
     -fx-font-weight: bold;
 }
+
+.titledpanes{
+    -fx-font-weight: bold;
+    -fx-padding: 2 5 2 5;
+}
+
+.titledpanes .title{
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: #969696;
+    -fx-border-radius: 10px;
+}

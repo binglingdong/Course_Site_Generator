@@ -15,13 +15,13 @@ import jtps.jTPS_Transaction;
  *
  * @author McKillaGorilla
  */
-public class AddTA_Transaction implements jTPS_Transaction {
+public class OH_AddTA_Transaction implements jTPS_Transaction {
     AppData data;
     TeachingAssistantPrototype ta;
     ArrayList<TeachingAssistantPrototype> copyTAs;
     OfficeHours ohws;
     
-    public AddTA_Transaction(AppData initData, TeachingAssistantPrototype initTA, ArrayList<TeachingAssistantPrototype> copyTAs,
+    public OH_AddTA_Transaction(AppData initData, TeachingAssistantPrototype initTA, ArrayList<TeachingAssistantPrototype> copyTAs,
                             OfficeHours ws) {
         data = initData;
         ta = initTA;

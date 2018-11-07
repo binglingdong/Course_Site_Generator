@@ -7,6 +7,8 @@ package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
 import static csg.SitePropertyType.*;
+import csg.workspace.controller.SiteController;
+import csg.workspace.foolproof.Site_checkBoxFoolproof;
 import static csg.workspace.style.Style.*;
 import static djf.AppPropertyType.APP_LEFT_FOOTER;
 import static djf.AppPropertyType.APP_PATH_IMAGES;
@@ -14,6 +16,7 @@ import static djf.AppPropertyType.APP_RIGHT_FOOTER;
 import static djf.AppPropertyType.APP_SITE_FAVICON;
 import static djf.AppPropertyType.APP_SITE_NAVBAR;
 import static djf.AppPropertyType.APP_STIE_STYLE_CSS_PATH;
+import djf.modules.AppFoolproofModule;
 import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
@@ -41,7 +44,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import properties_manager.PropertiesManager;
 
@@ -88,6 +90,11 @@ public class Site {
         SiteTab.setContent(sp);
         sp.setFitToHeight(true);
         sp.setFitToWidth(true);
+        
+         // INIT THE EVENT HANDLERS
+        initControllers();
+        // SETUP FOOLPROOF DESIGN FOR THIS APP
+        initFoolproofDesign();
     }
     
     private void createBanner(GridPane parentPane){
@@ -174,14 +181,12 @@ public class Site {
         NavbarImageView.setPreserveRatio(true);
         app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_NAVBAR_IMAGEVIEW, NavbarImageView);
         
-        
         Image LeftFooterImage = loadImage(APP_LEFT_FOOTER);
         ImageView LeftFooterImageView = new ImageView(LeftFooterImage);
         LeftFooterImageView.setFitHeight(40);
         LeftFooterImageView.setPreserveRatio(true);
         app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_LEFT_IMAGEVIEW, LeftFooterImageView);
         
-         
         Image RightFooterImage = loadImage(APP_RIGHT_FOOTER);
         ImageView RightFooterImageView = new ImageView(RightFooterImage);
         RightFooterImageView.setFitHeight(40);
@@ -193,10 +198,6 @@ public class Site {
         gp.add(LeftFooterImageView, 1, 2, 1, 1);
         gp.add(RightFooterImageView, 1, 3, 1, 1);
   
-        FaviconButton.setOnAction(e->{styleButtonsClicked(faviconImageView);});
-        NavbarImageButton.setOnAction(e->{styleButtonsClicked(NavbarImageView);});
-        LeftFooterImageButton.setOnAction(e->{styleButtonsClicked(LeftFooterImageView);});
-        RightFooterImageButton.setOnAction(e->{styleButtonsClicked(RightFooterImageView);});
         
         HBox FontsHbox= csgBuilder.buildHBox("", parentPane, CLASS_PANES_FOREGROUND, ENABLED);
         FontsHbox.setSpacing(30);
@@ -237,7 +238,7 @@ public class Site {
         TextArea instructorOHTextArea = csgBuilder.buildTextArea(SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA, null, CLASS_INPUT_CONTROL, ENABLED);
         instructorOHTextArea.setWrapText(true);
         instructorOHTextArea.setMinHeight(300);
-        TitledPane instructorOHTitledPane = csgBuilder.buildTitledPane(SITE_INSTRUCTOR_OFFICEHOUR_TITLEDPANE, VPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane instructorOHTitledPane = csgBuilder.buildTitledPane(SITE_INSTRUCTOR_OFFICEHOUR_TITLEDPANE, VPane, CLASS_TITILEDPANE, ENABLED);
         instructorOHTitledPane.setContent(instructorOHTextArea);
         instructorOHTitledPane.setExpanded(false);
         instructorOHTitledPane.setMinWidth(VPane.getWidth());
@@ -272,34 +273,46 @@ public class Site {
         return image;
     }
     
-    private void styleButtonsClicked(ImageView iv){
-        FileChooser fileChooser = new FileChooser();
+
+    private void initControllers(){
+        SiteController controller = new SiteController((CourseSiteGeneratorApp) app);
         
-            //Set extension filter
-            FileChooser.ExtensionFilter extFilterJPG = 
-                    new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
-            FileChooser.ExtensionFilter extFilterjpg = 
-                    new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
-            FileChooser.ExtensionFilter extFilterPNG = 
-                    new FileChooser.ExtensionFilter("PNG files (*.PNG)", "*.PNG");
-            FileChooser.ExtensionFilter extFilterpng = 
-                    new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
-            fileChooser.getExtensionFilters()
-                    .addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
+        //init PAGE CHECKBOXES
+        CheckBox page= (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_HOME_CHECKBOX);
+        page.setSelected(true);
+        CheckBox syl= (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_SYLLABUS_CHECKBOX);
+        CheckBox sch= (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_SCHEDULE_CHECKBOX);
+        CheckBox hw= (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_HWS_CHECKBOX);
+        page.selectedProperty().addListener(e->{
+             app.getFoolproofModule().updateControls(SITE_CHECKBOX_FOOLPROOF_SETTINGS);
+        });
+        syl.selectedProperty().addListener(e->{
+            app.getFoolproofModule().updateControls(SITE_CHECKBOX_FOOLPROOF_SETTINGS);
+        });
+        sch.selectedProperty().addListener(e->{
+            app.getFoolproofModule().updateControls(SITE_CHECKBOX_FOOLPROOF_SETTINGS);
+        });
+        hw.selectedProperty().addListener(e->{
+            app.getFoolproofModule().updateControls(SITE_CHECKBOX_FOOLPROOF_SETTINGS);
+        });
+        
+        Button FaviconButton = (Button)app.getGUIModule().getGUINode(SITE_STYLE_FAVICON_BUTTON);
+        Button NavbarImageButton = (Button)app.getGUIModule().getGUINode(SITE_STYLE_NAVBAR_BUTTON);
+        Button LeftFooterImageButton = (Button)app.getGUIModule().getGUINode(SITE_STYLE_LEFT_FOOTER_BUTTON);
+        Button RightFooterImageButton = (Button)app.getGUIModule().getGUINode(SITE_STYLE_RIGHT_FOOTER_BUTTON);
  
-            //Show open file dialog
-            File file = fileChooser.showOpenDialog(null);
-             
-            try {
-                if(file!=null){
-                    BufferedImage bufferedImage = ImageIO.read(file);
-                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                    iv.setImage(image);
-                }
-            } catch (IOException ex) {
-                AppDialogsFacade.showMessageDialog(app.getGUIModule().getWindow(),INVALID_IMAGE_TITLE, IO_IMAGE_EXCEPTION_CONTENT);
-            }
+        FaviconButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_FAVICON_IMAGEVIEW);});
+        NavbarImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_NAVBAR_IMAGEVIEW);});
+        LeftFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_LEFT_IMAGEVIEW);});
+        RightFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_RIGHT_IMAGEVIEW);});
     }
+    
+    private void initFoolproofDesign() {
+        AppFoolproofModule foolproofSettings = app.getFoolproofModule(); //has a hashmap of all the settings
+        foolproofSettings.registerModeSettings(SITE_CHECKBOX_FOOLPROOF_SETTINGS,
+                new Site_checkBoxFoolproof((CourseSiteGeneratorApp)app));
+    }
+    
     
     public void reset(){
        AppGUIModule gui= app.getGUIModule();
@@ -309,7 +322,7 @@ public class Site {
        ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_YEAR_COMBO)).getSelectionModel().select(null);
        ((TextField)gui.getGUINode(SITE_BANNER_COURSE_TITLE_TEXTFIELD)).clear();
        
-       ((CheckBox)gui.getGUINode(SITE_PAGE_HOME_CHECKBOX)).setSelected(false);
+       ((CheckBox)gui.getGUINode(SITE_PAGE_HOME_CHECKBOX)).setSelected(true);
        ((CheckBox)gui.getGUINode(SITE_PAGE_SYLLABUS_CHECKBOX)).setSelected(false);
        ((CheckBox)gui.getGUINode(SITE_PAGE_SCHEDULE_CHECKBOX)).setSelected(false);
        ((CheckBox)gui.getGUINode(SITE_PAGE_HWS_CHECKBOX)).setSelected(false);

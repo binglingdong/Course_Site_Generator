@@ -35,8 +35,7 @@ public class AppData implements AppDataComponent{
     private ObservableList<TimeSlot> officeHours;
     private ArrayList <TeachingAssistantPrototype> TABackup= new ArrayList<>();
     private ArrayList <TimeSlot> OHBackup= new ArrayList<>(); 
-    private ArrayList <String> startTimeRangeBackup = new ArrayList<>();
-    private ArrayList <String> endTimeRangeBackup = new ArrayList<>();
+    private ArrayList <String> defaultTimeRangeBackup = new ArrayList<>();
     int startHour;
     int endHour;
         // DEFAULT VALUES FOR START AND END HOURS IN MILITARY HOURS
@@ -80,28 +79,33 @@ public class AppData implements AppDataComponent{
             officeHours.add(halfTimeSlot);
         }
     } 
-    
+
     public void initTimeRange(){
-        //INIT TIME RANGE COMBO BOX
         AppGUIModule gui = app.getGUIModule();
-        startTimeRangeBackup.clear();
-        endTimeRangeBackup.clear();
+        defaultTimeRangeBackup.clear();
         ComboBox startTime = (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
         ComboBox endTime= (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
-        
+       
+       
         for(TimeSlot time:OHBackup){
             String timeString = time.getStartTime();
             if(!startTime.getItems().contains(timeString)){
                 startTime.getItems().add(timeString);
-                startTimeRangeBackup.add(timeString);
+            }
+            if(!defaultTimeRangeBackup.contains(timeString)){
+                defaultTimeRangeBackup.add(timeString);
             }
         }
+        int i=0;
         for(TimeSlot time:OHBackup){
             String timeString2 = time.getEndTime();
             if(!endTime.getItems().contains(timeString2)){
-                endTime.getItems().add(timeString2);
-                endTimeRangeBackup.add(timeString2);
+                endTime.getItems().add(i,timeString2);
             }
+            if(!defaultTimeRangeBackup.contains(timeString2)){
+                defaultTimeRangeBackup.add(timeString2);
+            }
+            i++;
         }
     }
     public void resetOHBackup() {
@@ -146,7 +150,6 @@ public class AppData implements AppDataComponent{
         }
         resetOfficeHours();
         resetOHBackup();
-        initTimeRange();
     }
     
     /**
@@ -326,16 +329,19 @@ public class AppData implements AppDataComponent{
     public ArrayList <TimeSlot> getOHBackup() {
         return OHBackup;
     }
-    
-    public ArrayList<String>getStartTimeRangeBackup(){
-        return startTimeRangeBackup;
+
+    /**
+     * @return the defaultTimeRangeBackup
+     */
+    public ArrayList <String> getDefaultTimeRangeBackup() {
+        return defaultTimeRangeBackup;
     }
 
     /**
-     * @return the endTimeRangeBackup
+     * @param OHBackup the OHBackup to set
      */
-    public ArrayList <String> getEndTimeRangeBackup() {
-        return endTimeRangeBackup;
+    public void setOHBackup(ArrayList <TimeSlot> OHBackup) {
+        this.OHBackup = OHBackup;
     }
     
 }

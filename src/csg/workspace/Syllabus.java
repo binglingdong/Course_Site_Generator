@@ -12,6 +12,7 @@ import static csg.SyllabusPropertyType.*;
 import static csg.workspace.style.Style.CLASS_INPUT_CONTROL;
 import static csg.workspace.style.Style.CLASS_PANES_BACKGROUND;
 import static csg.workspace.style.Style.CLASS_PANES_FOREGROUND;
+import static csg.workspace.style.Style.CLASS_TITILEDPANE;
 import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
@@ -51,23 +52,23 @@ public class Syllabus {
         TextArea academicDisTextArea = csgBuilder.buildTextArea(SYLLABUS_ACADEMIC_DIS_TEXTAREA, null, CLASS_INPUT_CONTROL, ENABLED);
         TextArea specialAssisTextArea = csgBuilder.buildTextArea(SYLLABUS_SPECIAL_ASSISTANCE_TEXTAREA, null, CLASS_INPUT_CONTROL, ENABLED);
         
-        TitledPane desTitledPane = csgBuilder.buildTitledPane(SYLLABUS_DES_TITLEDPANE, mainPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane desTitledPane = csgBuilder.buildTitledPane(SYLLABUS_DES_TITLEDPANE, mainPane, CLASS_TITILEDPANE, ENABLED);
         desTitledPane.setContent(desTextArea);
-        TitledPane topicTitledPane = csgBuilder.buildTitledPane(SYLLABUS_TOPICS_TITLEDPANE, mainPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane topicTitledPane = csgBuilder.buildTitledPane(SYLLABUS_TOPICS_TITLEDPANE, mainPane, CLASS_TITILEDPANE, ENABLED);
         topicTitledPane.setContent(topicTextArea);
-        TitledPane prereqTitledPane = csgBuilder.buildTitledPane(SYLLABUS_PREREQ_TITLEDPANE, mainPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane prereqTitledPane = csgBuilder.buildTitledPane(SYLLABUS_PREREQ_TITLEDPANE, mainPane, CLASS_TITILEDPANE, ENABLED);
         prereqTitledPane.setContent(prereqTextArea);
-        TitledPane outcomesTitledPane = csgBuilder.buildTitledPane(SYLLABUS_OUTCOMES_TITLEDPANE, mainPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane outcomesTitledPane = csgBuilder.buildTitledPane(SYLLABUS_OUTCOMES_TITLEDPANE, mainPane, CLASS_TITILEDPANE, ENABLED);
         outcomesTitledPane.setContent(outcomesTextArea);
-        TitledPane textbookTitledPane = csgBuilder.buildTitledPane(SYLLABUS_TEXTBOOKS_TITLEDPANE, mainPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane textbookTitledPane = csgBuilder.buildTitledPane(SYLLABUS_TEXTBOOKS_TITLEDPANE, mainPane, CLASS_TITILEDPANE, ENABLED);
         textbookTitledPane.setContent(textbookTextArea);
-        TitledPane gradeComTitledPane = csgBuilder.buildTitledPane(SYLLABUS_GRADEDCOM_TITLEDPANE, mainPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane gradeComTitledPane = csgBuilder.buildTitledPane(SYLLABUS_GRADEDCOM_TITLEDPANE, mainPane, CLASS_TITILEDPANE, ENABLED);
         gradeComTitledPane.setContent(gradeComTextArea);
-        TitledPane gradingNoteTitledPane = csgBuilder.buildTitledPane(SYLLABUS_GRADING_NOTE_TITLEDPANE, mainPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane gradingNoteTitledPane = csgBuilder.buildTitledPane(SYLLABUS_GRADING_NOTE_TITLEDPANE, mainPane, CLASS_TITILEDPANE, ENABLED);
         gradingNoteTitledPane.setContent(gradingNoteTextArea);
-        TitledPane academicDisTitledPane = csgBuilder.buildTitledPane(SYLLABUS_ACADEMIC_DIS_TITLEDPANE, mainPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane academicDisTitledPane = csgBuilder.buildTitledPane(SYLLABUS_ACADEMIC_DIS_TITLEDPANE, mainPane, CLASS_TITILEDPANE, ENABLED);
         academicDisTitledPane.setContent(academicDisTextArea);
-        TitledPane specialAssisTitledPane = csgBuilder.buildTitledPane(SYLLABUS_SPECIAL_ASSISTANCE_TITLEDPANE, mainPane, CLASS_PANES_FOREGROUND, ENABLED);
+        TitledPane specialAssisTitledPane = csgBuilder.buildTitledPane(SYLLABUS_SPECIAL_ASSISTANCE_TITLEDPANE, mainPane, CLASS_TITILEDPANE, ENABLED);
         specialAssisTitledPane.setContent(specialAssisTextArea);
         
         
