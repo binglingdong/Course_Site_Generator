@@ -104,6 +104,9 @@ public class AppWelcomeDialog extends Stage {
         // RIGHT PANE
         splashPane = new VBox();
         welcomeDialogImageView = new ImageView();
+        welcomeDialogImageView.fitHeightProperty().bind(this.heightProperty().multiply(0.8));
+        welcomeDialogImageView.setPreserveRatio(true);
+        splashPane.setAlignment(Pos.CENTER);
         try {
             String bannerFileName = props.getProperty(APP_BANNER);
             String bannerPath = props.getProperty(APP_PATH_IMAGES) + "/" + bannerFileName;

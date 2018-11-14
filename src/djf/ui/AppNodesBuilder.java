@@ -611,7 +611,9 @@ public class AppNodesBuilder {
             boolean enabled) {
         // NOW MAKE THE TEXT FIELD
         TextArea textArea = new TextArea();
-
+        textArea.setWrapText(true);
+        textArea.setMinHeight(200);
+        
         // INITIALIZE THE OTHER SETTINGS
         initNode(nodeId, textArea, parentPane, styleClass, enabled);
 
