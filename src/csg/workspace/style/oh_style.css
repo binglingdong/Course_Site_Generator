@@ -25,16 +25,16 @@
     
     /*  THE NEURAL SWATCH IS USED FOR THE BACKGROUNDS IN PLACES WHERE
         THERE ARE NO OTHER CONTROLS*/
-    SWATCH_NEUTRAL:             #FCE5FC;
+    SWATCH_NEUTRAL:             #fcebe5;
     /*  THE COMPLEMENT SWATCH IS USED FOR BACKGROUND AREAS OF THINGS
         LAYERED ON TOP OF THE BACKGROUND */
-    SWATCH_COMPLEMENT:          #F5B3F5;
+    SWATCH_COMPLEMENT:          #f5b6b3;
     /*  THE ACCENT SWATCH IS USED FOR BORDERS OF THINGS LIKE TOOLBAR
         THAT ARE USED FOR ORGANIZING GROUPS OF COMPONENTS */
     SWATCH_ACCENT:              #1B4965;
     SWATCH_ACCENT_ALT:          #4E7C98;
     /*  THIS BLEND SWATCH IS USED FOR GRADIENT TRANSITIONS */
-    SWATCH_BLEND:               #990991;
+    SWATCH_BLEND:               #ea800e;
     
     -fx-font-family: "Times New Roman";
 }
@@ -89,6 +89,7 @@
     -fx-text-fill: SWATCH_NEUTRAL;
 }
 .djf_welcome_new_pane {
+    -fx-padding: 20;
     -fx-background-color:transparent;
 }
 .djf_welcome_new_button {
@@ -111,18 +112,18 @@
 }
 
 .tab-pane .tab{
-    -fx-background-color: #f9effc;
+    -fx-background-color: #fcf4ef;
     -fx-background-radius: 4;
 }
 
 .tab-pane .tab:selected{
-    -fx-background-color: linear-gradient(SWATCH_COMPLEMENT, #7a0c96); 
+    -fx-background-color: linear-gradient(SWATCH_COMPLEMENT, #f7c39e); 
     -fx-background-radius: 4;
 }
 
 .tab .tab-label { 
     -fx-alignment: CENTER;
-    -fx-text-fill: #572663;
+    -fx-text-fill: #633c26;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
@@ -133,7 +134,7 @@
 }
 
 .tab-pane {
-    -fx-background-color: linear-gradient(SWATCH_COMPLEMENT, #7a0c96); 
+    -fx-background-color: linear-gradient(#f7c39e,SWATCH_COMPLEMENT); 
 }
 
 .panes_foreground{
@@ -141,7 +142,7 @@
     -fx-background-radius: 10;
 }
 .panes_background{
-    -fx-background-color: linear-gradient(SWATCH_COMPLEMENT, #7a0c96);
+    -fx-background-color: linear-gradient(#f7c39e,SWATCH_COMPLEMENT);
 }
 
 .major_labels{
@@ -178,7 +179,7 @@
 
 .titledpanes{
     -fx-font-weight: bold;
-    -fx-padding: 2 5 2 5;
+    -fx-padding: 5 10 5 10;
 }
 
 .titledpanes .title{

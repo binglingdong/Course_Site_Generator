@@ -7,8 +7,6 @@ package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
 import static csg.SchedulePropertyType.*;
-import static csg.SitePropertyType.SITE_BANNER_COURSE_YEAR_COMBO;
-import static csg.SitePropertyType.SITE_INSTRUCTOR_HOMEPAGE_TEXTFIELD;
 import static csg.workspace.style.Style.*;
 import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
@@ -18,7 +16,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -48,18 +45,18 @@ public class Schedule {
         ScrollPane mainPane = csgBuilder.buildScrollPane(SCHEDULE_PANE, null, CLASS_PANES_BACKGROUND, ENABLED);
         VBox foregroundPane = csgBuilder.buildVBox("", null, CLASS_PANES_BACKGROUND, ENABLED);
         foregroundPane.setSpacing(8);
-        foregroundPane.setPadding(new Insets(5,5,5,5));
+        foregroundPane.setPadding(new Insets(10,8,10,8));
         
         GridPane calendarPane = csgBuilder.buildGridPane("", foregroundPane, CLASS_PANES_FOREGROUND, ENABLED);
         VBox scheduleItemsPane = csgBuilder.buildVBox("", foregroundPane, CLASS_PANES_FOREGROUND, ENABLED);
         GridPane addAndEditPane = csgBuilder.buildGridPane("", foregroundPane, CLASS_PANES_FOREGROUND, ENABLED);
         
-        calendarPane.setPadding(new Insets(5,5,5,5));
+        calendarPane.setPadding(new Insets(10,20,10,20));
         calendarPane.setHgap(8);
         calendarPane.setVgap(8);
-        scheduleItemsPane.setPadding(new Insets(5,5,5,5));
+        scheduleItemsPane.setPadding(new Insets(10,20,10,20));
         scheduleItemsPane.setSpacing(8);
-        addAndEditPane.setPadding(new Insets(5,5,5,5));
+        addAndEditPane.setPadding(new Insets(10,20,10,20));
         addAndEditPane.setHgap(8);
         addAndEditPane.setVgap(8);
         
@@ -132,6 +129,8 @@ public class Schedule {
         
         Button addOrUpdateButton = csgBuilder.buildTextButton(CALENDAR_ADD_EDIT_BUTTON, parentPane, 0, 6, 2, 1, CLASS_SCHEDULE_BUTTONS, ENABLED);
         Button clearButton = csgBuilder.buildTextButton(CALENDAR_CLEAR_BUTTON, parentPane, 2, 6, 2, 1, CLASS_SCHEDULE_BUTTONS, ENABLED);
+        addOrUpdateButton.prefWidthProperty().bind(parentPane.widthProperty().multiply(0.15));
+        clearButton.prefWidthProperty().bind(parentPane.widthProperty().multiply(0.13));
     }
     
     

@@ -12,7 +12,6 @@ import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
@@ -45,9 +44,9 @@ public class MeetingTimes {
         VBox vb1= csgBuilder.buildVBox("", mainPane, CLASS_PANES_FOREGROUND, ENABLED);
         VBox vb2= csgBuilder.buildVBox("", mainPane, CLASS_PANES_FOREGROUND, ENABLED);
         VBox vb3= csgBuilder.buildVBox("", mainPane, CLASS_PANES_FOREGROUND, ENABLED);
-        vb1.setPadding(new Insets(5,5,5,5));
-        vb2.setPadding(new Insets(5,5,5,5));
-        vb3.setPadding(new Insets(5,5,5,5));
+        vb1.setPadding(new Insets(10,10,10,10));
+        vb2.setPadding(new Insets(10,10,10,10));
+        vb3.setPadding(new Insets(10,10,10,10));
         
         //LECTURE PANE
         HBox hb1 =csgBuilder.buildHBox("", vb1, CLASS_PANES_FOREGROUND, ENABLED);

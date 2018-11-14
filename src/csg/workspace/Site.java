@@ -73,20 +73,20 @@ public class Site {
         
         banner.setVgap(8);
         banner.setHgap(8);
-        banner.setPadding(new Insets(5,5,5,5));
+        banner.setPadding(new Insets(10,20,10,20));
         page.setSpacing(50);
         page.setAlignment(Pos.CENTER_LEFT);
-        page.setPadding(new Insets(5,5,5,5));
+        page.setPadding(new Insets(10,20,10,20));
         style.setSpacing(8);
-        style.setPadding(new Insets(5,5,5,5));
+        style.setPadding(new Insets(10,20,10,20));
         instructor.setSpacing(10);
                 
         createBanner(banner);
         createPage(page);
         createStyle(style);
         createInstructor(instructor);
-        mainPane.setSpacing(8);
-        mainPane.setPadding(new Insets(8,5,8,5));
+        mainPane.setSpacing(10);
+        mainPane.setPadding(new Insets(10,8,10,8));
         SiteTab.setContent(sp);
         sp.setFitToHeight(true);
         sp.setFitToWidth(true);
@@ -156,7 +156,7 @@ public class Site {
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         Label label = csgBuilder.buildLabel(SITE_STYLE_LABEL, parentPane, CLASS_MAJOR_LABELS, ENABLED);
         GridPane gp = csgBuilder.buildGridPane("", parentPane, CLASS_PANES_FOREGROUND, ENABLED);
-        gp.setPadding(new Insets(8,8,8,8));
+        gp.setPadding(new Insets(10,20,10,20));
         gp.setVgap(10);
         gp.setHgap(40);
         
@@ -223,7 +223,7 @@ public class Site {
         GridPane parentPane= csgBuilder.buildGridPane(SITE_INSTRUCTOR_PANE, VPane, CLASS_PANES_FOREGROUND, ENABLED);
         parentPane.setHgap(8);
         parentPane.setVgap(8);
-        parentPane.setPadding(new Insets(5,5,5,5));
+        parentPane.setPadding(new Insets(10,20,10,20));
         
         csgBuilder.buildLabel(SITE_INSTRUCTOR_LABEL, parentPane, 0, 0, 1, 1, CLASS_MAJOR_LABELS, ENABLED);
         csgBuilder.buildLabel(SITE_INSTRUCTOR_NAME_LABEL, parentPane, 0, 1, 1, 1, CLASS_MINOR_LABELS, ENABLED);
