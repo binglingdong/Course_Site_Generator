@@ -105,35 +105,7 @@ public class OH_ChangeTimeRange_Transaction implements jTPS_Transaction {
 
     @Override
     public void undoTransaction() {
-        
-//        ArrayList <String> bad= new ArrayList<>();
-//        
-//        if(currentBox==app.getGUIModule().getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO)){
-//            int i=theOtherBox.getItems().size();                                   // If we are editing the endtime, we add items to the beginning.
-//            for(String s: oldList){                         //Add the new items to the list.  
-//                if(!theOtherBox.getItems().contains(s)){
-//                    theOtherBox.getItems().add(i,s);
-//                    i++;
-//                }
-//            }
-//        }else{                                              // If we are editing the startime, we add items to the end. 
-//            int i=0;              
-//            for(String s: oldList){                         //Add the new items to the list.  
-//                if(!theOtherBox.getItems().contains(s)){
-//                    theOtherBox.getItems().add(i,s);
-//                    i++;
-//                }
-//            }
-//        }
-//        for(Object o: theOtherBox.getItems()){          //remove all non-in-range items
-//            String s= (String)o;
-//            if(!oldList.contains(s)){
-//                bad.add(s);
-//            }
-//        }
-//        for(String s: bad){
-//            theOtherBox.getItems().remove(s);
-//        }
+ 
     }
     
 }

@@ -1,0 +1,55 @@
+
+{
+    "site_tab":{
+        "subject":"CSE",
+        "number":"320",
+        "semester":"Spring",
+        "year":"2019",
+        "title":"too bad",
+        "logos":{
+            "favicon":{
+                "src":"/Users/bingling.dong/Desktop/CSE219/Project/Wg/apps/WebsiteGenerator/images/icons/Export.png"
+            },
+            "navbar":{
+                "src":"./images//SBUDarkRedShieldLogo.png"
+            },
+            "bottom_left":{
+                "src":"./images//SBUWhiteShieldLogo.jpg"
+            },
+            "bottom_right":{
+                "src":"./images//SBUCSLogo.png"
+            }
+        },
+        "instructor":{
+            "name":"hey",
+            "link":"homedsf",
+            "email":"edf",
+            "room":"romfadsf",
+            "hours":"XXX"
+        },
+        "pages":[
+            {
+                "name":"Home",
+                "link":"index.html"
+            },
+            {
+                "name":"Syllabus",
+                "link":"syllabus.html"
+            },
+            {
+                "name":"Schedule",
+                "link":"schedule.html"
+            }
+        ]
+    },
+    "office_hours_tab":{
+        "startHour":"9",
+        "endHour":"20",
+        "undergrad_tas":[
+        ],
+        "grad_tas":[
+        ],
+        "officeHours":[
+        ]
+    }
+}

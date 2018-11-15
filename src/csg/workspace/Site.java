@@ -7,6 +7,7 @@ package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
 import static csg.SitePropertyType.*;
+import csg.data.LocateImages;
 import csg.workspace.controller.SiteController;
 import csg.workspace.foolproof.Site_checkBoxFoolproof;
 import static csg.workspace.style.Style.*;
@@ -168,36 +169,43 @@ public class Site {
         NavbarImageButton.prefWidthProperty().bind((parentPane.widthProperty().divide(3)));
         LeftFooterImageButton.prefWidthProperty().bind((parentPane.widthProperty().divide(3)));
         RightFooterImageButton.prefWidthProperty().bind((parentPane.widthProperty().divide(3)));
-       
-        Image faviconImage= loadImage(APP_SITE_FAVICON);
+        
+        LocateImages li1 = new LocateImages();
+        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW, li1);
+        Image faviconImage= loadImage(APP_SITE_FAVICON, SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW);
         ImageView faviconImageView = new ImageView(faviconImage);
+        li1.setImageView(faviconImageView);
         faviconImageView.setFitHeight(40);
         faviconImageView.setPreserveRatio(true);
-        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_FAVICON_IMAGEVIEW, faviconImageView);
         
-        Image NavbarImage= loadImage(APP_SITE_NAVBAR);
+        LocateImages li2 = new LocateImages();
+        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW, li2);
+        Image NavbarImage= loadImage(APP_SITE_NAVBAR, SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW);
         ImageView NavbarImageView = new ImageView(NavbarImage);
+        li2.setImageView(NavbarImageView);
         NavbarImageView.setFitHeight(40);
         NavbarImageView.setPreserveRatio(true);
-        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_NAVBAR_IMAGEVIEW, NavbarImageView);
-        
-        Image LeftFooterImage = loadImage(APP_LEFT_FOOTER);
+       
+        LocateImages li3 = new LocateImages();
+        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW, li3);
+        Image LeftFooterImage = loadImage(APP_LEFT_FOOTER, SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW);
         ImageView LeftFooterImageView = new ImageView(LeftFooterImage);
+        li3.setImageView(LeftFooterImageView);
         LeftFooterImageView.setFitHeight(40);
         LeftFooterImageView.setPreserveRatio(true);
-        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_LEFT_IMAGEVIEW, LeftFooterImageView);
         
-        Image RightFooterImage = loadImage(APP_RIGHT_FOOTER);
+        LocateImages li4 = new LocateImages();
+        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW, li4);
+        Image RightFooterImage = loadImage(APP_RIGHT_FOOTER, SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW);
         ImageView RightFooterImageView = new ImageView(RightFooterImage);
+        li4.setImageView(RightFooterImageView);
         RightFooterImageView.setFitHeight(40);
         RightFooterImageView.setPreserveRatio(true);
-        app.getGUIModule().addGUINode(SITE_STYLE_IMAGE_RIGHT_IMAGEVIEW, RightFooterImageView);
         
         gp.add(faviconImageView, 1, 0, 1, 1);
         gp.add(NavbarImageView, 1, 1, 1, 1);
         gp.add(LeftFooterImageView, 1, 2, 1, 1);
         gp.add(RightFooterImageView, 1, 3, 1, 1);
-  
         
         HBox FontsHbox= csgBuilder.buildHBox("", parentPane, CLASS_PANES_FOREGROUND, ENABLED);
         FontsHbox.setSpacing(30);
@@ -257,16 +265,18 @@ public class Site {
         });
     }
     
-    private Image loadImage(Object imageId){
+    private Image loadImage(Object imageId, Object locateImageView){
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+        LocateImages li = (LocateImages)app.getGUIModule().getGUINode(locateImageView);
         Image image= null;
+        li.setURL("");
         try {
             String fileName = props.getProperty(imageId);
             String path = props.getProperty(APP_PATH_IMAGES) + "/" + fileName;
             File file = new File(path);
             BufferedImage bufferedImage = ImageIO.read(file);
             image = SwingFXUtils.toFXImage(bufferedImage, null);
-            
+            li.setURL(path);
         }catch (IOException ex) {
             AppDialogsFacade.showMessageDialog(app.getGUIModule().getWindow(),INVALID_IMAGE_TITLE, IO_IMAGE_EXCEPTION_CONTENT);
         }        
@@ -301,10 +311,10 @@ public class Site {
         Button LeftFooterImageButton = (Button)app.getGUIModule().getGUINode(SITE_STYLE_LEFT_FOOTER_BUTTON);
         Button RightFooterImageButton = (Button)app.getGUIModule().getGUINode(SITE_STYLE_RIGHT_FOOTER_BUTTON);
  
-        FaviconButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_FAVICON_IMAGEVIEW);});
-        NavbarImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_NAVBAR_IMAGEVIEW);});
-        LeftFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_LEFT_IMAGEVIEW);});
-        RightFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_RIGHT_IMAGEVIEW);});
+        FaviconButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW);});
+        NavbarImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW);});
+        LeftFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW);});
+        RightFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW);});
     }
     
     private void initFoolproofDesign() {
@@ -328,10 +338,10 @@ public class Site {
        ((CheckBox)gui.getGUINode(SITE_PAGE_HWS_CHECKBOX)).setSelected(false);
        
        ((ComboBox)gui.getGUINode(SITE_STYLE_FONT_COLORS_COMBO)).getSelectionModel().select(null);
-       ((ImageView)gui.getGUINode(SITE_STYLE_IMAGE_FAVICON_IMAGEVIEW)).setImage(loadImage(APP_SITE_FAVICON));
-       ((ImageView)gui.getGUINode(SITE_STYLE_IMAGE_NAVBAR_IMAGEVIEW)).setImage(loadImage(APP_SITE_NAVBAR));
-       ((ImageView)gui.getGUINode(SITE_STYLE_IMAGE_LEFT_IMAGEVIEW)).setImage(loadImage(APP_LEFT_FOOTER));
-       ((ImageView)gui.getGUINode(SITE_STYLE_IMAGE_RIGHT_IMAGEVIEW)).setImage(loadImage(APP_RIGHT_FOOTER));
+       ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW)).setImage(loadImage(APP_SITE_FAVICON, SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW));
+       ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW)).setImage(loadImage(APP_SITE_NAVBAR, SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW));
+       ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW)).setImage(loadImage(APP_LEFT_FOOTER, SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW));
+       ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW)).setImage(loadImage(APP_RIGHT_FOOTER, SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW));
        
        ((TextField)gui.getGUINode(SITE_INSTRUCTOR_NAME_TEXTFIELD)).clear();
        ((TextField)gui.getGUINode(SITE_INSTRUCTOR_ROOM_TEXTFIELD)).clear();

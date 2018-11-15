@@ -120,6 +120,8 @@ public class Schedule {
         list.add("Holiday");
         list.add("Lecture");
         list.add("HW");
+        list.add("Recitation");
+        list.add("Reference");
         ComboBox typeCombo = csgBuilder.buildComboBox(CALENDAR_ADD_EDIT_TYPE_COMBO, list, "Options", null, CLASS_INPUT_CONTROL, ENABLED);
         parentPane.add(typeCombo, 1, 1, 2, 1);
         DatePicker dp= csgBuilder.buildDatePicker(CALENDAR_ADD_EDIT_DATE_DATEPICKER, parentPane, 1, 2, 2, 1, CLASS_INPUT_CONTROL, ENABLED);

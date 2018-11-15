@@ -1,0 +1,22 @@
+
+{
+    "site_tab":"",
+    "syllabus_tab":"",
+    "meeting_times_tab":"",
+    "office_hours_tab":{
+        "startHour":"9",
+        "endHour":"20",
+        "undergrad_tas":[
+        ],
+        "grad_tas":[
+            {
+                "name":"grad",
+                "email":"g2@q.com",
+                "type":"Graduate"
+            }
+        ],
+        "officeHours":[
+        ]
+    },
+    "schedule_tab":""
+}

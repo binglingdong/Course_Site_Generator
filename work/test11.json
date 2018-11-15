@@ -1,0 +1,47 @@
+
+{
+    "site_tab":{
+        "subject":"null",
+        "number":"null",
+        "semester":"null",
+        "year":"null",
+        "title":"",
+        "logos":{
+            "favicon":{
+                "src":"./images//SBU.png"
+            },
+            "navbar":{
+                "src":"./images//SBUDarkRedShieldLogo.png"
+            },
+            "bottom_left":{
+                "src":"./images//SBUWhiteShieldLogo.jpg"
+            },
+            "bottom_right":{
+                "src":"./images//SBUCSLogo.png"
+            }
+        },
+        "instructor":{
+            "name":"",
+            "link":"",
+            "email":"",
+            "room":"",
+            "hours":"[\n            { \"day\": \"Tuesday\",     \"time\": \"1:00pm-2:20pm\"    },\n            { \"day\": \"Wednesday\",   \"time\": \"2pm-3pm\"       },\n            { \"day\": \"Thursday\",      \"time\": \"1:00pm-2:20pm\"    }\n]"
+        },
+        "pages":[
+            {
+                "name":"Home",
+                "link":"index.html"
+            }
+        ]
+    },
+    "office_hours_tab":{
+        "startHour":"9",
+        "endHour":"20",
+        "undergrad_tas":[
+        ],
+        "grad_tas":[
+        ],
+        "officeHours":[
+        ]
+    }
+}

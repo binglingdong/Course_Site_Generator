@@ -7,10 +7,9 @@ package csg.data;
 
 import djf.components.AppDataComponent;
 import csg.CourseSiteGeneratorApp;
-import static csg.OfficeHoursPropertyType.OH_OFFICE_HOURS_END_TIME_COMBO;
-import static csg.OfficeHoursPropertyType.OH_OFFICE_HOURS_START_TIME_COMBO;
-import static csg.OfficeHoursPropertyType.OH_OFFICE_HOURS_TABLE_VIEW;
-import static csg.OfficeHoursPropertyType.OH_TAS_TABLE_VIEW;
+import static csg.MeetingTimePropertyType.*;
+import static csg.OfficeHoursPropertyType.*;
+import static csg.SchedulePropertyType.*;
 import csg.data.TimeSlot.DayOfWeek;
 import djf.modules.AppGUIModule;
 import java.util.ArrayList;
@@ -29,7 +28,6 @@ public class AppData implements AppDataComponent{
     private ObservableList<Lecture> lectures;
     private ObservableList<Recitation> recitations;
     private ObservableList<Lab> labs;
-    
     //OH
     private ObservableList<TeachingAssistantPrototype> teachingAssistants;
     private ObservableList<TimeSlot> officeHours;
@@ -41,9 +39,9 @@ public class AppData implements AppDataComponent{
         // DEFAULT VALUES FOR START AND END HOURS IN MILITARY HOURS
     public static final int MIN_START_HOUR = 9;
     public static final int MAX_END_HOUR = 20;
-    
     //SCHEDULE
-    
+    private ObservableList<ScheduleItem> scheduleItem;
+   
     
     
     public AppData(CourseSiteGeneratorApp app){
@@ -53,7 +51,15 @@ public class AppData implements AppDataComponent{
         // CONSTRUCT THE LIST OF TAs FOR THE TABLE
         TableView<TeachingAssistantPrototype> taTableView = (TableView)gui.getGUINode(OH_TAS_TABLE_VIEW);
         teachingAssistants = taTableView.getItems();
-
+        TableView<ScheduleItem> scheduleTableView = (TableView)gui.getGUINode(CALENDAR_SCHEDULE_ITEMS_TABLEVIEW);
+        scheduleItem = scheduleTableView.getItems();
+        TableView<Lecture> lecTableView = (TableView)gui.getGUINode(MT_LECTURE_TABLEVIEW);
+        lectures = lecTableView.getItems();
+        TableView<Recitation> recTableView = (TableView)gui.getGUINode(MT_REC_TABLEVIEW);
+        recitations = recTableView.getItems();
+        TableView<Lab> labTableView = (TableView)gui.getGUINode(MT_LAB_TABLEVIEW);
+        labs = labTableView.getItems();
+        
         // THESE ARE THE DEFAULT OFFICE HOURS
         startHour = MIN_START_HOUR;
         endHour = MAX_END_HOUR;
@@ -162,7 +168,10 @@ public class AppData implements AppDataComponent{
         endHour = MAX_END_HOUR;
         teachingAssistants.clear();
         TABackup.clear();
-
+        lectures.clear();
+        recitations.clear();
+        labs.clear();
+        
         for (int i = 0; i < officeHours.size(); i++) {
             TimeSlot timeSlot = officeHours.get(i);
             timeSlot.reset();
@@ -342,6 +351,34 @@ public class AppData implements AppDataComponent{
      */
     public void setOHBackup(ArrayList <TimeSlot> OHBackup) {
         this.OHBackup = OHBackup;
+    }
+
+    /**
+     * @return the lectures
+     */
+    public ObservableList<Lecture> getLectures() {
+        return lectures;
+    }
+
+    /**
+     * @return the recitations
+     */
+    public ObservableList<Recitation> getRecitations() {
+        return recitations;
+    }
+
+    /**
+     * @return the labs
+     */
+    public ObservableList<Lab> getLabs() {
+        return labs;
+    }
+
+    /**
+     * @return the scheduleItem
+     */
+    public ObservableList<ScheduleItem> getScheduleItem() {
+        return scheduleItem;
     }
     
 }

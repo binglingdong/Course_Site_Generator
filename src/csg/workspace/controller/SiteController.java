@@ -8,6 +8,7 @@ package csg.workspace.controller;
 import csg.CourseSiteGeneratorApp;
 import static csg.SitePropertyType.INVALID_IMAGE_TITLE;
 import static csg.SitePropertyType.IO_IMAGE_EXCEPTION_CONTENT;
+import csg.data.LocateImages;
 import csg.transaction.Site_EditImageView_Transaction;
 import djf.ui.dialogs.AppDialogsFacade;
 import java.awt.image.BufferedImage;
@@ -30,7 +31,7 @@ public class SiteController {
     }
     
     public void styleButtonsClicked(Object imageViewID){
-        ImageView iv= (ImageView)app.getGUIModule().getGUINode(imageViewID);
+        LocateImages iv= (LocateImages)app.getGUIModule().getGUINode(imageViewID);
         FileChooser fileChooser = new FileChooser();
         
         //Set extension filter
@@ -47,13 +48,15 @@ public class SiteController {
 
         //Show open file dialog
         File file = fileChooser.showOpenDialog(null);
-
+        iv.setURL("");
         try {
             if(file!=null){
+                String path = file.getPath();
                 BufferedImage bufferedImage = ImageIO.read(file);
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                Site_EditImageView_Transaction editSiteImageView_Transaction = new Site_EditImageView_Transaction(image,iv);
+                Site_EditImageView_Transaction editSiteImageView_Transaction = new Site_EditImageView_Transaction(image,iv.getImageView());
                 app.processTransaction(editSiteImageView_Transaction);
+                iv.setURL(path);
             }
         } catch (IOException ex) {
             AppDialogsFacade.showMessageDialog(app.getGUIModule().getWindow(),INVALID_IMAGE_TITLE, IO_IMAGE_EXCEPTION_CONTENT);
