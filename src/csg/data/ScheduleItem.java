@@ -8,6 +8,7 @@ package csg.data;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -30,8 +31,9 @@ public class ScheduleItem {
         this.title= new SimpleStringProperty(title);
         this.topic= new SimpleStringProperty(topic);
         this.link= new SimpleStringProperty(link);
-        DateFormat dateFormat = new SimpleDateFormat("mm/dd/yy");  
-        String dateString = dateFormat.format(date);
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/dd/uu");
+        String dateS = formatters.format(date);
+        dateString = new SimpleStringProperty(dateS);
     }
     
     public String getType() {

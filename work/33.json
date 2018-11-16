@@ -1,10 +1,10 @@
 
 {
     "site_tab":{
-        "subject":"CSE",
+        "subject":"null",
         "number":"null",
-        "semester":"Spring",
-        "year":"",
+        "semester":"null",
+        "year":"null",
         "title":"",
         "logos":{
             "favicon":{
@@ -31,10 +31,6 @@
             {
                 "name":"Home",
                 "link":"index.html"
-            },
-            {
-                "name":"Schedule",
-                "link":"schedule.html"
             }
         ]
     },
@@ -65,6 +61,28 @@
         "grad_tas":[
         ],
         "officeHours":[
+        ]
+    },
+    "schedule_tab":{
+        "startingMondayMonth":"",
+        "startingMondayDay":"",
+        "startingFridayMonth":"",
+        "startingFridayDays":"",
+        "holidays":[
+            {
+                "month":11,
+                "day":27,
+                "title":"",
+                "link":""
+            }
+        ],
+        "lectures":[
+        ],
+        "references":[
+        ],
+        "recitations":[
+        ],
+        "hws":[
         ]
     }
 }

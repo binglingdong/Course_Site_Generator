@@ -53,9 +53,7 @@ public class Syllabus {
         TextArea academicDisTextArea = csgBuilder.buildTextArea(SYLLABUS_ACADEMIC_DIS_TEXTAREA, null, CLASS_INPUT_CONTROL, ENABLED);
         TextArea specialAssisTextArea = csgBuilder.buildTextArea(SYLLABUS_SPECIAL_ASSISTANCE_TEXTAREA, null, CLASS_INPUT_CONTROL, ENABLED);
         
-        
-        
-        
+       
         TitledPane desTitledPane = csgBuilder.buildTitledPane(SYLLABUS_DES_TITLEDPANE, mainPane2, CLASS_TITILEDPANE, ENABLED);
         desTitledPane.setContent(desTextArea);
         TitledPane topicTitledPane = csgBuilder.buildTitledPane(SYLLABUS_TOPICS_TITLEDPANE, mainPane2, CLASS_TITILEDPANE, ENABLED);

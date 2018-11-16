@@ -1,14 +1,14 @@
 
 {
     "site_tab":{
-        "subject":"CSE",
-        "number":"null",
-        "semester":"Spring",
-        "year":"",
-        "title":"",
+        "subject":"abc",
+        "number":"2018",
+        "semester":"Fall",
+        "year":"2018",
+        "title":"bing",
         "logos":{
             "favicon":{
-                "src":"./images//SBU.png"
+                "src":""
             },
             "navbar":{
                 "src":"./images//SBUDarkRedShieldLogo.png"
@@ -21,11 +21,11 @@
             }
         },
         "instructor":{
-            "name":"",
-            "link":"",
-            "email":"",
-            "room":"",
-            "hours":""
+            "name":"a",
+            "link":"d",
+            "email":"c",
+            "room":"b",
+            "hours":"abc"
         },
         "pages":[
             {
@@ -33,21 +33,29 @@
                 "link":"index.html"
             },
             {
+                "name":"Syllabus",
+                "link":"syllabus.html"
+            },
+            {
                 "name":"Schedule",
                 "link":"schedule.html"
+            },
+            {
+                "name":"HWs",
+                "link":"hws.html"
             }
         ]
     },
     "syllabus_tab":{
-        "description":"",
-        "topics":"",
-        "prerequisites":"",
-        "outcomes":"",
-        "textbooks":"",
-        "gradedComponents":"",
-        "gradingNote":"",
-        "academicDishonesty":"",
-        "specialAssistance":""
+        "description":"a",
+        "topics":"b",
+        "prerequisites":"c",
+        "outcomes":"d",
+        "textbooks":"e",
+        "gradedComponents":"f",
+        "gradingNote":"g",
+        "academicDishonesty":"h",
+        "specialAssistance":"i"
     },
     "meeting_times_tab":{
         "lectures":[

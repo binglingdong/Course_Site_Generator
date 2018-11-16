@@ -5,6 +5,8 @@
  */
 package csg.transaction;
 
+import csg.data.AppData;
+import csg.data.Lecture;
 import jtps.jTPS_Transaction;
 
 /**
@@ -12,15 +14,22 @@ import jtps.jTPS_Transaction;
  * @author bingling.dong
  */
 public class MT_AddLectures_Transaction implements jTPS_Transaction{
-
+    AppData data;
+    Lecture newLec;
+    
+    public MT_AddLectures_Transaction(AppData data, Lecture newLec){
+        this.data = data;
+        this.newLec= newLec;
+    }
+    
     @Override
     public void doTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.addLecture(newLec);
     }
 
     @Override
     public void undoTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.removeLecture(newLec);
     }
     
 }

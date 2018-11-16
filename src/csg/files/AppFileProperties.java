@@ -81,7 +81,7 @@ public class AppFileProperties {
     static final String JSON_STARTING_MONDAY_MONTH = "startingMondayMonth";
     static final String JSON_STARTING_MONDAY_DAY = "startingMondayDay";
     static final String JSON_STARTING_FRIDAY_MONTH = "startingFridayMonth";
-    static final String JSON_STARTING_FRIDAY_DAY = "startingFridayMonth";
+    static final String JSON_STARTING_FRIDAY_DAY = "startingFridayDays";
     static final String JSON_HOLIDAYS = "holidays";
     static final String JSON_LECTURES = "lectures";
     static final String JSON_REFERENCE = "references";

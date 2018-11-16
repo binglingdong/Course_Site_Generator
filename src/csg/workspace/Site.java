@@ -107,7 +107,6 @@ public class Site {
         listForSubject.add("ISE");
         ComboBox subjectCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_SUBJECT_COMBO, listForSubject, "CSE", parentPane, 1, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         subjectCombo.setEditable(true);
-        updateComboBox(subjectCombo);
         
         csgBuilder.buildLabel(SITE_BANNER_COURSE_NUMBER_LABEL, parentPane, 2, 1, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> listForNumber = new ArrayList<>();
@@ -115,7 +114,6 @@ public class Site {
         listForNumber.add("220");
         ComboBox numberCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_NUMBER_COMBO, listForNumber, "219", parentPane, 3, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         numberCombo.setEditable(true);
-        updateComboBox(numberCombo);
         
         //Second line of the gui
         csgBuilder.buildLabel(SITE_BANNER_COURSE_SEMESTER_LABEL, parentPane, 0, 2, 1, 1, CLASS_MINOR_LABELS, ENABLED);
@@ -126,7 +124,6 @@ public class Site {
         listForSemester.add("Summer");
         ComboBox semesterCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_SEMESTER_COMBO, listForSemester, "Fall", parentPane, 1, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         semesterCombo.setEditable(true);
-        updateComboBox(semesterCombo);
         
         csgBuilder.buildLabel(SITE_BANNER_COURSE_YEAR_LABEL, parentPane, 2, 2, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> listForYear = new ArrayList<>();
@@ -134,8 +131,6 @@ public class Site {
         listForYear.add(currentYear+"");
         listForYear.add(currentYear+1+"");
         ComboBox yearCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_YEAR_COMBO, listForYear, currentYear+"", parentPane, 3, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
-        yearCombo.setEditable(true);
-        updateComboBox(yearCombo);
         
         csgBuilder.buildLabel(SITE_BANNER_COURSE_TITLE_LABEL, parentPane, 0, 3, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         TextField titleTextField = csgBuilder.buildTextField(SITE_BANNER_COURSE_TITLE_TEXTFIELD, parentPane, 1, 3, 2, 1, CLASS_INPUT_CONTROL, ENABLED);
@@ -223,6 +218,7 @@ public class Site {
                 cssSheets.getItems().add(file.getName());
             }
         }
+        cssSheets.getSelectionModel().clearSelection();
     }
     
     //GridPane is in the parameter
@@ -253,23 +249,11 @@ public class Site {
         
     }
     
-    private void updateComboBox(ComboBox combo){
-        combo.getEditor().focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                String newValue = combo.getEditor().getText();
-                combo.setValue(newValue);
-                if(!combo.getItems().contains(newValue)&& !newValue.equals("")){
-                    combo.getItems().add(combo.getEditor().getText());
-                }
-            }
-        });
-    }
     
     private Image loadImage(Object imageId, Object locateImageView){
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         LocateImages li = (LocateImages)app.getGUIModule().getGUINode(locateImageView);
         Image image= null;
-        li.setURL("");
         try {
             String fileName = props.getProperty(imageId);
             String path = props.getProperty(APP_PATH_IMAGES) + "/" + fileName;
@@ -326,10 +310,13 @@ public class Site {
     
     public void reset(){
        AppGUIModule gui= app.getGUIModule();
-       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getSelectionModel().select(null);
-       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO)).getSelectionModel().select(null);
-       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SEMESTER_COMBO)).getSelectionModel().select(null);
-       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_YEAR_COMBO)).getSelectionModel().select(null);
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getSelectionModel().clearSelection();
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getEditor().clear();
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO)).getSelectionModel().clearSelection();
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO)).getEditor().clear();
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SEMESTER_COMBO)).getSelectionModel().clearSelection();
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SEMESTER_COMBO)).getEditor().clear();
+       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_YEAR_COMBO)).getSelectionModel().clearSelection();
        ((TextField)gui.getGUINode(SITE_BANNER_COURSE_TITLE_TEXTFIELD)).clear();
        
        ((CheckBox)gui.getGUINode(SITE_PAGE_HOME_CHECKBOX)).setSelected(true);

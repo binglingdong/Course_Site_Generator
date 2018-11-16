@@ -210,6 +210,38 @@ public class AppData implements AppDataComponent{
         // AND REMOVE THE TA FROM ALL THEIR OFFICE HOURS
     }
     
+    public void addLecture(Lecture lec){
+        lectures.add(lec);
+    }
+    
+    public void addRec(Recitation rec){
+        recitations.add(rec);
+    }
+    
+    public void addLab(Lab lab){
+        labs.add(lab);
+    }
+    
+    public void removeLecture(Lecture lec){
+        lectures.remove(lec);
+    }
+    
+    public void removeRec(Recitation rec){
+        recitations.remove(rec);
+    }
+    
+    public void removeLab(Lab lab){
+        labs.remove(lab);
+    }
+    
+    public void addScheduleItem(ScheduleItem item){
+        scheduleItem.add(item);
+    }
+    
+    public void removeScheduleItem(ScheduleItem item){
+        scheduleItem.remove(item);
+    }
+    
     public boolean isDayOfWeekColumn(int columnNumber) {
         return columnNumber >= 2;
     }

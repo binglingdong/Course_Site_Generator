@@ -19,12 +19,12 @@ public class Recitation {
     private StringProperty TA1;
     private StringProperty TA2;
     
-    public Recitation(String sec, String time, String room, TeachingAssistantPrototype TA1, TeachingAssistantPrototype TA2){
+    public Recitation(String sec, String time, String room, String TA1, String TA2){
         section = new SimpleStringProperty(sec);
         this.dayAndTime= new SimpleStringProperty(time);
         this.room= new SimpleStringProperty(room);
-        this.TA1= new SimpleStringProperty(TA1.getName());
-        this.TA2= new SimpleStringProperty(TA2.getName());
+        this.TA1= new SimpleStringProperty(TA1);
+        this.TA2= new SimpleStringProperty(TA2);
     }
     
     public String getSection() {

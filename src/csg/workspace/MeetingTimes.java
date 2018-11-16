@@ -7,6 +7,10 @@ package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
 import static csg.MeetingTimePropertyType.*;
+import csg.data.Lab;
+import csg.data.Lecture;
+import csg.data.Recitation;
+import csg.workspace.controller.MTController;
 import static csg.workspace.style.Style.*;
 import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
@@ -37,6 +41,7 @@ public class MeetingTimes {
     public void initLayout(){
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         ScrollPane sp = csgBuilder.buildScrollPane("", null, CLASS_PANES_BACKGROUND, ENABLED);
+        MTController controller = new MTController((CourseSiteGeneratorApp) app);
         
         VBox mainPane=  csgBuilder.buildVBox(MT_Pane, null, CLASS_PANES_BACKGROUND, ENABLED);
         mainPane.setSpacing(10);
@@ -55,9 +60,15 @@ public class MeetingTimes {
         Button addLecture= csgBuilder.buildTextButton(MT_ADD_LECUTRE_BUTTON, hb1, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         Button removeLecture= csgBuilder.buildTextButton(MT_REMOVE_LECTURE_BUTTON, hb1, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         csgBuilder.buildLabel(MT_LECUTRE_LABEL, hb1, CLASS_MINOR_LABELS, ENABLED);
-        TableView lectures = csgBuilder.buildTableView(MT_LECTURE_TABLEVIEW, vb1, CLASS_TABLEVIEW, ENABLED);
+        TableView<Lecture> lectures = csgBuilder.buildTableView(MT_LECTURE_TABLEVIEW, vb1, CLASS_TABLEVIEW, ENABLED);
         VBox.setVgrow(lectures, Priority.ALWAYS);
         initLectureTable(lectures);
+        addLecture.setOnAction(e->{
+            controller.processAddLecture();
+        });
+        removeLecture.setOnAction(e->{
+            controller.processRemoveLecture();
+        });
         
         //RECITATION PANE
         HBox hb2 =csgBuilder.buildHBox("", vb2, CLASS_PANES_FOREGROUND, ENABLED);
@@ -66,9 +77,15 @@ public class MeetingTimes {
         Button addRec= csgBuilder.buildTextButton(MT_ADD_REC_BUTTON, hb2, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         Button removeRec= csgBuilder.buildTextButton(MT_REMOVE_REC_BUTTON, hb2, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         csgBuilder.buildLabel(MT_REC_LABEL, hb2, CLASS_MINOR_LABELS, ENABLED);
-        TableView recitations = csgBuilder.buildTableView(MT_REC_TABLEVIEW, vb2, CLASS_TABLEVIEW, ENABLED);
+        TableView<Recitation> recitations = csgBuilder.buildTableView(MT_REC_TABLEVIEW, vb2, CLASS_TABLEVIEW, ENABLED);
         initRecTable(recitations);
         VBox.setVgrow(recitations, Priority.ALWAYS);  
+        addRec.setOnAction(e->{
+            controller.processAddRec();
+        });
+        removeRec.setOnAction(e->{
+            controller.processRemoveRec();
+        });
         
         //LAB PANE
         HBox hb3 =csgBuilder.buildHBox("", vb3, CLASS_PANES_FOREGROUND, ENABLED);
@@ -77,9 +94,16 @@ public class MeetingTimes {
         Button addLab= csgBuilder.buildTextButton(MT_ADD_LAB_BUTTON, hb3, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         Button removeLab= csgBuilder.buildTextButton(MT_REMOVE_LAB_BUTTON, hb3, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         csgBuilder.buildLabel(MT_LAB_LABEL, hb3, CLASS_MINOR_LABELS, ENABLED);
-        TableView labs = csgBuilder.buildTableView(MT_LAB_TABLEVIEW, vb3, CLASS_TABLEVIEW, ENABLED);
+        TableView<Lab> labs = csgBuilder.buildTableView(MT_LAB_TABLEVIEW, vb3, CLASS_TABLEVIEW, ENABLED);
         initLabTable(labs);
         VBox.setVgrow(labs, Priority.ALWAYS);
+        addLab.setOnAction(e->{
+            controller.processAddLab();
+        });
+        removeLab.setOnAction(e->{
+            controller.processRemoveLab();
+        });
+        
         
         sp.setFitToWidth(true);
         sp.setFitToHeight(true);

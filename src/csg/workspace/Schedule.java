@@ -7,6 +7,7 @@ package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
 import static csg.SchedulePropertyType.*;
+import csg.workspace.controller.ScheduleController;
 import static csg.workspace.style.Style.*;
 import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
@@ -68,7 +69,6 @@ public class Schedule {
         mainPane.setFitToWidth(true);
         mainPane.setContent(foregroundPane);
         ScheduleTab.setContent(mainPane);
-        
     }
     
     public void initCalendarPane(GridPane parentPane){
@@ -78,6 +78,7 @@ public class Schedule {
         csgBuilder.buildLabel(CALENDAR_BOUNDARIES_ENDING_LABEL, parentPane, 3, 1, 1, 1, CLASS_LABEL_BACKGROUND, ENABLED);
         DatePicker startingDate = csgBuilder.buildDatePicker(CALENDAR_BOUNDARIES_STARTING_DATEPICKER, parentPane, 1, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         DatePicker endingDate = csgBuilder.buildDatePicker(CALENDAR_BOUNDARIES_ENDING_DATEPICKER, parentPane, 4, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        
     }
     
     public void initScheduleItemsPane(VBox parentPane){
@@ -94,7 +95,7 @@ public class Schedule {
         typeTableColumn.prefWidthProperty().bind(scheudleItemsTableView.widthProperty().multiply(1.0/5.0));
         
         TableColumn dateTableColumn = csgBuilder.buildTableColumn(CALENDAR_SCHEUDLE_ITMES_DATE_COLUMN, scheudleItemsTableView, CLASS_TABLE_COLUMNS);
-        dateTableColumn.setCellValueFactory(new PropertyValueFactory<String, String>("date"));
+        dateTableColumn.setCellValueFactory(new PropertyValueFactory<String, String>("dateString"));
         dateTableColumn.prefWidthProperty().bind(scheudleItemsTableView.widthProperty().multiply(1.0/5.0));
         
         TableColumn titleTableColumn = csgBuilder.buildTableColumn(CALENDAR_SCHEUDLE_ITMES_TITLE_COLUMN, scheudleItemsTableView, CLASS_TABLE_COLUMNS);
@@ -107,6 +108,7 @@ public class Schedule {
     }
     
     public void initAddAndEditPane(GridPane parentPane){
+        ScheduleController controller = new ScheduleController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         csgBuilder.buildLabel(CALENDAR_ADD_EDIT_LABEL, parentPane, 0, 0, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         csgBuilder.buildLabel(CALENDAR_ADD_EDIT_TYPE_LABEL, parentPane, 0, 1, 1, 1, CLASS_MINOR_LABELS, ENABLED);
@@ -133,13 +135,17 @@ public class Schedule {
         Button clearButton = csgBuilder.buildTextButton(CALENDAR_CLEAR_BUTTON, parentPane, 2, 6, 2, 1, CLASS_SCHEDULE_BUTTONS, ENABLED);
         addOrUpdateButton.prefWidthProperty().bind(parentPane.widthProperty().multiply(0.15));
         clearButton.prefWidthProperty().bind(parentPane.widthProperty().multiply(0.13));
+        
+        addOrUpdateButton.setOnAction(e->{
+            controller.processAdd();
+        });
     }
     
     
     ///////////////////////////// STILL NEED MORE IMPLEMENTATION/////////////////////////////
     public void reset(){
         AppGUIModule gui= app.getGUIModule();
-        ((ComboBox)gui.getGUINode(CALENDAR_ADD_EDIT_TYPE_COMBO)).getSelectionModel().select("Option");
+        ((ComboBox)gui.getGUINode(CALENDAR_ADD_EDIT_TYPE_COMBO)).getSelectionModel().select("Options");
         ((TextField)gui.getGUINode(CALENDAR_ADD_EDIT_TITLE_TEXTFIELD)).clear();
         ((TextField)gui.getGUINode(CALENDAR_ADD_EDIT_TOPIC_TEXTFIELD)).clear();
         ((TextField)gui.getGUINode(CALENDAR_ADD_EDIT_LINK_TEXTFIELD)).clear();

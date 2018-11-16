@@ -1,10 +1,10 @@
 
 {
     "site_tab":{
-        "subject":"CSE",
+        "subject":"",
         "number":"null",
-        "semester":"Spring",
-        "year":"",
+        "semester":"null",
+        "year":"null",
         "title":"",
         "logos":{
             "favicon":{
@@ -31,10 +31,6 @@
             {
                 "name":"Home",
                 "link":"index.html"
-            },
-            {
-                "name":"Schedule",
-                "link":"schedule.html"
             }
         ]
     },

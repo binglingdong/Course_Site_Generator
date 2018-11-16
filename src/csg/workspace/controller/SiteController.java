@@ -48,7 +48,6 @@ public class SiteController {
 
         //Show open file dialog
         File file = fileChooser.showOpenDialog(null);
-        iv.setURL("");
         try {
             if(file!=null){
                 String path = file.getPath();

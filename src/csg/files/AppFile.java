@@ -45,6 +45,7 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
@@ -179,7 +180,6 @@ public class AppFile implements AppFileComponent {
         CheckBox sylCB = (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_SYLLABUS_CHECKBOX);
         CheckBox schCB = (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_SCHEDULE_CHECKBOX);
         CheckBox hwCB = (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_HWS_CHECKBOX);
-        //ComboBox fontColorCombo = (ComboBox)app.getGUIModule().getGUINode(SITE_STYLE_FONT_COLORS_COMBO);
         LocateImages fav = (LocateImages)app.getGUIModule().getGUINode(SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW);
         LocateImages nav = (LocateImages)app.getGUIModule().getGUINode(SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW);
         LocateImages left = (LocateImages)app.getGUIModule().getGUINode(SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW);
@@ -358,14 +358,29 @@ public class AppFile implements AppFileComponent {
         AppGUIModule gui = app.getGUIModule();
         DatePicker startingDate = (DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_STARTING_DATEPICKER);
         DatePicker endingDate = (DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_ENDING_DATEPICKER);
+        JsonObjectBuilder ScheduleTabBuilder = Json.createObjectBuilder();
+        if(startingDate.getValue()!=null){
+            ScheduleTabBuilder.add(JSON_STARTING_MONDAY_MONTH, startingDate.getValue().getMonthValue())
+                              .add(JSON_STARTING_MONDAY_DAY, startingDate.getValue().getDayOfMonth());
+        }else{
+            ScheduleTabBuilder.add(JSON_STARTING_MONDAY_MONTH, "")
+                              .add(JSON_STARTING_MONDAY_DAY, "");
+        }
+        if(endingDate.getValue()!=null){
+            ScheduleTabBuilder.add(JSON_STARTING_FRIDAY_MONTH, endingDate.getValue().getMonthValue())
+                              .add(JSON_STARTING_FRIDAY_DAY, endingDate.getValue().getDayOfMonth());
+        }else{
+            ScheduleTabBuilder.add(JSON_STARTING_FRIDAY_MONTH, "")
+                              .add(JSON_STARTING_FRIDAY_DAY, "");
+        }
         
         JsonArrayBuilder holidays = Json.createArrayBuilder();
         JsonArrayBuilder lectures = Json.createArrayBuilder();
         JsonArrayBuilder references = Json.createArrayBuilder();
         JsonArrayBuilder recitations = Json.createArrayBuilder();
         JsonArrayBuilder hws = Json.createArrayBuilder();
-        ObservableList<ScheduleItem> scheduleItems = dataManager.getScheduleItem();
         
+        ObservableList<ScheduleItem> scheduleItems = dataManager.getScheduleItem();
         for(ScheduleItem item: scheduleItems){
             switch(item.getType()){
                 case "Holiday": buildScheduleArray(holidays,item);
@@ -382,13 +397,14 @@ public class AppFile implements AppFileComponent {
             }
         }
         
-        JsonObject ScheduleTab = Json.createObjectBuilder()
-		.add(JSON_STARTING_MONDAY_MONTH, startingDate.getValue().getMonthValue())
-		.add(JSON_STARTING_MONDAY_DAY, startingDate.getValue().getDayOfMonth())
-                .add(JSON_STARTING_FRIDAY_MONTH, endingDate.getValue().getMonthValue())
-                .add(JSON_STARTING_FRIDAY_DAY, endingDate.getValue().getDayOfMonth())
-               // .add(JSON_OH_OFFICE_HOURS, officeHour)
-		.build();
+        ScheduleTabBuilder
+                .add(JSON_HOLIDAYS, holidays.build())
+                .add(JSON_LECTURES, lectures.build())
+                .add(JSON_REFERENCE, references.build())
+                .add(JSON_RECITATIONS, recitations.build())
+                .add(JSON_HWS, hws.build());
+        
+        JsonObject ScheduleTab= ScheduleTabBuilder.build();
         return ScheduleTab;
     }
     
@@ -400,6 +416,15 @@ public class AppFile implements AppFileComponent {
                 .add(JSON_SCHEDULE_LINK, item.getLink()).build();
         thisArray.add(newObject);
     }
+    
+//    private void saveItemsInComboBox(ComboBox combo){
+//        ComboBoxItems.txt
+//        String newValue = combo.getEditor().getText();
+//        combo.setValue(newValue);
+//        if(!combo.getItems().contains(newValue)&& !newValue.equals("")){
+//            combo.getItems().add(combo.getEditor().getText());
+//        }
+//    }
     
     // IMPORTING/EXPORTING DATA IS USED WHEN WE READ/WRITE DATA IN AN
     // ADDITIONAL FORMAT USEFUL FOR ANOTHER PURPOSE, LIKE ANOTHER APPLICATION

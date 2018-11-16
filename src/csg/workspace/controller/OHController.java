@@ -9,7 +9,6 @@ import csg.CourseSiteGeneratorApp;
 import static csg.OfficeHoursPropertyType.*;
 import csg.data.AppData;
 import csg.data.TeachingAssistantPrototype;
-import csg.data.TimeSlot;
 import csg.transaction.OH_AddTA_Transaction;
 import csg.transaction.OH_ChangeTimeRange_Transaction;
 import csg.transaction.OH_RemoveTA_Transaction;

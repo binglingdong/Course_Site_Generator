@@ -5,6 +5,8 @@
  */
 package csg.transaction;
 
+import csg.data.AppData;
+import csg.data.Lab;
 import jtps.jTPS_Transaction;
 
 /**
@@ -12,15 +14,22 @@ import jtps.jTPS_Transaction;
  * @author bingling.dong
  */
 public class MT_AddLab_Transaction implements jTPS_Transaction{
-
+    AppData data;
+    Lab newLab;
+    
+    public MT_AddLab_Transaction(AppData data, Lab newLab){
+        this.data = data;
+        this.newLab = newLab;
+    }
+    
     @Override
     public void doTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.addLab(newLab);
     }
 
     @Override
     public void undoTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.removeLab(newLab);
     }
     
 }
