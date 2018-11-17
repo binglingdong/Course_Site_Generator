@@ -10,6 +10,9 @@ import csg.CourseSiteGeneratorApp;
 import static csg.MeetingTimePropertyType.*;
 import static csg.OfficeHoursPropertyType.*;
 import static csg.SchedulePropertyType.*;
+import static csg.SitePropertyType.SITE_BANNER_COURSE_NUMBER_COMBO;
+import static csg.SitePropertyType.SITE_BANNER_COURSE_SEMESTER_COMBO;
+import static csg.SitePropertyType.SITE_BANNER_COURSE_SUBJECT_COMBO;
 import csg.data.TimeSlot.DayOfWeek;
 import djf.modules.AppGUIModule;
 import java.util.ArrayList;
@@ -171,6 +174,7 @@ public class AppData implements AppDataComponent{
         lectures.clear();
         recitations.clear();
         labs.clear();
+        scheduleItem.clear();
         
         for (int i = 0; i < officeHours.size(); i++) {
             TimeSlot timeSlot = officeHours.get(i);
@@ -342,7 +346,7 @@ public class AppData implements AppDataComponent{
             default:                               
         }
     }
-    
+      
     /**
     * @return the teachingAssistants
     */

@@ -25,8 +25,11 @@ import static csg.files.AppFileProperties.*;
 import csg.workspace.MainWorkspace;
 import csg.workspace.OfficeHours;
 import djf.modules.AppGUIModule;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -35,12 +38,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Scanner;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -50,6 +57,7 @@ import javax.json.JsonReader;
 import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
+import properties_manager.PropertiesManager;
 
 /**
  *
@@ -68,12 +76,98 @@ public class AppFile implements AppFileComponent {
 	// CLEAR THE OLD DATA OUT
 	AppData dataManager = (AppData)data;
         dataManager.reset();
-        MainWorkspace workspace= (MainWorkspace)app.getWorkspaceComponent();
-        OfficeHours ohws = workspace.getOh();
- 
+        app.getWorkspaceComponent().reset();
 	// LOAD THE JSON FILE WITH ALL THE DATA
 	JsonObject json = loadJSONFile(filePath);
-
+        
+        //LOAD ALL THE TABS SEPAREATELY
+        loadSite(json.getJsonObject(JSON_SITE_TAB));
+        //loadSyllabus(json.getJsonObject(JSON_SYLLABUS_TAB));
+        //loadMT(json.getJsonObject(JSON_MT_TAB), dataManager);
+        //loadOH(json.getJsonObject(JSON_OH_TAB), dataManager);
+        //loadSch(json.getJsonObject(JSON_SCHEDULE_TAB), dataManager);
+    }
+     
+    public void loadSite(JsonObject json) throws IOException{
+        AppGUIModule gui= app.getGUIModule();
+        
+        String subject = json.getString(JSON_SITE_SUBJECT);
+        String number = json.getString(JSON_SITE_NUMBER);
+        String semester = json.getString(JSON_SITE_SEMESTER);
+        String year = json.getString(JSON_SITE_YEAR);
+        String title = json.getString(JSON_SITE_TITLE);
+        
+        if(!subject.equals("")&&!subject.equals("null")){
+            ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getSelectionModel().select(subject);
+        }
+        if(!number.equals("")&&!number.equals("null")){
+            ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO)).getSelectionModel().select(number);
+        }
+        if(!semester.equals("")&&!semester.equals("null")){
+            ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SEMESTER_COMBO)).getSelectionModel().select(semester);
+        }
+        if(!year.equals("")&&!year.equals("null")){
+            ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_YEAR_COMBO)).getSelectionModel().select(year);
+        }
+        ((TextField)gui.getGUINode(SITE_BANNER_COURSE_TITLE_TEXTFIELD)).setText(title);
+        
+        JsonArray pagesArray = json.getJsonArray(JSON_SITE_PAGES);
+        ((CheckBox)gui.getGUINode(SITE_PAGE_HOME_CHECKBOX)).setSelected(false);
+        for(int i=0; i<pagesArray.size(); i++){
+            JsonObject page = pagesArray.getJsonObject(i);
+            String name = page.getString(JSON_SITE_NAME);
+            switch(name){
+                case JSON_SITE_PAGES_HOME: ((CheckBox)gui.getGUINode(SITE_PAGE_HOME_CHECKBOX)).setSelected(true);
+                    break;
+                case JSON_SITE_PAGES_SYLLABUS:((CheckBox)gui.getGUINode(SITE_PAGE_SYLLABUS_CHECKBOX)).setSelected(true);
+                    break;
+                case JSON_SITE_PAGES_SCHEDULE: ((CheckBox)gui.getGUINode(SITE_PAGE_SCHEDULE_CHECKBOX)).setSelected(true);
+                    break;
+                case JSON_SITE_PAGES_HWS: ((CheckBox)gui.getGUINode(SITE_PAGE_HWS_CHECKBOX)).setSelected(true); 
+                    break;
+            }
+        }
+        
+        JsonObject logoImages = json.getJsonObject(JSON_SITE_LOGOS);
+        JsonObject favicon = logoImages.getJsonObject(JSON_SITE_FAVICON);
+        String faviconPath = favicon.getString("src");
+        ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW)).setImage(loadImage(faviconPath,SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW));
+        
+        JsonObject navbar = logoImages.getJsonObject(JSON_SITE_NAVBAR);
+        String navbarPath = navbar.getString("src");
+        ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW)).setImage(loadImage(navbarPath, SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW));
+        
+        JsonObject left = logoImages.getJsonObject(JSON_SITE_BOTTOM_LEFT);
+        String leftPath = left.getString("src");
+        ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW)).setImage(loadImage(leftPath, SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW));
+        
+        JsonObject right = logoImages.getJsonObject(JSON_SITE_BOTTOM_RIGHT);
+        String rightPath = right.getString("src");
+        ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW)).setImage(loadImage(rightPath, SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW));
+        
+        JsonObject instructorObject = json.getJsonObject(JSON_SITE_INSTRUCTOR);
+        String inName = instructorObject.getString(JSON_SITE_NAME);
+        String inLink = instructorObject.getString(JSON_SITE_LINK);
+        String inEmail = instructorObject.getString(JSON_SITE_EMAIL);
+        String inRoom = instructorObject.getString(JSON_SITE_ROOM);
+        String inHours = instructorObject.getString(JSON_SITE_HOURS);
+        
+        
+        ((TextField)gui.getGUINode(SITE_INSTRUCTOR_NAME_TEXTFIELD)).setText(inName);
+        ((TextField)gui.getGUINode(SITE_INSTRUCTOR_ROOM_TEXTFIELD)).setText(inRoom);
+        ((TextField)gui.getGUINode(SITE_INSTRUCTOR_EMAIL_TEXTFIELD)).setText(inEmail);
+        ((TextField)gui.getGUINode(SITE_INSTRUCTOR_HOMEPAGE_TEXTFIELD)).setText(inLink);
+        ((TextArea)gui.getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA)).setText(inHours);
+    }
+    public void loadSyllabus(JsonObject json){
+        
+    }
+    public void loadMT(JsonObject json, AppData dataManager){
+        
+    }
+    public void loadOH(JsonObject json, AppData dataManager){
+        MainWorkspace workspace= (MainWorkspace)app.getWorkspaceComponent();
+        OfficeHours ohws = workspace.getOh();
 	// LOAD THE START AND END HOURS
 	String startHour = json.getString(JSON_OH_START_HOUR);
         String endHour = json.getString(JSON_OH_END_HOUR);
@@ -81,7 +175,6 @@ public class AppFile implements AppFileComponent {
 
         // NOW LOAD ALL THE UNDERGRAD TAs
         ArrayList<TeachingAssistantPrototype> copyTAs= dataManager.getTABackup();
-//        ArrayList <TimeSlot> copyOH= ohws.getCopyOH();
         JsonArray jsonUnderTAArray = json.getJsonArray(JSON_OH_UNDERGRAD_TAS);
         
         for (int i = 0; i < jsonUnderTAArray.size(); i++) {
@@ -125,8 +218,11 @@ public class AppFile implements AppFileComponent {
         ohws.updateTaTableForRadio(dataManager.getTeachingAssistants());
         ohws.resetOHToMatchTA(dataManager,dataManager.getOfficeHours());
         ohws.removeOHToMatchTA(dataManager, dataManager.getTeachingAssistants(), dataManager.getOfficeHours());
+    
     }
-      
+    public void loadSch(JsonObject json, AppData dataManager){
+        
+    }
     // HELPER METHOD FOR LOADING DATA FROM A JSON FORMAT
     private JsonObject loadJSONFile(String jsonFilePath) throws IOException {
 	InputStream is = new FileInputStream(jsonFilePath);
@@ -137,6 +233,15 @@ public class AppFile implements AppFileComponent {
 	return json;
     }
 
+    private Image loadImage(String path, Object locateImageView) throws IOException{
+        LocateImages li = (LocateImages)app.getGUIModule().getGUINode(locateImageView);
+        File file = new File(path);
+        BufferedImage bufferedImage = ImageIO.read(file);
+        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        li.setURL(path);
+        return image;
+    }
+    
     @Override
     public void saveData(AppDataComponent data, String filePath) throws IOException {
 	AppData dataManager = (AppData)data;
@@ -168,6 +273,8 @@ public class AppFile implements AppFileComponent {
 	PrintWriter pw = new PrintWriter(filePath);
 	pw.write(prettyPrinted);
 	pw.close();
+        
+        saveItemsInComboBox();
     }
     
     private JsonObject buildJsonSite(AppData dataManager){
@@ -417,14 +524,72 @@ public class AppFile implements AppFileComponent {
         thisArray.add(newObject);
     }
     
-//    private void saveItemsInComboBox(ComboBox combo){
-//        ComboBoxItems.txt
-//        String newValue = combo.getEditor().getText();
-//        combo.setValue(newValue);
-//        if(!combo.getItems().contains(newValue)&& !newValue.equals("")){
-//            combo.getItems().add(combo.getEditor().getText());
-//        }
-//    }
+    public void saveItemsInComboBox() throws IOException{
+        AppGUIModule gui= app.getGUIModule();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String NumberfilePath = props.getProperty(COMBOBOX_ITEMS_PATH_NUM);
+	String SubjectfilePath = props.getProperty(COMBOBOX_ITEMS_PATH_SUB);
+	
+        ComboBox subjectCombo =(ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO);
+        ComboBox courseNumberCombo =(ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO);
+        
+        File numberItems = new File(NumberfilePath);
+        FileWriter numberfw = new FileWriter(numberItems, true);
+        PrintWriter numberpw = new PrintWriter(numberfw);
+        
+        File subjectItems = new File(SubjectfilePath);
+        FileWriter subjectfw = new FileWriter(subjectItems, true);
+        PrintWriter subjectpw = new PrintWriter(subjectfw);
+        
+        String newSubject = subjectCombo.getEditor().getText();
+        String newNumber = courseNumberCombo.getEditor().getText();
+        
+        if(!subjectCombo.getItems().contains(newSubject)&& !newSubject.equals("")){
+            subjectpw.println(newSubject);
+            subjectCombo.getItems().add(newSubject);
+        }
+        if(!courseNumberCombo.getItems().contains(newNumber)&&!newNumber.equals("")){
+            numberpw.println(newNumber);
+            courseNumberCombo.getItems().add(newNumber);
+        }
+        
+        numberpw.close();
+        subjectpw.close();
+    }
+    
+    
+    public void outputItemsInComboBox() throws IOException{
+        AppGUIModule gui= app.getGUIModule();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String NumberfilePath = props.getProperty(COMBOBOX_ITEMS_PATH_NUM);
+	String SubjectfilePath = props.getProperty(COMBOBOX_ITEMS_PATH_SUB);
+	
+        ComboBox subjectCombo =(ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO);
+        ComboBox courseNumberCombo =(ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO);
+        subjectCombo.getItems().clear();
+        courseNumberCombo.getItems().clear();
+        
+        File numberItems = new File(NumberfilePath);
+        
+        File subjectItems = new File(SubjectfilePath);
+        Scanner numberSC = new Scanner(numberItems);
+        while (numberSC.hasNext()) {
+            String numberItem = numberSC.nextLine();
+            if(!courseNumberCombo.getItems().contains(numberItem)&&!numberItem.equals("")){
+                courseNumberCombo.getItems().add(numberItem);
+            }        
+        }
+        
+        Scanner subjectSC = new Scanner(subjectItems);
+        while (subjectSC.hasNext()) {
+            String subjectItem = subjectSC.nextLine();
+            if(!subjectCombo.getItems().contains(subjectItem)&& !subjectItem.equals("")){
+                subjectCombo.getItems().add(subjectItem);
+            }        
+        }
+        numberSC.close();
+        subjectSC.close();
+    }
     
     // IMPORTING/EXPORTING DATA IS USED WHEN WE READ/WRITE DATA IN AN
     // ADDITIONAL FORMAT USEFUL FOR ANOTHER PURPOSE, LIKE ANOTHER APPLICATION

@@ -31,13 +31,13 @@ public class AppFileProperties {
     static final String JSON_SITE_LINK = "link";
     static final String JSON_SITE_EMAIL = "email";
     static final String JSON_SITE_ROOM = "room";
-    static final String JSON_SITE_PHOTO = "photo";
     static final String JSON_SITE_HOURS = "hours";
     static final String JSON_SITE_PAGES = "pages";
     static final String JSON_SITE_PAGES_HOME = "Home";
     static final String JSON_SITE_PAGES_SYLLABUS = "Syllabus";
     static final String JSON_SITE_PAGES_SCHEDULE = "Schedule";
     static final String JSON_SITE_PAGES_HWS = "HWs";
+    
     //SYLLABUS
     static final String JSON_SYL_DES = "description";
     static final String JSON_SYL_TOPICS = "topics";

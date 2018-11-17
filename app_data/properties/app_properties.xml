@@ -9,22 +9,24 @@
 <properties>
     <property_list>        
         <!-- DESKTOP JAVA FRAMEWORK CONTROLS SETTINGS -->
-        <property name="APP_TITLE"	    value="Course Site Generator"></property>
-        <property name="APP_BANNER"         value="CourseSiteGeneratorWelcomeBanner.png"></property>
-	<property name="APP_LOGO"	    value="CourseSiteGeneratorLogo.png"></property>
-        <property name="APP_EXPORT_PAGE"    value="index.html"></property>
-        <property name="APP_HELP_PAGE"      value="Help.html"></property>
-        <property name="APP_ABOUT_PAGE"      value="About.html"></property>
-	<property name="APP_CSS"	    value="oh_style.css"></property>
-        <property name="APP_PATH_CSS"	    value="workspace/style/"></property>
-        <property name="APP_PATH_EXPORT"    value="./export/"></property>
-        <property name="APP_PATH_ICONS"     value="./images/icons/"></property>
-        <property name="APP_PATH_IMAGES"    value="./images/"></property>
-        <property name="APP_PATH_WEB"       value="./app_data/web/"></property>
+        <property name="APP_TITLE"               value="Course Site Generator"></property>
+        <property name="APP_BANNER"              value="CourseSiteGeneratorWelcomeBanner.png"></property>
+	<property name="APP_LOGO"                value="CourseSiteGeneratorLogo.png"></property>
+        <property name="APP_EXPORT_PAGE"         value="index.html"></property>
+        <property name="APP_HELP_PAGE"           value="Help.html"></property>
+        <property name="APP_ABOUT_PAGE"          value="About.html"></property>
+	<property name="APP_CSS"                 value="oh_style.css"></property>
+        <property name="APP_PATH_CSS"            value="workspace/style/"></property>
+        <property name="APP_PATH_EXPORT"         value="./export/"></property>
+        <property name="APP_PATH_ICONS"          value="./images/icons/"></property>
+        <property name="APP_PATH_IMAGES"         value="./images/"></property>
+        <property name="APP_PATH_WEB"            value="./app_data/web/"></property>
         <property name="APP_STIE_STYLE_CSS_PATH" value="./work/css/"></property>
-        <property name="PREF_WIDTH"         value="1200"></property>
-        <property name="PREF_HEIGHT"        value="800"></property>
-        <property name="START_MAXIMIZED"    value="true"></property>
+        <property name="PREF_WIDTH"              value="1200"></property>
+        <property name="PREF_HEIGHT"             value="800"></property>
+        <property name="START_MAXIMIZED"         value="true"></property>
+        <property name="COMBOBOX_ITEMS_PATH_SUB"     value="./app_data/ComboBoxItems_sub.txt"></property>
+        <property name="COMBOBOX_ITEMS_PATH_NUM"     value="./app_data/ComboBoxItems_number.txt"></property>
 
         <!-- TOP TOOLBARS AND CONTROLS TO INCLUDE -->
         <property name="HAS_WELCOME_DIALOG"     value="true"></property>
@@ -58,7 +60,7 @@
         <!-- PROGRAM ICON FILES - FILE TOOLBAR -->        
         <property name="LANGUAGE_BUTTON_ICON"   value="Language.png"></property>
         <property name="HELP_BUTTON_ICON"       value="Help.png"></property>
-        <property name="ABOUT_BUTTON_ICON"       value="About.png"></property>
+        <property name="ABOUT_BUTTON_ICON"      value="About.png"></property>
 
         <!-- PROGRAM ICON FILES - FILE CUT/COPY/PASTE -->
         <property name="CUT_BUTTON_ICON"        value="Cut.png"></property>
