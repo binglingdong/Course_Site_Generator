@@ -13,6 +13,9 @@ import javafx.scene.control.TabPane;
 import properties_manager.PropertiesManager;
 import static csg.workspace.style.Style.*;
 import static csg.CourseSiteGeneratorPropertyType.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 
@@ -127,7 +130,11 @@ public class MainWorkspace extends AppWorkspaceComponent{
 
     @Override
     public void reset() {
-        site.reset();
+        try {
+            site.reset();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         syllabus.reset();
         schedule.reset();
     }

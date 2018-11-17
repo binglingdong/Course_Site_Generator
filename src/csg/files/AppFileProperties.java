@@ -80,8 +80,11 @@ public class AppFileProperties {
     //SCHEDULE
     static final String JSON_STARTING_MONDAY_MONTH = "startingMondayMonth";
     static final String JSON_STARTING_MONDAY_DAY = "startingMondayDay";
-    static final String JSON_STARTING_FRIDAY_MONTH = "startingFridayMonth";
-    static final String JSON_STARTING_FRIDAY_DAY = "startingFridayDays";
+    static final String JSON_ENDING_FRIDAY_MONTH = "endingFridayMonth";
+    static final String JSON_ENDING_FRIDAY_DAY = "endingFridayDays";
+    static final String JSON_STARTING_MONDAY_YEAR = "startingMondayYear";
+    static final String JSON_ENDING_FIRDAY_YEAR = "endingFridayYear";
+    
     static final String JSON_HOLIDAYS = "holidays";
     static final String JSON_LECTURES = "lectures";
     static final String JSON_REFERENCE = "references";
@@ -89,7 +92,9 @@ public class AppFileProperties {
     static final String JSON_HWS = "hws";
     static final String JSON_SCHEDULE_MONTH = "month";
     static final String JSON_SCHEDULE_DAY = "day";
+    static final String JSON_SCHEDULE_YEAR = "year";
     static final String JSON_SCHEDULE_TITLE = "title";
+    static final String JSON_SCHEDULT_TOPIC = "topic";
     static final String JSON_SCHEDULE_LINK = "link";
     
 

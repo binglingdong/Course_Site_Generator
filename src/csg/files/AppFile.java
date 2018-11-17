@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -82,10 +83,10 @@ public class AppFile implements AppFileComponent {
         
         //LOAD ALL THE TABS SEPAREATELY
         loadSite(json.getJsonObject(JSON_SITE_TAB));
-        //loadSyllabus(json.getJsonObject(JSON_SYLLABUS_TAB));
-        //loadMT(json.getJsonObject(JSON_MT_TAB), dataManager);
-        //loadOH(json.getJsonObject(JSON_OH_TAB), dataManager);
-        //loadSch(json.getJsonObject(JSON_SCHEDULE_TAB), dataManager);
+        loadSyllabus(json.getJsonObject(JSON_SYLLABUS_TAB));
+        loadMT(json.getJsonObject(JSON_MT_TAB), dataManager);
+        loadOH(json.getJsonObject(JSON_OH_TAB), dataManager);
+        loadSch(json.getJsonObject(JSON_SCHEDULE_TAB), dataManager);
     }
      
     public void loadSite(JsonObject json) throws IOException{
@@ -152,19 +153,67 @@ public class AppFile implements AppFileComponent {
         String inRoom = instructorObject.getString(JSON_SITE_ROOM);
         String inHours = instructorObject.getString(JSON_SITE_HOURS);
         
-        
         ((TextField)gui.getGUINode(SITE_INSTRUCTOR_NAME_TEXTFIELD)).setText(inName);
         ((TextField)gui.getGUINode(SITE_INSTRUCTOR_ROOM_TEXTFIELD)).setText(inRoom);
         ((TextField)gui.getGUINode(SITE_INSTRUCTOR_EMAIL_TEXTFIELD)).setText(inEmail);
         ((TextField)gui.getGUINode(SITE_INSTRUCTOR_HOMEPAGE_TEXTFIELD)).setText(inLink);
         ((TextArea)gui.getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA)).setText(inHours);
     }
+    
     public void loadSyllabus(JsonObject json){
-        
+        AppGUIModule gui= app.getGUIModule();
+        ((TextArea)gui.getGUINode(SYLLABUS_DES_TEXTAREA)).setText(json.getString(JSON_SYL_DES));
+        ((TextArea)gui.getGUINode(SYLLABUS_TOPICS_TEXTAREA)).setText(json.getString(JSON_SYL_TOPICS));
+        ((TextArea)gui.getGUINode(SYLLABUS_PREREQ_TEXTAREA)).setText(json.getString(JSON_SYL_PREREQ));
+        ((TextArea)gui.getGUINode(SYLLABUS_OUTCOMES_TEXTAREA)).setText(json.getString(JSON_SYL_OUTCOMES));
+        ((TextArea)gui.getGUINode(SYLLABUS_TEXTBOOKS_TEXTAREA)).setText(json.getString(JSON_SYL_TB));
+        ((TextArea)gui.getGUINode(SYLLABUS_GRADEDCOM_TEXTAREA)).setText(json.getString(JSON_SYL_GC));
+        ((TextArea)gui.getGUINode(SYLLABUS_GRADING_NOTE_TEXTAREA)).setText(json.getString(JSON_SYL_GN));
+        ((TextArea)gui.getGUINode(SYLLABUS_ACADEMIC_DIS_TEXTAREA)).setText(json.getString(JSON_SYL_ACADIS));
+        ((TextArea)gui.getGUINode(SYLLABUS_SPECIAL_ASSISTANCE_TEXTAREA)).setText(json.getString(JSON_SYL_SA));
     }
+    
     public void loadMT(JsonObject json, AppData dataManager){
+        JsonArray lecturesArray = json.getJsonArray(JSON_MT_LECTURES);
+        JsonArray recArray = json.getJsonArray(JSON_MT_RECITATIONS);
+        JsonArray labArray = json.getJsonArray(JSON_MT_LABS);
         
+        for (int i = 0; i < lecturesArray.size(); i++) {
+            JsonObject lectureObject = lecturesArray.getJsonObject(i);
+            String section = lectureObject.getString(JSON_MT_SECTION);
+            String days= lectureObject.getString(JSON_MT_DAYS);
+            String time= lectureObject.getString(JSON_MT_TIME);
+            String room = lectureObject.getString(JSON_MT_ROOM);
+            
+            Lecture newLecture = new Lecture(section, days, time, room);
+            dataManager.addLecture(newLecture);
+        }
+        
+        for (int i = 0; i < recArray.size(); i++) {
+            JsonObject recObject = recArray.getJsonObject(i);
+            String section = recObject.getString(JSON_MT_SECTION);
+            String daysAndTimes= recObject.getString(JSON_MT_DAY_TIME);
+            String location= recObject.getString(JSON_MT_LOCATION);
+            String ta1 = recObject.getString(JSON_MT_TA1);
+            String ta2 = recObject.getString(JSON_MT_TA2);
+            
+            Recitation rec = new Recitation(section, daysAndTimes, location, ta1, ta2);
+            dataManager.addRec(rec);
+        }
+        
+        for (int i = 0; i < labArray.size(); i++) {
+            JsonObject labObject = labArray.getJsonObject(i);
+            String section = labObject.getString(JSON_MT_SECTION);
+            String daysAndTimes= labObject.getString(JSON_MT_DAY_TIME);
+            String location= labObject.getString(JSON_MT_LOCATION);
+            String ta1 = labObject.getString(JSON_MT_TA1);
+            String ta2 = labObject.getString(JSON_MT_TA2);
+            
+            Lab lab = new Lab(section, daysAndTimes, location, ta1, ta2);
+            dataManager.addLab(lab);
+        }
     }
+    
     public void loadOH(JsonObject json, AppData dataManager){
         MainWorkspace workspace= (MainWorkspace)app.getWorkspaceComponent();
         OfficeHours ohws = workspace.getOh();
@@ -220,8 +269,41 @@ public class AppFile implements AppFileComponent {
         ohws.removeOHToMatchTA(dataManager, dataManager.getTeachingAssistants(), dataManager.getOfficeHours());
     
     }
+    
     public void loadSch(JsonObject json, AppData dataManager){
+        AppGUIModule gui= app.getGUIModule();
+        int startingMonth = (int)json.getInt(JSON_STARTING_MONDAY_MONTH);
+        if(startingMonth!=0){
+            int startingDay = (int)json.getInt(JSON_STARTING_MONDAY_DAY);
+            int startingYear = (int)json.getInt(JSON_STARTING_MONDAY_YEAR); 
+            LocalDate startingDate = LocalDate.of(startingYear,startingMonth,startingDay);
+            ((DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_STARTING_DATEPICKER)).setValue(startingDate);
+        }
+        else{
+            ((DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_STARTING_DATEPICKER)).setValue(null);
+        }
         
+        int endingMonth = (int)json.getInt(JSON_ENDING_FRIDAY_MONTH);
+        if(endingMonth!=0){
+            int endingDay = (int)json.getInt(JSON_ENDING_FRIDAY_DAY);
+            int endingYear = (int)json.getInt(JSON_ENDING_FIRDAY_YEAR);
+            LocalDate endingDate = LocalDate.of(endingYear,endingMonth,endingDay);
+            ((DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_ENDING_DATEPICKER)).setValue(endingDate);
+        }
+        else{
+            ((DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_ENDING_DATEPICKER)).setValue(null);
+        }
+        
+        JsonArray holidaysArray = json.getJsonArray(JSON_HOLIDAYS);
+        JsonArray lecturesArray = json.getJsonArray(JSON_LECTURES);
+        JsonArray referencesArray = json.getJsonArray(JSON_REFERENCE);
+        JsonArray recitationsArray = json.getJsonArray(JSON_RECITATIONS);
+        JsonArray hwsArray = json.getJsonArray(JSON_HWS);
+        loadScheduleItems(holidaysArray, dataManager.getScheduleItem(), "Holiday");
+        loadScheduleItems(lecturesArray, dataManager.getScheduleItem(), "Lecture");
+        loadScheduleItems(referencesArray, dataManager.getScheduleItem(), "Reference");
+        loadScheduleItems(recitationsArray, dataManager.getScheduleItem(), "Recitation");
+        loadScheduleItems(hwsArray, dataManager.getScheduleItem(), "HW");
     }
     // HELPER METHOD FOR LOADING DATA FROM A JSON FORMAT
     private JsonObject loadJSONFile(String jsonFilePath) throws IOException {
@@ -240,6 +322,23 @@ public class AppFile implements AppFileComponent {
         Image image = SwingFXUtils.toFXImage(bufferedImage, null);
         li.setURL(path);
         return image;
+    }
+    
+    private void loadScheduleItems(JsonArray array, ObservableList<ScheduleItem> list, String type){
+        
+        for(int i= 0; i<array.size(); i++){
+            JsonObject item = array.getJsonObject(i);
+            int month = (int)item.getInt(JSON_SCHEDULE_MONTH);
+            int day = (int)item.getInt(JSON_SCHEDULE_DAY);
+            int year = (int)item.getInt(JSON_SCHEDULE_YEAR);
+            String title = item.getString(JSON_SCHEDULE_TITLE);
+            String topic = item.getString(JSON_SCHEDULT_TOPIC);
+            String link = item.getString(JSON_SCHEDULE_LINK);
+            
+            LocalDate date= LocalDate.of(year,month,day);
+            ScheduleItem schItem = new ScheduleItem(type, date, title, topic,link);
+            list.add(schItem);
+        }
     }
     
     @Override
@@ -468,17 +567,19 @@ public class AppFile implements AppFileComponent {
         JsonObjectBuilder ScheduleTabBuilder = Json.createObjectBuilder();
         if(startingDate.getValue()!=null){
             ScheduleTabBuilder.add(JSON_STARTING_MONDAY_MONTH, startingDate.getValue().getMonthValue())
-                              .add(JSON_STARTING_MONDAY_DAY, startingDate.getValue().getDayOfMonth());
+                              .add(JSON_STARTING_MONDAY_DAY, startingDate.getValue().getDayOfMonth())
+                              .add(JSON_STARTING_MONDAY_YEAR, startingDate.getValue().getYear());
         }else{
-            ScheduleTabBuilder.add(JSON_STARTING_MONDAY_MONTH, "")
-                              .add(JSON_STARTING_MONDAY_DAY, "");
+            ScheduleTabBuilder.add(JSON_STARTING_MONDAY_MONTH, 0)
+                              .add(JSON_STARTING_MONDAY_DAY, 0);
         }
         if(endingDate.getValue()!=null){
-            ScheduleTabBuilder.add(JSON_STARTING_FRIDAY_MONTH, endingDate.getValue().getMonthValue())
-                              .add(JSON_STARTING_FRIDAY_DAY, endingDate.getValue().getDayOfMonth());
+            ScheduleTabBuilder.add(JSON_ENDING_FRIDAY_MONTH, endingDate.getValue().getMonthValue())
+                              .add(JSON_ENDING_FRIDAY_DAY, endingDate.getValue().getDayOfMonth())
+                              .add(JSON_ENDING_FIRDAY_YEAR, endingDate.getValue().getYear());
         }else{
-            ScheduleTabBuilder.add(JSON_STARTING_FRIDAY_MONTH, "")
-                              .add(JSON_STARTING_FRIDAY_DAY, "");
+            ScheduleTabBuilder.add(JSON_ENDING_FRIDAY_MONTH, 0)
+                              .add(JSON_ENDING_FRIDAY_DAY, 0);
         }
         
         JsonArrayBuilder holidays = Json.createArrayBuilder();
@@ -519,7 +620,9 @@ public class AppFile implements AppFileComponent {
         JsonObject newObject = Json.createObjectBuilder()
                 .add(JSON_SCHEDULE_MONTH, item.getDate().getMonthValue())
                 .add(JSON_SCHEDULE_DAY, item.getDate().getDayOfMonth())
+                .add(JSON_SCHEDULE_YEAR, item.getDate().getYear())
                 .add(JSON_SCHEDULE_TITLE, item.getTitle())
+                .add(JSON_SCHEDULT_TOPIC, item.getType())
                 .add(JSON_SCHEDULE_LINK, item.getLink()).build();
         thisArray.add(newObject);
     }
@@ -579,7 +682,6 @@ public class AppFile implements AppFileComponent {
                 courseNumberCombo.getItems().add(numberItem);
             }        
         }
-        
         Scanner subjectSC = new Scanner(subjectItems);
         while (subjectSC.hasNext()) {
             String subjectItem = subjectSC.nextLine();
@@ -587,6 +689,8 @@ public class AppFile implements AppFileComponent {
                 subjectCombo.getItems().add(subjectItem);
             }        
         }
+        courseNumberCombo.getEditor().clear();
+        subjectCombo.getEditor().clear();
         numberSC.close();
         subjectSC.close();
     }

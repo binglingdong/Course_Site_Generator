@@ -10,9 +10,6 @@ import csg.CourseSiteGeneratorApp;
 import static csg.MeetingTimePropertyType.*;
 import static csg.OfficeHoursPropertyType.*;
 import static csg.SchedulePropertyType.*;
-import static csg.SitePropertyType.SITE_BANNER_COURSE_NUMBER_COMBO;
-import static csg.SitePropertyType.SITE_BANNER_COURSE_SEMESTER_COMBO;
-import static csg.SitePropertyType.SITE_BANNER_COURSE_SUBJECT_COMBO;
 import csg.data.TimeSlot.DayOfWeek;
 import djf.modules.AppGUIModule;
 import java.util.ArrayList;
@@ -118,6 +115,9 @@ public class AppData implements AppDataComponent{
         }
     }
     public void resetOHBackup() {
+        if(!OHBackup.isEmpty()){
+            OHBackup.clear();
+        }
         for (int i = startHour; i <= endHour; i++) {
             TimeSlot timeSlot = new TimeSlot(   this.getTimeString(i, true),
                                                 this.getTimeString(i, false));

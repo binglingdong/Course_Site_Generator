@@ -307,10 +307,8 @@ public class Site {
     public void reset() throws IOException{
        AppGUIModule gui= app.getGUIModule();
        ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getSelectionModel().clearSelection();
-       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getEditor().clear();
        ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getItems().clear();
        ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO)).getSelectionModel().clearSelection();
-       ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO)).getEditor().clear();
        ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_NUMBER_COMBO)).getItems().clear();
        ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SEMESTER_COMBO)).getSelectionModel().clearSelection();
        ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_YEAR_COMBO)).getSelectionModel().clearSelection();

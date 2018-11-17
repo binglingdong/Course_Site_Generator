@@ -117,13 +117,12 @@ public class Schedule {
         csgBuilder.buildLabel(CALENDAR_ADD_EDIT_LINK_LABEL, parentPane, 0, 5, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         
         ArrayList<String> list= new ArrayList<>();
-        list.add("Options");
         list.add("Holiday");
         list.add("Lecture");
         list.add("HW");
         list.add("Recitation");
         list.add("Reference");
-        ComboBox typeCombo = csgBuilder.buildComboBox(CALENDAR_ADD_EDIT_TYPE_COMBO, list, "Options", null, CLASS_INPUT_CONTROL, ENABLED);
+        ComboBox typeCombo = csgBuilder.buildComboBox(CALENDAR_ADD_EDIT_TYPE_COMBO, list, "Lecture", null, CLASS_INPUT_CONTROL, ENABLED);
         parentPane.add(typeCombo, 1, 1, 2, 1);
         DatePicker dp= csgBuilder.buildDatePicker(CALENDAR_ADD_EDIT_DATE_DATEPICKER, parentPane, 1, 2, 2, 1, CLASS_INPUT_CONTROL, ENABLED);
         TextField titleTF= csgBuilder.buildTextField(CALENDAR_ADD_EDIT_TITLE_TEXTFIELD, parentPane, 1, 3, 2, 1, CLASS_INPUT_CONTROL, ENABLED);
@@ -144,7 +143,7 @@ public class Schedule {
     ///////////////////////////// STILL NEED MORE IMPLEMENTATION/////////////////////////////
     public void reset(){
         AppGUIModule gui= app.getGUIModule();
-        ((ComboBox)gui.getGUINode(CALENDAR_ADD_EDIT_TYPE_COMBO)).getSelectionModel().select("Options");
+        ((ComboBox)gui.getGUINode(CALENDAR_ADD_EDIT_TYPE_COMBO)).getSelectionModel().select("Lecture");
         ((TextField)gui.getGUINode(CALENDAR_ADD_EDIT_TITLE_TEXTFIELD)).clear();
         ((TextField)gui.getGUINode(CALENDAR_ADD_EDIT_TOPIC_TEXTFIELD)).clear();
         ((TextField)gui.getGUINode(CALENDAR_ADD_EDIT_LINK_TEXTFIELD)).clear();
