@@ -1,11 +1,16 @@
 package djf.modules;
 
+import static djf.AppPropertyType.APP_ERROR_CONTENT;
+import static djf.AppPropertyType.APP_ERROR_TITLE;
 import static djf.AppPropertyType.APP_FILE_FOOLPROOF_SETTINGS;
+import static djf.AppPropertyType.APP_FILE_NOT_FOUND_CONTENT;
+import static djf.AppPropertyType.APP_FILE_NOT_FOUND_TITLE;
 import static djf.AppPropertyType.APP_TITLE;
 import djf.AppTemplate;
 import java.io.File;
 import java.io.IOException;
 import static djf.AppPropertyType.APP_UNDO_FOOLPROOF_SETTINGS;
+import djf.ui.dialogs.AppDialogsFacade;
 import javafx.application.Platform;
 import properties_manager.PropertiesManager;
 
@@ -153,30 +158,31 @@ public class AppFileModule {
         // REMEMBEr THE FILE THAT'S BEEN LOADED
         saved = true; 
         workFile = selectedFile;
-
         // LOAD THE FILE INTO THE DATA, BUT MAKE SURE THE
         // WORKSPACE IS SIZED FIRST
         Platform.runLater(new Runnable(){
             public void run() {
                 try {
                     if (app.getWorkspaceComponent().getWorkspace().getWidth() > 0.0) {
-                        app.getFileComponent().loadData(app.getDataComponent(), selectedFile.getAbsolutePath());
+                        app.getFileComponent().loadData(app.getDataComponent(), selectedFile.getAbsolutePath()); 
                     }
                     else {
                         Thread.sleep(100);
                     }
+                     // SET THE WINDOW TITLE        
+                    PropertiesManager props = PropertiesManager.getPropertiesManager();
+                    String title = props.getProperty(APP_TITLE) + " - " + workFile.getName();
+                    app.getGUIModule().getWindow().setTitle(title);
                 }
                 catch(Exception exc) {
-                    exc.printStackTrace();
+                    workFile=null;
+                    PropertiesManager props = PropertiesManager.getPropertiesManager();
+                    String title = props.getProperty(APP_TITLE);
+                    app.getGUIModule().getWindow().setTitle(title);
+                    AppDialogsFacade.showMessageDialog(app.getGUIModule().getWindow(), APP_FILE_NOT_FOUND_TITLE, APP_FILE_NOT_FOUND_CONTENT);
                 }
             }
         });
-        
-        // SET THE WINDOW TITLE        
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-        String title = props.getProperty(APP_TITLE) + " - " + workFile.getName();
-        app.getGUIModule().getWindow().setTitle(title);
-        
         // RESET THE UI CONTROLS
         app.getFoolproofModule().updateAll();
     }

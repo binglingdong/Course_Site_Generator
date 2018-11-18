@@ -5,8 +5,6 @@ import static djf.AppPropertyType.APP_LOGO;
 import static djf.AppPropertyType.APP_PATH_IMAGES;
 import static djf.AppPropertyType.LOAD_ERROR_CONTENT;
 import static djf.AppPropertyType.LOAD_ERROR_TITLE;
-import static djf.AppPropertyType.NEW_SUCCESS_CONTENT;
-import static djf.AppPropertyType.NEW_SUCCESS_TITLE;
 import static djf.AppPropertyType.WELCOME_DIALOG_NEW_BUTTON_TEXT;
 import static djf.AppPropertyType.WELCOME_DIALOG_NONE_LABEL;
 import static djf.AppPropertyType.WELCOME_DIALOG_RECENT_WORK_LABEL;
@@ -21,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -103,10 +102,13 @@ public class AppWelcomeDialog extends Stage {
 
         // RIGHT PANE
         splashPane = new VBox();
+        splashPane.setSpacing(40);
+        
         welcomeDialogImageView = new ImageView();
-        welcomeDialogImageView.fitHeightProperty().bind(this.heightProperty().multiply(0.8));
+        welcomeDialogImageView.fitHeightProperty().bind(this.heightProperty().multiply(0.6));
         welcomeDialogImageView.setPreserveRatio(true);
-        splashPane.setAlignment(Pos.CENTER);
+        splashPane.setAlignment(Pos.TOP_CENTER);
+        splashPane.setPadding(new Insets(60,20,20,20));
         try {
             String bannerFileName = props.getProperty(APP_BANNER);
             String bannerPath = props.getProperty(APP_PATH_IMAGES) + "/" + bannerFileName;
