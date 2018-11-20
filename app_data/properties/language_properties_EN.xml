@@ -13,7 +13,9 @@
         <!-- GENERIC APP ERROR MESSAGES -->
         <property name="APP_ERROR_TITLE"                    value="Application Error"></property>
         <property name="APP_ERROR_CONTENT"                  value="An Error Occured in the Application"></property>
-
+        <property name="APP_FILE_NOT_FOUND_TITLE"           value="Loading File Error"></property>
+        <property name="APP_FILE_NOT_FOUND_CONTENT"         value="There was an Error when loading a JSON file."></property>
+        
         <!-- PROPERTIES ERROR MESSAGES -->
         <property name="PROPERTIES_ERROR_TITLE"             value="Properties File Error"></property>
         <property name="PROPERTIES_ERROR_CONTENT"           value="There was an Error Loading a Properties File"></property>
@@ -215,7 +217,7 @@
         <property name="LANGUAGE_DIALOG_CONTENT_TEXT"   value="Select a Language for the User Interface."></property>
 
         <property name="WORK_FILE_EXT"          value="*.json"></property>
-	<property name="WORK_FILE_EXT_DESC"     value="Teaching Assistant Files"></property>
+	<property name="WORK_FILE_EXT_DESC"     value="Course Site Generator Files"></property>
         
        
         

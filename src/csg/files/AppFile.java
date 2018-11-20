@@ -306,13 +306,13 @@ public class AppFile implements AppFileComponent {
         loadScheduleItems(hwsArray, dataManager.getScheduleItem(), "HW");
     }
     // HELPER METHOD FOR LOADING DATA FROM A JSON FORMAT
-    private JsonObject loadJSONFile(String jsonFilePath) throws IOException {
+    private JsonObject loadJSONFile(String jsonFilePath) throws IOException{
 	InputStream is = new FileInputStream(jsonFilePath);
 	JsonReader jsonReader = Json.createReader(is);
-	JsonObject json = jsonReader.readObject();
-	jsonReader.close();
-	is.close();
-	return json;
+        JsonObject json = jsonReader.readObject();
+        jsonReader.close();
+        is.close();
+        return json;
     }
 
     private Image loadImage(String path, Object locateImageView) throws IOException{
@@ -325,7 +325,6 @@ public class AppFile implements AppFileComponent {
     }
     
     private void loadScheduleItems(JsonArray array, ObservableList<ScheduleItem> list, String type){
-        
         for(int i= 0; i<array.size(); i++){
             JsonObject item = array.getJsonObject(i);
             int month = (int)item.getInt(JSON_SCHEDULE_MONTH);

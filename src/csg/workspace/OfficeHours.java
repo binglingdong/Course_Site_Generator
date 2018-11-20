@@ -180,7 +180,8 @@ public class OfficeHours {
         thursdayColumn.setCellValueFactory(new PropertyValueFactory<String, String>("thursday"));
         fridayColumn.setCellValueFactory(new PropertyValueFactory<String, String>("friday"));
         for (int i = 0; i < officeHoursTable.getColumns().size(); i++) {
-            ((TableColumn)officeHoursTable.getColumns().get(i)).prefWidthProperty().bind(officeHoursTable.widthProperty().multiply(1.0/7.0));
+            ((TableColumn)officeHoursTable.getColumns().get(i)).minWidthProperty().bind(officeHoursTable.widthProperty().multiply(1.0/7.0));
+            ((TableColumn)officeHoursTable.getColumns().get(i)).maxWidthProperty().bind(officeHoursTable.widthProperty().multiply(1.0/7.0));
         }
         
         //Add monday through friday to tableColumn, so it can be formated later. 
@@ -192,7 +193,7 @@ public class OfficeHours {
         
         // MAKE SURE IT'S THE TABLE THAT ALWAYS GROWS IN THE LEFT PANE
         VBox.setVgrow(officeHoursTable, Priority.ALWAYS);
-        
+        officeHoursTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
         
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -313,10 +314,14 @@ public class OfficeHours {
         
         
         startTime.getSelectionModel().selectedItemProperty().addListener((e, oldValue, newValue)->{
-            controller.processTimeChange(startTime, endTime, (String)newValue, this);
+            if(startTime.isFocused()){
+                controller.processTimeChange(startTime, endTime, (String)newValue,(String)oldValue, this);
+            }
         });
         endTime.getSelectionModel().selectedItemProperty().addListener((e, oldValue, newValue)->{
-            controller.processTimeChange(endTime, startTime, (String)newValue, this);
+            if(endTime.isFocused()){
+                controller.processTimeChange(endTime, startTime, (String)newValue,(String)oldValue, this);
+            }
         });
         
         // DON'T LET ANYONE SORT THE TABLES
@@ -431,8 +436,10 @@ public class OfficeHours {
                 }
             }
         }
-        ComboBox startTime = (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
-        ComboBox endTime= (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
+        
+        //Everytime when you refresh, check the comboboxes and update them. 
+        ComboBox<String> startTime = (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
+        ComboBox<String> endTime= (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
         String selectedStartingTime = (String)startTime.getSelectionModel().getSelectedItem();
         if(selectedStartingTime!=null){
             TimeSlot selectedStartTimeSlot = data.getStartTimeSlotUsingRegularTime(selectedStartingTime);

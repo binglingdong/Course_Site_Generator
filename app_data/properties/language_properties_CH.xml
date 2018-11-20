@@ -13,7 +13,9 @@
         <!-- GENERIC APP ERROR MESSAGES -->
         <property name="APP_ERROR_TITLE"            value="应用程序错误"></property>
         <property name="APP_ERROR_CONTENT"          value="应用程序中出现的错误"></property>
-
+        <property name="APP_FILE_NOT_FOUND_TITLE"   value="加载失败"></property>
+        <property name="APP_FILE_NOT_FOUND_CONTENT" value="加载JSON文件时出错"></property>
+       
         <!-- PROPERTIES ERROR MESSAGES -->
         <property name="PROPERTIES_ERROR_TITLE"     value="属性文件错误"></property>
         <property name="PROPERTIES_ERROR_CONTENT"   value="加载属性文件时出错"></property>
@@ -212,7 +214,7 @@
         <property name="LANGUAGE_DIALOG_CONTENT_TEXT"   value="请选择一种语言."></property>
 
         <property name="WORK_FILE_EXT"          value="*.json"></property>
-	<property name="WORK_FILE_EXT_DESC"     value="教学助理文件"></property>
+	<property name="WORK_FILE_EXT_DESC"     value="网站生成器"></property>
         
     </property_list>
     

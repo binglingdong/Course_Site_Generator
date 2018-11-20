@@ -14,7 +14,6 @@ import csg.transaction.OH_ChangeTimeRange_Transaction;
 import csg.transaction.OH_RemoveTA_Transaction;
 import csg.workspace.OfficeHours;
 import djf.modules.AppGUIModule;
-import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
@@ -69,24 +68,8 @@ public class OHController {
         app.getFoolproofModule().updateControls(OH_FOOLPROOF_SETTINGS);
     }   
     
-    public void processTimeChange(ComboBox thisBox, ComboBox otherBox, String newValue, OfficeHours ohws){
-        AppData data= (AppData)app.getDataComponent();
-        ohws.resetOHToMatchTA(data, data.getOfficeHours());
-        ohws.removeOHToMatchTA(data, data.getTeachingAssistants(), data.getOfficeHours());
-        ArrayList<String> defaultList = data.getDefaultTimeRangeBackup();
-        ArrayList<String> newList = new ArrayList<>();
-        int index = defaultList.indexOf(newValue);
-        if(thisBox==app.getGUIModule().getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO)){//IF this box is the starttime
-            for(int i=index+1; i<defaultList.size(); i++){
-                newList.add(defaultList.get(i));
-            }
-        }
-        else{       //if it's endtime
-            for(int i=0; i<index; i++){
-                newList.add(defaultList.get(i));
-            }
-        }
-        OH_ChangeTimeRange_Transaction transaction = new OH_ChangeTimeRange_Transaction(thisBox, otherBox, newList, app);
+    public void processTimeChange(ComboBox<String> thisBox, ComboBox<String> otherBox, String newValue,String oldValue, OfficeHours ohws){
+        OH_ChangeTimeRange_Transaction transaction = new OH_ChangeTimeRange_Transaction(thisBox, otherBox, app, oldValue, newValue, ohws);
         app.processTransaction(transaction);
     }
 }

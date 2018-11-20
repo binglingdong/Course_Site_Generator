@@ -100,16 +100,17 @@ public class Site {
     }
     
     private void createBanner(GridPane parentPane){
+        SiteController controller = new SiteController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         csgBuilder.buildLabel(SITE_BANNER_LABEL, parentPane, 0, 0, 1, 1, CLASS_MAJOR_LABELS, ENABLED);
         csgBuilder.buildLabel(SITE_BANNER_COURSE_SUBJECT_LABEL, parentPane, 0, 1, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> listForSubject = new ArrayList<>();
-        ComboBox subjectCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_SUBJECT_COMBO, listForSubject, "CSE", parentPane, 1, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        ComboBox subjectCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_SUBJECT_COMBO, listForSubject, null, parentPane, 1, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         subjectCombo.setEditable(true);
         
         csgBuilder.buildLabel(SITE_BANNER_COURSE_NUMBER_LABEL, parentPane, 2, 1, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> listForNumber = new ArrayList<>();
-        ComboBox numberCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_NUMBER_COMBO, listForNumber, "219", parentPane, 3, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        ComboBox numberCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_NUMBER_COMBO, listForNumber, null, parentPane, 3, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         numberCombo.setEditable(true);
         
         //Second line of the gui
@@ -119,14 +120,15 @@ public class Site {
         listForSemester.add("Winter");
         listForSemester.add("Spring");
         listForSemester.add("Summer");
-        ComboBox semesterCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_SEMESTER_COMBO, listForSemester, "Fall", parentPane, 1, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
-        
+        ComboBox semesterCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_SEMESTER_COMBO, listForSemester, null, parentPane, 1, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+      
         csgBuilder.buildLabel(SITE_BANNER_COURSE_YEAR_LABEL, parentPane, 2, 2, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> listForYear = new ArrayList<>();
         int currentYear = Year.now().getValue();
         listForYear.add(currentYear+"");
         listForYear.add(currentYear+1+"");
-        ComboBox yearCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_YEAR_COMBO, listForYear, currentYear+"", parentPane, 3, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        ComboBox yearCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_YEAR_COMBO, listForYear, null, parentPane, 3, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        
         
         csgBuilder.buildLabel(SITE_BANNER_COURSE_TITLE_LABEL, parentPane, 0, 3, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         TextField titleTextField = csgBuilder.buildTextField(SITE_BANNER_COURSE_TITLE_TEXTFIELD, parentPane, 1, 3, 2, 1, CLASS_INPUT_CONTROL, ENABLED);
@@ -295,6 +297,21 @@ public class Site {
         NavbarImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW);});
         LeftFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW);});
         RightFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW);});
+        
+        
+        ComboBox semesterCombo = (ComboBox)app.getGUIModule().getGUINode(SITE_BANNER_COURSE_SEMESTER_COMBO);
+        semesterCombo.getSelectionModel().selectedItemProperty().addListener((e,oldValue,newValue)->{
+            if(semesterCombo.isFocused()){
+                controller.comboBoxChanged(oldValue, newValue, semesterCombo);
+            }
+        });
+          
+        ComboBox yearCombo = (ComboBox)app.getGUIModule().getGUINode(SITE_BANNER_COURSE_YEAR_COMBO);
+        yearCombo.getSelectionModel().selectedItemProperty().addListener((e,oldValue,newValue)->{
+            if(yearCombo.isFocused()){
+               controller.comboBoxChanged(oldValue, newValue, yearCombo); 
+            }
+        });
     }
     
     private void initFoolproofDesign() {

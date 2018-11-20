@@ -10,13 +10,16 @@ import static csg.SitePropertyType.INVALID_IMAGE_TITLE;
 import static csg.SitePropertyType.IO_IMAGE_EXCEPTION_CONTENT;
 import csg.data.LocateImages;
 import csg.transaction.Site_EditImageView_Transaction;
+import csg.transaction.Site_changeComboBox_Transaction;
 import djf.ui.dialogs.AppDialogsFacade;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javafx.beans.value.ChangeListener;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 
@@ -60,6 +63,11 @@ public class SiteController {
         } catch (IOException ex) {
             AppDialogsFacade.showMessageDialog(app.getGUIModule().getWindow(),INVALID_IMAGE_TITLE, IO_IMAGE_EXCEPTION_CONTENT);
         }
+    }
+    
+    public void comboBoxChanged(Object oldValue, Object newValue, ComboBox cb){
+        Site_changeComboBox_Transaction tran = new Site_changeComboBox_Transaction(oldValue, newValue, cb);
+        app.processTransaction(tran);
     }
            
 }
