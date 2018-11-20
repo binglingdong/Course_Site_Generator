@@ -307,11 +307,7 @@ public class OfficeHours {
         //INIT TIME RANGE PICKER
         ComboBox startTime = (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
         ComboBox endTime= (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
-        startTime.getItems().add("9:00am");
-        endTime.getItems().add("9:00pm");
-        startTime.getSelectionModel().select("9:00am");
-        endTime.getSelectionModel().select("9:00pm");
-        
+
         
         startTime.getSelectionModel().selectedItemProperty().addListener((e, oldValue, newValue)->{
             if(startTime.isFocused()){
@@ -457,6 +453,25 @@ public class OfficeHours {
                 data.getOfficeHours().remove(endIndex);
             }
         }
+        updateTATimeSlotNumber(data);
+    }
+    //this method will update the timeslot number for 
+    public void updateTATimeSlotNumber(AppData data){
+        ObservableList<TeachingAssistantPrototype> currentTA = data.getTeachingAssistants();
+        ObservableList<TimeSlot> currentOH = data.getOfficeHours();
+        
+        for(TeachingAssistantPrototype ta: currentTA){
+            int count =0;
+            for(TimeSlot s: currentOH){
+                for(DayOfWeek dow: DayOfWeek.values()){
+                    ArrayList<TeachingAssistantPrototype> list = s.getTas().get(dow);
+                    if(list.contains(ta)){
+                        count++;
+                    }
+                }
+            }
+            ta.setSlots(count);
+        }
     }
     
     public void updateBgColorForCell(){
@@ -496,5 +511,4 @@ public class OfficeHours {
             } );
         }
     }
-    
 }

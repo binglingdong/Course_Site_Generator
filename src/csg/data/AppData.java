@@ -11,6 +11,7 @@ import static csg.MeetingTimePropertyType.*;
 import static csg.OfficeHoursPropertyType.*;
 import static csg.SchedulePropertyType.*;
 import csg.data.TimeSlot.DayOfWeek;
+import csg.workspace.MainWorkspace;
 import djf.modules.AppGUIModule;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -66,7 +67,7 @@ public class AppData implements AppDataComponent{
         
         resetOfficeHours();
         resetOHBackup();
-        initTimeRange();
+        resetTimeRange();
     }
     
     public void resetOfficeHours() {
@@ -86,34 +87,33 @@ public class AppData implements AppDataComponent{
         }
     } 
 
-    public void initTimeRange(){
+    public void resetTimeRange(){
         AppGUIModule gui = app.getGUIModule();
         defaultTimeRangeBackup.clear();
         ComboBox startTime = (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
         ComboBox endTime= (ComboBox)gui.getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
        
-       
         for(TimeSlot time:OHBackup){
             String timeString = time.getStartTime();
+            String timeString2 = time.getEndTime();
             if(!startTime.getItems().contains(timeString)){
                 startTime.getItems().add(timeString);
+            }
+            if(!endTime.getItems().contains(timeString2)){
+                endTime.getItems().add(timeString2);
             }
             if(!defaultTimeRangeBackup.contains(timeString)){
                 defaultTimeRangeBackup.add(timeString);
             }
-        }
-        int i=0;
-        for(TimeSlot time:OHBackup){
-            String timeString2 = time.getEndTime();
-            if(!endTime.getItems().contains(timeString2)){
-                endTime.getItems().add(i,timeString2);
-            }
             if(!defaultTimeRangeBackup.contains(timeString2)){
                 defaultTimeRangeBackup.add(timeString2);
             }
-            i++;
         }
+        
+        startTime.getSelectionModel().select("9:00am");
+        endTime.getSelectionModel().select("9:00pm");
     }
+    
     public void resetOHBackup() {
         if(!OHBackup.isEmpty()){
             OHBackup.clear();
@@ -184,6 +184,10 @@ public class AppData implements AppDataComponent{
             TimeSlot timeSlot = OHBackup.get(i);
             timeSlot.reset();
         }
+        resetTimeRange();
+        MainWorkspace ohws = (MainWorkspace)app.getWorkspaceComponent();
+        ohws.getOh().resetOHToMatchTA(this, officeHours);
+        ohws.getOh().removeOHToMatchTA(this, teachingAssistants, officeHours);
     }
     
     // ACCESSOR METHODS

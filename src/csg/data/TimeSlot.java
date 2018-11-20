@@ -14,7 +14,6 @@ import javafx.beans.property.StringProperty;
 public class TimeSlot {
 
     public enum DayOfWeek {   
-        
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY
     }   
     private StringProperty startTime;

@@ -9,6 +9,8 @@ import djf.components.AppDataComponent;
 import djf.components.AppFileComponent;
 import java.io.IOException;
 import csg.CourseSiteGeneratorApp;
+import static csg.OfficeHoursPropertyType.OH_OFFICE_HOURS_END_TIME_COMBO;
+import static csg.OfficeHoursPropertyType.OH_OFFICE_HOURS_START_TIME_COMBO;
 import static csg.SchedulePropertyType.*;
 import static csg.SitePropertyType.*;
 import static csg.SyllabusPropertyType.*; 
@@ -264,10 +266,29 @@ public class AppFile implements AppFileComponent {
             taListForThatDay_Copy.add(ta);
         }
         
+        ComboBox<String> startTime = (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
+        ComboBox<String> endTime= (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
+       
+        JsonArray jsonStartArray= json.getJsonArray(JSON_COMBO_START_LIST);
+        JsonArray jsonEndArray= json.getJsonArray(JSON_COMBO_END_LIST);
+        String jsonStartTime = json.getString(JSON_COMBO_START_TIME);
+        String jsonEndTime = json.getString(JSON_COMBO_END_TIME);
+        
+        for (int i=0; i<jsonStartArray.size(); i++){
+            String s = jsonStartArray.getString(i);
+            startTime.getItems().add(s);
+        }
+        for(int i= 0; i<jsonEndArray.size(); i++){
+            String s = jsonEndArray.getString(i);
+            endTime.getItems().add(s);
+        }
+        
+        startTime.getSelectionModel().select(jsonStartTime);
+        endTime.getSelectionModel().select(jsonEndTime);
+        
         ohws.updateTaTableForRadio(dataManager.getTeachingAssistants());
         ohws.resetOHToMatchTA(dataManager,dataManager.getOfficeHours());
         ohws.removeOHToMatchTA(dataManager, dataManager.getTeachingAssistants(), dataManager.getOfficeHours());
-    
     }
     
     public void loadSch(JsonObject json, AppData dataManager){
@@ -540,7 +561,6 @@ public class AppFile implements AppFileComponent {
             for(DayOfWeek day: DayOfWeek.values()){
                 ArrayList<TeachingAssistantPrototype> listOfTa= (ArrayList)allTheTAsForTheTime.get(day);
                 for(TeachingAssistantPrototype ta: listOfTa){
-                    
                     JsonObject timeJson= Json.createObjectBuilder().add(JSON_OH_TIMESLOT_START_TIME,time.getStartTime().replace(":", "_"))
                             .add(JSON_OH_DAY_OF_WEEK,day.toString()).add(JSON_OH_NAME, ta.getName()).add(JSON_OH_TYPE, ta.getType())
                             .build();
@@ -548,6 +568,19 @@ public class AppFile implements AppFileComponent {
                 }
             }  
         }
+        
+        ComboBox<String> startTime = (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_START_TIME_COMBO);
+        ComboBox<String> endTime= (ComboBox)app.getGUIModule().getGUINode(OH_OFFICE_HOURS_END_TIME_COMBO);
+        
+        JsonArrayBuilder comboStartList = Json.createArrayBuilder();
+        JsonArrayBuilder comboEndList = Json.createArrayBuilder();
+        for(String s: startTime.getItems()){
+            comboStartList.add(s);
+        }
+        for(String s: endTime.getItems()){
+            comboEndList.add(s);
+        }
+        
         JsonArray officeHour= OHArrayBuilder.build();
    	JsonObject OfficeHoursTab = Json.createObjectBuilder()
 		.add(JSON_OH_START_HOUR, "" + dataManager.getStartHour())
@@ -555,6 +588,10 @@ public class AppFile implements AppFileComponent {
                 .add(JSON_OH_UNDERGRAD_TAS, undergradTAsArray)
                 .add(JSON_OH_GRAD_TAS, gradTAsArray)
                 .add(JSON_OH_OFFICE_HOURS, officeHour)
+                .add(JSON_COMBO_START_TIME, startTime.getSelectionModel().getSelectedItem())
+                .add(JSON_COMBO_END_TIME,endTime.getSelectionModel().getSelectedItem())
+                .add(JSON_COMBO_START_LIST, comboStartList.build())
+                .add(JSON_COMBO_END_LIST, comboEndList.build())
 		.build();
         return OfficeHoursTab;
     }

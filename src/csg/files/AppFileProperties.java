@@ -77,6 +77,10 @@ public class AppFileProperties {
     static final String JSON_WEDNESDAY = "wednesday";
     static final String JSON_THURSDAY = "thursday";
     static final String JSON_FRIDAY = "friday";
+    static final String JSON_COMBO_START_TIME = "combo_start_time";
+    static final String JSON_COMBO_END_TIME = "combo_end_time";
+    static final String JSON_COMBO_START_LIST = "combo_start_list";
+    static final String JSON_COMBO_END_LIST = "combo_end_list";
     //SCHEDULE
     static final String JSON_STARTING_MONDAY_MONTH = "startingMondayMonth";
     static final String JSON_STARTING_MONDAY_DAY = "startingMondayDay";
