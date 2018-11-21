@@ -9,7 +9,6 @@ import csg.CourseSiteGeneratorApp;
 import static csg.SitePropertyType.SITE_BANNER_COURSE_SEMESTER_COMBO;
 import static csg.SitePropertyType.SITE_BANNER_COURSE_YEAR_COMBO;
 import static csg.SitePropertyType.SITE_BANNER_EXPORT_DIR_ADDRESS;
-import java.util.EventListener;
 import javafx.scene.control.ComboBox;
 import javafx.scene.text.Text;
 import jtps.jTPS_Transaction;
@@ -18,7 +17,7 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class Site_changeComboBox_Transaction implements jTPS_Transaction{
+public class EditableComboBox_Transaction implements jTPS_Transaction{
     Object oldValue;
     Object newValue;
     ComboBox cb;
@@ -26,7 +25,7 @@ public class Site_changeComboBox_Transaction implements jTPS_Transaction{
     CourseSiteGeneratorApp app;
     String oldTextString;
 
-    public Site_changeComboBox_Transaction(Object oldValue, Object newValue, ComboBox cb, 
+    public EditableComboBox_Transaction(Object oldValue, Object newValue, ComboBox cb, 
     CourseSiteGeneratorApp app){
         this.oldValue= oldValue;
         this.newValue= newValue;
@@ -72,3 +71,4 @@ public class Site_changeComboBox_Transaction implements jTPS_Transaction{
         tx.setText(oldTextString);
     }
 }
+

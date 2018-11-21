@@ -50,6 +50,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -99,6 +100,10 @@ public class AppFile implements AppFileComponent {
         String semester = json.getString(JSON_SITE_SEMESTER);
         String year = json.getString(JSON_SITE_YEAR);
         String title = json.getString(JSON_SITE_TITLE);
+        String exportDir = json.getString(JSON_SITE_EXPORT_DIR);
+        
+        Text tx = (Text)app.getGUIModule().getGUINode(SITE_BANNER_EXPORT_DIR_ADDRESS);
+        tx.setText(exportDir);
         
         if(!subject.equals("")&&!subject.equals("null")){
             ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getSelectionModel().select(subject);
@@ -415,6 +420,8 @@ public class AppFile implements AppFileComponent {
         TextField email = (TextField)app.getGUIModule().getGUINode(SITE_INSTRUCTOR_EMAIL_TEXTFIELD);
         TextField homepg = (TextField)app.getGUIModule().getGUINode(SITE_INSTRUCTOR_HOMEPAGE_TEXTFIELD);
         TextArea oh = (TextArea)app.getGUIModule().getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA);
+        Text text = (Text)app.getGUIModule().getGUINode(SITE_BANNER_EXPORT_DIR_ADDRESS);
+        
         
         //IMAGEVIEWS
         JsonObject faviconObject = Json.createObjectBuilder().add("src", fav.getURL()).build();
@@ -464,6 +471,7 @@ public class AppFile implements AppFileComponent {
                 .add(JSON_SITE_SEMESTER, ""+semesterCombo.getSelectionModel().getSelectedItem())
                 .add(JSON_SITE_YEAR, ""+yearCombo.getSelectionModel().getSelectedItem())
                 .add(JSON_SITE_TITLE, title.getText())
+                .add(JSON_SITE_EXPORT_DIR, text.getText())
                 .add(JSON_SITE_LOGOS, logosObject)
                 .add(JSON_SITE_INSTRUCTOR, instructorObject)
                 .add(JSON_SITE_PAGES, pagesArray)

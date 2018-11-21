@@ -93,7 +93,6 @@
         <property name="SITE_BANNER_COURSE_YEAR_LABEL_TEXT"             value="Year: "></property>
         <property name="SITE_BANNER_COURSE_TITLE_LABEL_TEXT"            value="Title: "></property>
         <property name="SITE_BANNER_EXPORT_DIR_LABEL_TEXT"              value="Export Dir: "></property>
-        <property name="SITE_BANNER_EXPORT_DIR_ADDRESS_TEXT"            value=".\export\CSE..."></property>
         
         <property name="SITE_PAGE_LABEL_TEXT"                           value="Pages"></property>
         <property name="SITE_PAGE_HOME_CHECKBOX_TEXT"                   value="Home"></property>

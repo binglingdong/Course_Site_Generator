@@ -46,6 +46,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javax.imageio.ImageIO;
 import properties_manager.PropertiesManager;
 
@@ -120,21 +121,21 @@ public class Site {
         listForSemester.add("Winter");
         listForSemester.add("Spring");
         listForSemester.add("Summer");
-        ComboBox semesterCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_SEMESTER_COMBO, listForSemester, null, parentPane, 1, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        csgBuilder.buildComboBox(SITE_BANNER_COURSE_SEMESTER_COMBO, listForSemester, null, parentPane, 1, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
       
         csgBuilder.buildLabel(SITE_BANNER_COURSE_YEAR_LABEL, parentPane, 2, 2, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> listForYear = new ArrayList<>();
         int currentYear = Year.now().getValue();
         listForYear.add(currentYear+"");
         listForYear.add(currentYear+1+"");
-        ComboBox yearCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_YEAR_COMBO, listForYear, null, parentPane, 3, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
-        
+        csgBuilder.buildComboBox(SITE_BANNER_COURSE_YEAR_COMBO, listForYear, null, parentPane, 3, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         
         csgBuilder.buildLabel(SITE_BANNER_COURSE_TITLE_LABEL, parentPane, 0, 3, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         TextField titleTextField = csgBuilder.buildTextField(SITE_BANNER_COURSE_TITLE_TEXTFIELD, parentPane, 1, 3, 2, 1, CLASS_INPUT_CONTROL, ENABLED);
         
         csgBuilder.buildLabel(SITE_BANNER_EXPORT_DIR_LABEL, parentPane, 0, 4, 1, 1, CLASS_MINOR_LABELS, ENABLED);
-        csgBuilder.buildLabel(SITE_BANNER_EXPORT_DIR_ADDRESS, parentPane, 1, 4, 4, 1, CLASS_LABEL_BACKGROUND, ENABLED);
+        Text address  = csgBuilder.buildText(SITE_BANNER_EXPORT_DIR_ADDRESS, parentPane, 1, 4, 4, 1, CLASS_LABEL_BACKGROUND, ENABLED);
+        address.setText(".\\export\\subject_number_semester_year\\public_html");
     }
     
     private void createPage(Pane parentPane){

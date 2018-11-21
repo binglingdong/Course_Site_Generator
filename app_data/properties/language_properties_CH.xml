@@ -92,7 +92,6 @@
         <property name="SITE_BANNER_COURSE_YEAR_LABEL_TEXT"             value="课程学年:"></property>
         <property name="SITE_BANNER_COURSE_TITLE_LABEL_TEXT"            value="题目:"></property>
         <property name="SITE_BANNER_EXPORT_DIR_LABEL_TEXT"              value="输出目录:"></property>
-        <property name="SITE_BANNER_EXPORT_DIR_ADDRESS_TEXT"            value=".\export\CSE..."></property>
 
         <property name="SITE_PAGE_LABEL_TEXT"                           value="页面"></property>
         <property name="SITE_PAGE_HOME_CHECKBOX_TEXT"                   value="主页"></property>

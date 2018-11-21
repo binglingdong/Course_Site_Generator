@@ -37,7 +37,8 @@ public class AppFileProperties {
     static final String JSON_SITE_PAGES_SYLLABUS = "Syllabus";
     static final String JSON_SITE_PAGES_SCHEDULE = "Schedule";
     static final String JSON_SITE_PAGES_HWS = "HWs";
-    
+    static final String JSON_SITE_EXPORT_DIR = "export_dir"; 
+    //static final String JSON_SITE_STYLE_SHEET = "style_sheet";
     //SYLLABUS
     static final String JSON_SYL_DES = "description";
     static final String JSON_SYL_TOPICS = "topics";

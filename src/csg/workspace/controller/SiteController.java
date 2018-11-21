@@ -66,8 +66,12 @@ public class SiteController {
     }
     
     public void comboBoxChanged(Object oldValue, Object newValue, ComboBox cb){
-        Site_changeComboBox_Transaction tran = new Site_changeComboBox_Transaction(oldValue, newValue, cb);
+        Site_changeComboBox_Transaction tran = new Site_changeComboBox_Transaction(oldValue, newValue, cb, app);
         app.processTransaction(tran);
+    }
+    
+    public void editableComboBox(Object oldValue, Object newValue, ComboBox cb){
+        
     }
            
 }
