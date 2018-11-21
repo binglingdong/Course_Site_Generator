@@ -388,7 +388,6 @@ public class AppFile implements AppFileComponent {
 	jsonWriter.writeObject(dataManagerJSO);
 	jsonWriter.close();
         
-
 	// INIT THE WRITER
 	OutputStream os = new FileOutputStream(filePath);
 	JsonWriter jsonFileWriter = Json.createWriter(os);

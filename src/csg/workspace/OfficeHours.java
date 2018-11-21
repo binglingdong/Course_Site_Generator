@@ -301,7 +301,11 @@ public class OfficeHours {
         //INIT REMOVE BUTTON
         Button removeTAButton = (Button)gui.getGUINode(OH_TA_REMOVE_BUTTON);
         removeTAButton.setOnAction(e->{
-            controller.processRemoveTA(this);
+            TableView table =(TableView)(app.getGUIModule().getGUINode(OH_TAS_TABLE_VIEW));
+            
+            if(table.getSelectionModel().getSelectedItem()!=null){
+                controller.processRemoveTA(this);
+            }
         });
         
         //INIT TIME RANGE PICKER
