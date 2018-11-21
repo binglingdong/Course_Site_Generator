@@ -36,6 +36,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import properties_manager.PropertiesManager;
 
@@ -55,6 +56,17 @@ public class AppNodesBuilder {
         languageSettings = initLanguageSettings;
     }
 
+    
+    public Text buildText(Object nodeId,
+        GridPane parent,
+        int col, int row, int colSpan, int rowSpan,
+        String styleClass,
+        boolean enabled){
+        
+        Text tx = new Text();
+        initNode(nodeId, tx, parent, col, row, colSpan, rowSpan, styleClass, enabled);
+        return tx;
+    }
     
     public CheckBox buildCheckBox(Object nodeId,
             Pane parentPane,
