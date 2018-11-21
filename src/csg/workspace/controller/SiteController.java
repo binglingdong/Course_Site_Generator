@@ -9,6 +9,7 @@ import csg.CourseSiteGeneratorApp;
 import static csg.SitePropertyType.INVALID_IMAGE_TITLE;
 import static csg.SitePropertyType.IO_IMAGE_EXCEPTION_CONTENT;
 import csg.data.LocateImages;
+import csg.transaction.EditableComboBox_Transaction;
 import csg.transaction.Site_EditImageView_Transaction;
 import csg.transaction.Site_changeComboBox_Transaction;
 import djf.ui.dialogs.AppDialogsFacade;
@@ -71,7 +72,8 @@ public class SiteController {
     }
     
     public void editableComboBox(Object oldValue, Object newValue, ComboBox cb){
-        
+        EditableComboBox_Transaction tran = new EditableComboBox_Transaction(oldValue, newValue, cb, app);
+        app.processTransaction(tran);
     }
            
 }

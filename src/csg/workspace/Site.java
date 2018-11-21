@@ -108,11 +108,21 @@ public class Site {
         ArrayList<String> listForSubject = new ArrayList<>();
         ComboBox subjectCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_SUBJECT_COMBO, listForSubject, null, parentPane, 1, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         subjectCombo.setEditable(true);
+        subjectCombo.getEditor().textProperty().addListener((e,oldValue, newValue)->{
+            if(subjectCombo.isFocused()){
+                controller.editableComboBox(oldValue, newValue, subjectCombo);
+            }
+        });
         
         csgBuilder.buildLabel(SITE_BANNER_COURSE_NUMBER_LABEL, parentPane, 2, 1, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> listForNumber = new ArrayList<>();
         ComboBox numberCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_NUMBER_COMBO, listForNumber, null, parentPane, 3, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         numberCombo.setEditable(true);
+        numberCombo.getEditor().textProperty().addListener((e,oldValue, newValue)->{
+            if(numberCombo.isFocused()){
+                controller.editableComboBox(oldValue, newValue, numberCombo);
+            }
+        });
         
         //Second line of the gui
         csgBuilder.buildLabel(SITE_BANNER_COURSE_SEMESTER_LABEL, parentPane, 0, 2, 1, 1, CLASS_MINOR_LABELS, ENABLED);
@@ -351,6 +361,7 @@ public class Site {
        
        ((TitledPane)gui.getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TITLEDPANE)).setExpanded(false);
        ((TextArea)gui.getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA)).clear();
-
+       
+       ((Text)gui.getGUINode(SITE_BANNER_EXPORT_DIR_ADDRESS)).setText(".\\export\\subject_number_semester_year\\public_html");
     }
 }
