@@ -46,7 +46,27 @@ public class jTPS {
         // AND EXECUTE IT
         doTransaction();        
     }
-
+    
+    /**
+     * Get the most recent Transaction on the stack.
+     * @return the most recent Transaction on the stack
+     */
+    public jTPS_Transaction getMostRecentTransaction(){
+        if(mostRecentTransaction>-1){
+            return transactions.get(mostRecentTransaction);
+        }
+        return null;
+    }
+    
+    /**
+     * The point of this method is to remove the most recent transaction by later adding a new transaction to the stack. 
+     */
+    public void moveMostRecentPointerBackwards(){
+        if(mostRecentTransaction>-1){
+            mostRecentTransaction--;
+        }
+    }
+    
     /**
      * This function gets the most recent transaction and executes it,
      * moving the TPS counter. Note that this may be the transaction
