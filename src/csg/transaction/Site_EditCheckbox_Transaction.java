@@ -5,6 +5,7 @@
  */
 package csg.transaction;
 
+import javafx.scene.control.CheckBox;
 import jtps.jTPS_Transaction;
 
 /**
@@ -12,15 +13,23 @@ import jtps.jTPS_Transaction;
  * @author bingling.dong
  */
 public class Site_EditCheckbox_Transaction implements jTPS_Transaction{
-
+    boolean oldValue;
+    boolean newValue;
+    CheckBox cb;
+    
+    public Site_EditCheckbox_Transaction(boolean oldValue,boolean newValue,CheckBox cb){
+        this.oldValue = oldValue;
+        this.newValue = newValue;
+        this.cb = cb;
+    }
     @Override
     public void doTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cb.setSelected(newValue);
     }
 
     @Override
     public void undoTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cb.setSelected(oldValue);
     }
     
 }

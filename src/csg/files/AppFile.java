@@ -153,6 +153,14 @@ public class AppFile implements AppFileComponent {
         String rightPath = right.getString("src");
         ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW)).setImage(loadImage(rightPath, SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW));
         
+        ComboBox<String> cssSheet = (ComboBox) app.getGUIModule().getGUINode(SITE_STYLE_FONT_COLORS_COMBO);
+        String cssFileName = json.getString(JSON_SITE_STYLE_SHEET);
+        if(cssSheet.getItems().contains(cssFileName)){
+            cssSheet.getSelectionModel().select(cssFileName);
+        }else{
+            cssSheet.getSelectionModel().clearSelection();
+        }
+       
         JsonObject instructorObject = json.getJsonObject(JSON_SITE_INSTRUCTOR);
         String inName = instructorObject.getString(JSON_SITE_NAME);
         String inLink = instructorObject.getString(JSON_SITE_LINK);
@@ -178,6 +186,7 @@ public class AppFile implements AppFileComponent {
         ((TextArea)gui.getGUINode(SYLLABUS_GRADING_NOTE_TEXTAREA)).setText(json.getString(JSON_SYL_GN));
         ((TextArea)gui.getGUINode(SYLLABUS_ACADEMIC_DIS_TEXTAREA)).setText(json.getString(JSON_SYL_ACADIS));
         ((TextArea)gui.getGUINode(SYLLABUS_SPECIAL_ASSISTANCE_TEXTAREA)).setText(json.getString(JSON_SYL_SA));
+        
     }
     
     public void loadMT(JsonObject json, AppData dataManager){
@@ -420,7 +429,7 @@ public class AppFile implements AppFileComponent {
         TextField homepg = (TextField)app.getGUIModule().getGUINode(SITE_INSTRUCTOR_HOMEPAGE_TEXTFIELD);
         TextArea oh = (TextArea)app.getGUIModule().getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA);
         Text text = (Text)app.getGUIModule().getGUINode(SITE_BANNER_EXPORT_DIR_ADDRESS);
-        
+        ComboBox<String> cssSheet = (ComboBox) app.getGUIModule().getGUINode(SITE_STYLE_FONT_COLORS_COMBO);
         
         //IMAGEVIEWS
         JsonObject faviconObject = Json.createObjectBuilder().add("src", fav.getURL()).build();
@@ -431,7 +440,10 @@ public class AppFile implements AppFileComponent {
                                 .add(JSON_SITE_FAVICON, faviconObject)
                                 .add(JSON_SITE_NAVBAR, navbarObject)
                                 .add(JSON_SITE_BOTTOM_LEFT, bottomLeftObject)
-                                .add(JSON_SITE_BOTTOM_RIGHT, bottomRightObject).build();
+                                .add(JSON_SITE_BOTTOM_RIGHT, bottomRightObject)
+                                .build();
+        
+        
         //INSTRUCTOR
         JsonObject instructorObject = Json.createObjectBuilder()
                 .add(JSON_SITE_NAME, name.getText())
@@ -472,6 +484,7 @@ public class AppFile implements AppFileComponent {
                 .add(JSON_SITE_TITLE, title.getText())
                 .add(JSON_SITE_EXPORT_DIR, text.getText())
                 .add(JSON_SITE_LOGOS, logosObject)
+                .add(JSON_SITE_STYLE_SHEET, ""+cssSheet.getSelectionModel().getSelectedItem())
                 .add(JSON_SITE_INSTRUCTOR, instructorObject)
                 .add(JSON_SITE_PAGES, pagesArray)
 		.build();

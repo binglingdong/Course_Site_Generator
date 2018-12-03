@@ -9,17 +9,22 @@ import csg.CourseSiteGeneratorApp;
 import static csg.SitePropertyType.INVALID_IMAGE_TITLE;
 import static csg.SitePropertyType.IO_IMAGE_EXCEPTION_CONTENT;
 import csg.data.LocateImages;
-import csg.transaction.EditableComboBox_Transaction;
+import csg.transaction.Site_EditableComboBox_Transaction;
+import csg.transaction.Site_EditCheckbox_Transaction;
 import csg.transaction.Site_EditImageView_Transaction;
-import csg.transaction.Site_changeComboBox_Transaction;
+import csg.transaction.Site_EditTextArea_Transaction;
+import csg.transaction.Site_EditTextField_Transaction;
+import csg.transaction.Site_NormalChangeComboBox_Transaction;
+import csg.transaction.Site_SpecialChangeComboBox_Transaction;
 import djf.ui.dialogs.AppDialogsFacade;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javafx.beans.value.ChangeListener;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
@@ -66,14 +71,40 @@ public class SiteController {
         }
     }
     
-    public void comboBoxChanged(Object oldValue, Object newValue, ComboBox cb){
-        Site_changeComboBox_Transaction tran = new Site_changeComboBox_Transaction(oldValue, newValue, cb, app);
+    public void specialComboBoxChanged(Object oldValue, Object newValue, ComboBox cb){
+        Site_SpecialChangeComboBox_Transaction tran = new Site_SpecialChangeComboBox_Transaction(oldValue, newValue, cb, app);
+        app.processTransaction(tran);
+    }
+    
+    public void normalComboBoxChanged(Object oldValue, Object newValue, ComboBox cb){
+        Site_NormalChangeComboBox_Transaction tran = new Site_NormalChangeComboBox_Transaction(oldValue, newValue, cb);
         app.processTransaction(tran);
     }
     
     public void editableComboBox(Object oldValue, Object newValue, ComboBox cb){
-        EditableComboBox_Transaction tran = new EditableComboBox_Transaction(oldValue, newValue, cb, app);
+        Site_EditableComboBox_Transaction tran = new Site_EditableComboBox_Transaction(oldValue, newValue, cb, app);
         app.processTransaction(tran);
     }
-           
+    
+    public void checkBoxChanged(boolean oldValue, boolean newValue, CheckBox cb){
+        Site_EditCheckbox_Transaction tran = new Site_EditCheckbox_Transaction(oldValue, newValue, cb);
+        app.processTransaction(tran);
+    }
+    
+    public void textFieldChanged(String oldValue, String newValue, TextField tf){
+        Site_EditTextField_Transaction tran = new Site_EditTextField_Transaction(oldValue, newValue,tf);
+        app.processTransaction(tran);
+    }
+    
+    public void textAreaChanged(String oldValue, String newValue, TextArea ta){
+        if(app.getMostRecentTransaction()!=null){
+            if(app.getMostRecentTransaction() instanceof Site_EditTextArea_Transaction){
+                Site_EditTextArea_Transaction oldTran = (Site_EditTextArea_Transaction)app.getMostRecentTransaction();
+                oldValue = oldTran.getOldValue();
+                app.moveBackPointer();
+            }
+        }
+        Site_EditTextArea_Transaction tran = new Site_EditTextArea_Transaction(oldValue, newValue,ta);
+        app.processTransaction(tran);
+    }
 }

@@ -5,6 +5,7 @@
  */
 package csg.transaction;
 
+import javafx.scene.control.TextArea;
 import jtps.jTPS_Transaction;
 
 /**
@@ -12,15 +13,36 @@ import jtps.jTPS_Transaction;
  * @author bingling.dong
  */
 public class Site_EditTextArea_Transaction implements jTPS_Transaction{
-
+    String oldValue;
+    String newValue;
+    TextArea ta;
+    
+    public Site_EditTextArea_Transaction(String oldValue, String newValue, TextArea ta){
+        this.oldValue = oldValue;
+        this.newValue = newValue;
+        this.ta = ta;
+    }
+    
     @Override
     public void doTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(newValue==null){
+            ta.clear();
+        }
+        else{
+            ta.setText(newValue);
+        }
     }
 
     @Override
     public void undoTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(oldValue ==null){
+            ta.clear();
+        }else{
+            ta.setText(oldValue);
+        }
     }
     
+    public String getOldValue(){
+        return oldValue;
+    }
 }

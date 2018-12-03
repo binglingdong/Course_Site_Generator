@@ -131,17 +131,32 @@ public class Site {
         listForSemester.add("Winter");
         listForSemester.add("Spring");
         listForSemester.add("Summer");
-        csgBuilder.buildComboBox(SITE_BANNER_COURSE_SEMESTER_COMBO, listForSemester, null, parentPane, 1, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
-      
+        ComboBox semesterCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_SEMESTER_COMBO, listForSemester, null, parentPane, 1, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        semesterCombo.getSelectionModel().selectedItemProperty().addListener((e,oldValue,newValue)->{
+            if(semesterCombo.isFocused()){
+                controller.specialComboBoxChanged(oldValue, newValue, semesterCombo);
+            }
+        });
+          
         csgBuilder.buildLabel(SITE_BANNER_COURSE_YEAR_LABEL, parentPane, 2, 2, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         ArrayList<String> listForYear = new ArrayList<>();
         int currentYear = Year.now().getValue();
         listForYear.add(currentYear+"");
         listForYear.add(currentYear+1+"");
-        csgBuilder.buildComboBox(SITE_BANNER_COURSE_YEAR_COMBO, listForYear, null, parentPane, 3, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        ComboBox yearCombo = csgBuilder.buildComboBox(SITE_BANNER_COURSE_YEAR_COMBO, listForYear, null, parentPane, 3, 2, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        yearCombo.getSelectionModel().selectedItemProperty().addListener((e,oldValue,newValue)->{
+            if(yearCombo.isFocused()){
+               controller.specialComboBoxChanged(oldValue, newValue, yearCombo); 
+            }
+        });
         
         csgBuilder.buildLabel(SITE_BANNER_COURSE_TITLE_LABEL, parentPane, 0, 3, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         TextField titleTextField = csgBuilder.buildTextField(SITE_BANNER_COURSE_TITLE_TEXTFIELD, parentPane, 1, 3, 2, 1, CLASS_INPUT_CONTROL, ENABLED);
+        titleTextField.textProperty().addListener((e,oldValue, newValue)->{
+            if(titleTextField.isFocused()){
+                controller.textFieldChanged(oldValue, newValue, titleTextField);
+            }
+        });
         
         csgBuilder.buildLabel(SITE_BANNER_EXPORT_DIR_LABEL, parentPane, 0, 4, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         Text address  = csgBuilder.buildText(SITE_BANNER_EXPORT_DIR_ADDRESS, parentPane, 1, 4, 4, 1, CLASS_LABEL_BACKGROUND, ENABLED);
@@ -155,11 +170,12 @@ public class Site {
         csgBuilder.buildCheckBox(SITE_PAGE_SYLLABUS_CHECKBOX, parentPane, CLASS_LABEL_BACKGROUND, ENABLED);
         csgBuilder.buildCheckBox(SITE_PAGE_SCHEDULE_CHECKBOX, parentPane, CLASS_LABEL_BACKGROUND, ENABLED);
         csgBuilder.buildCheckBox(SITE_PAGE_HWS_CHECKBOX, parentPane, CLASS_LABEL_BACKGROUND, ENABLED);
+ 
     }
     
     private void createStyle(Pane parentPane){
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
-        Label label = csgBuilder.buildLabel(SITE_STYLE_LABEL, parentPane, CLASS_MAJOR_LABELS, ENABLED);
+        csgBuilder.buildLabel(SITE_STYLE_LABEL, parentPane, CLASS_MAJOR_LABELS, ENABLED);
         GridPane gp = csgBuilder.buildGridPane("", parentPane, CLASS_PANES_FOREGROUND, ENABLED);
         gp.setPadding(new Insets(10,20,10,20));
         gp.setVgap(10);
@@ -215,23 +231,19 @@ public class Site {
         FontsHbox.setSpacing(30);
         
         csgBuilder.buildLabel(SITE_STYLE_FONT_COLORS_LABEL, FontsHbox, CLASS_MINOR_LABELS, ENABLED);
-        ComboBox cssSheets= csgBuilder.buildComboBox(SITE_STYLE_FONT_COLORS_COMBO, null, "", FontsHbox, CLASS_INPUT_CONTROL, ENABLED);
+        ComboBox cssSheet = csgBuilder.buildComboBox(SITE_STYLE_FONT_COLORS_COMBO, null, "", FontsHbox, CLASS_INPUT_CONTROL, ENABLED);
         csgBuilder.buildLabel(SITE_STYLE_FONT_NOTE_LABEL, parentPane, CLASS_MINOR_LABELS, ENABLED);
-
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
-        File directory = new File(props.getProperty(APP_STIE_STYLE_CSS_PATH));
-        //get all the files from the directory
-        File[] fList = directory.listFiles();
-        for (File file : fList){
-            if (file.isFile()&&file.getName().contains(".css")){
-                cssSheets.getItems().add(file.getName());
+        SiteController controller = new SiteController(app);
+        cssSheet.getSelectionModel().selectedItemProperty().addListener((e,oldValue,newValue)->{
+            if(cssSheet.isFocused()){
+                controller.normalComboBoxChanged(oldValue, newValue, cssSheet);
             }
-        }
-        cssSheets.getSelectionModel().clearSelection();
+        });
     }
     
     //GridPane is in the parameter
     private void createInstructor(VBox VPane){ 
+        SiteController controller = new SiteController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         GridPane parentPane= csgBuilder.buildGridPane(SITE_INSTRUCTOR_PANE, VPane, CLASS_PANES_FOREGROUND, ENABLED);
         parentPane.setHgap(8);
@@ -256,6 +268,35 @@ public class Site {
         instructorOHTitledPane.setExpanded(false);
         instructorOHTitledPane.setMinWidth(VPane.getWidth());
         
+        nameTextField.textProperty().addListener((e,oldValue, newValue)->{
+            if(nameTextField.isFocused()){
+                controller.textFieldChanged(oldValue, newValue, nameTextField);
+            }
+        });
+        
+        roomTextField.textProperty().addListener((e,oldValue, newValue)->{
+            if(roomTextField.isFocused()){
+                controller.textFieldChanged(oldValue, newValue, roomTextField);
+            }
+        });
+        
+        emailTextField.textProperty().addListener((e,oldValue, newValue)->{
+            if(emailTextField.isFocused()){
+                controller.textFieldChanged(oldValue, newValue, emailTextField);
+            }
+        });
+        
+        homePageTextField.textProperty().addListener((e,oldValue, newValue)->{
+            if(homePageTextField.isFocused()){
+                controller.textFieldChanged(oldValue, newValue, homePageTextField);
+            }
+        });
+        
+        instructorOHTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(instructorOHTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, instructorOHTextArea);
+            }
+        });
     }
     
     
@@ -286,16 +327,30 @@ public class Site {
         CheckBox syl= (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_SYLLABUS_CHECKBOX);
         CheckBox sch= (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_SCHEDULE_CHECKBOX);
         CheckBox hw= (CheckBox)app.getGUIModule().getGUINode(SITE_PAGE_HWS_CHECKBOX);
-        page.selectedProperty().addListener(e->{
-             app.getFoolproofModule().updateControls(SITE_CHECKBOX_FOOLPROOF_SETTINGS);
-        });
-        syl.selectedProperty().addListener(e->{
+        
+        page.selectedProperty().addListener((e,oldValue,newValue)->{
+            if(page.isFocused()){
+                controller.checkBoxChanged(oldValue, newValue, page);
+            }
             app.getFoolproofModule().updateControls(SITE_CHECKBOX_FOOLPROOF_SETTINGS);
         });
-        sch.selectedProperty().addListener(e->{
+        
+        syl.selectedProperty().addListener((e,oldValue,newValue)->{
+            if(syl.isFocused()){
+                controller.checkBoxChanged(oldValue, newValue, syl);
+            }
             app.getFoolproofModule().updateControls(SITE_CHECKBOX_FOOLPROOF_SETTINGS);
         });
-        hw.selectedProperty().addListener(e->{
+        sch.selectedProperty().addListener((e,oldValue,newValue)->{
+            if(sch.isFocused()){
+                controller.checkBoxChanged(oldValue, newValue, sch);
+            }
+            app.getFoolproofModule().updateControls(SITE_CHECKBOX_FOOLPROOF_SETTINGS);
+        });
+        hw.selectedProperty().addListener((e,oldValue,newValue)->{
+             if(hw.isFocused()){
+                controller.checkBoxChanged(oldValue, newValue, hw);
+            }
             app.getFoolproofModule().updateControls(SITE_CHECKBOX_FOOLPROOF_SETTINGS);
         });
         
@@ -308,21 +363,6 @@ public class Site {
         NavbarImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW);});
         LeftFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW);});
         RightFooterImageButton.setOnAction(e->{controller.styleButtonsClicked(SITE_STYLE_IMAGE_RIGHT_LOCATEIMAGEVIEW);});
-        
-        
-        ComboBox semesterCombo = (ComboBox)app.getGUIModule().getGUINode(SITE_BANNER_COURSE_SEMESTER_COMBO);
-        semesterCombo.getSelectionModel().selectedItemProperty().addListener((e,oldValue,newValue)->{
-            if(semesterCombo.isFocused()){
-                controller.comboBoxChanged(oldValue, newValue, semesterCombo);
-            }
-        });
-          
-        ComboBox yearCombo = (ComboBox)app.getGUIModule().getGUINode(SITE_BANNER_COURSE_YEAR_COMBO);
-        yearCombo.getSelectionModel().selectedItemProperty().addListener((e,oldValue,newValue)->{
-            if(yearCombo.isFocused()){
-               controller.comboBoxChanged(oldValue, newValue, yearCombo); 
-            }
-        });
     }
     
     private void initFoolproofDesign() {
@@ -331,6 +371,18 @@ public class Site {
                 new Site_checkBoxFoolproof((CourseSiteGeneratorApp)app));
     }
     
+    private void initCSSComboBox(ComboBox cb){
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        File directory = new File(props.getProperty(APP_STIE_STYLE_CSS_PATH));
+        //get all the files from the directory
+        File[] fList = directory.listFiles();
+        for (File file : fList){
+            if (file.isFile()&&file.getName().contains(".css")){
+                cb.getItems().add(file.getName());
+            }
+        }
+        cb.getSelectionModel().clearSelection();
+    }
     
     public void reset() throws IOException{
        AppGUIModule gui= app.getGUIModule();
@@ -348,7 +400,8 @@ public class Site {
        ((CheckBox)gui.getGUINode(SITE_PAGE_SCHEDULE_CHECKBOX)).setSelected(false);
        ((CheckBox)gui.getGUINode(SITE_PAGE_HWS_CHECKBOX)).setSelected(false);
        
-       ((ComboBox)gui.getGUINode(SITE_STYLE_FONT_COLORS_COMBO)).getSelectionModel().select(null);
+       ((ComboBox)gui.getGUINode(SITE_STYLE_FONT_COLORS_COMBO)).getItems().clear();
+       initCSSComboBox((ComboBox)gui.getGUINode(SITE_STYLE_FONT_COLORS_COMBO));
        ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW)).setImage(loadImage(APP_SITE_FAVICON, SITE_STYLE_IMAGE_FAVICON_LOCATEIMAGEVIEW));
        ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW)).setImage(loadImage(APP_SITE_NAVBAR, SITE_STYLE_IMAGE_NAVBAR_LOCATEIMAGEVIEW));
        ((LocateImages)gui.getGUINode(SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW)).setImage(loadImage(APP_LEFT_FOOTER, SITE_STYLE_IMAGE_LEFT_LOCATEIMAGEVIEW));
