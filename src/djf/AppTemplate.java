@@ -293,6 +293,20 @@ public abstract class AppTemplate extends Application {
         tps.addTransaction(transaction);
         fileModule.markAsEdited(true);
     }
+    /**
+     * get the most recent transaction in jtps
+     * @return 
+     */
+    public jTPS_Transaction getMostRecentTransaction(){
+        return tps.getMostRecentTransaction();
+    }
+    
+    /**
+     * A way to delete the most recent transaction without really calling delete. 
+     */
+    public void moveBackPointer(){
+        tps.moveMostRecentPointerBackwards();
+    }
     
     // ABSTRACT FUNCTIONS TO BE IMPLEMENTED IN CONCRETE CHILD CLASSES
     
