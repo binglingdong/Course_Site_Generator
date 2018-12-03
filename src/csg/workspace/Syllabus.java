@@ -7,6 +7,7 @@ package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
 import static csg.SyllabusPropertyType.*;
+import csg.workspace.controller.SybController;
 import static csg.workspace.style.Style.CLASS_INPUT_CONTROL;
 import static csg.workspace.style.Style.CLASS_PANES_BACKGROUND;
 import static csg.workspace.style.Style.CLASS_PANES_FOREGROUND;
@@ -37,6 +38,7 @@ public class Syllabus {
     }
     
     public void initLayout(){
+        SybController controller = new SybController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         ScrollPane sp = csgBuilder.buildScrollPane("", null, CLASS_PANES_BACKGROUND, ENABLED);
         VBox mainPane=  csgBuilder.buildVBox(SYLLABUS_PANE, null, CLASS_PANES_BACKGROUND, ENABLED);
@@ -83,6 +85,52 @@ public class Syllabus {
         sp.setFitToWidth(true);
         sp.setFitToHeight(true);
         SyllabusTab.setContent(sp);
+        
+        desTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(desTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, desTextArea);
+            }
+        });
+        topicTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(topicTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, topicTextArea);
+            }
+        });
+        prereqTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(prereqTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, prereqTextArea);
+            }
+        });
+        outcomesTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(outcomesTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, outcomesTextArea);
+            }
+        });
+        textbookTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(textbookTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, textbookTextArea);
+            }
+        });
+        gradeComTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(gradeComTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, gradeComTextArea);
+            }
+        });
+        gradingNoteTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(gradingNoteTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, gradingNoteTextArea);
+            }
+        });
+        academicDisTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(academicDisTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, academicDisTextArea);
+            }
+        });
+        specialAssisTextArea.textProperty().addListener((e,oldValue, newValue)->{
+            if(specialAssisTextArea.isFocused()){
+                controller.textAreaChanged(oldValue, newValue, specialAssisTextArea);
+            }
+        });
     }
     
     public void reset(){

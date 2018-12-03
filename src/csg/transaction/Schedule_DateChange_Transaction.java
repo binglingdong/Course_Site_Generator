@@ -5,6 +5,8 @@
  */
 package csg.transaction;
 
+import java.time.LocalDate;
+import javafx.scene.control.DatePicker;
 import jtps.jTPS_Transaction;
 
 /**
@@ -12,15 +14,23 @@ import jtps.jTPS_Transaction;
  * @author bingling.dong
  */
 public class Schedule_DateChange_Transaction implements jTPS_Transaction{
-
+    LocalDate oldValue;
+    LocalDate newValue;
+    DatePicker dp;
+    
+    public Schedule_DateChange_Transaction(LocalDate oldValue, LocalDate newValue, DatePicker dp){
+        this.oldValue = oldValue;
+        this.newValue = newValue;
+        this.dp = dp;
+    }
+    
     @Override
     public void doTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dp.setValue(newValue);
     }
 
     @Override
     public void undoTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        dp.setValue(oldValue);
     }
-    
 }

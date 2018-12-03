@@ -12,12 +12,12 @@ import jtps.jTPS_Transaction;
  *
  * @author bingling.dong
  */
-public class Site_EditTextArea_Transaction implements jTPS_Transaction{
+public class All_EditTextArea_Transaction implements jTPS_Transaction{
     String oldValue;
     String newValue;
     TextArea ta;
     
-    public Site_EditTextArea_Transaction(String oldValue, String newValue, TextArea ta){
+    public All_EditTextArea_Transaction(String oldValue, String newValue, TextArea ta){
         this.oldValue = oldValue;
         this.newValue = newValue;
         this.ta = ta;
@@ -44,5 +44,9 @@ public class Site_EditTextArea_Transaction implements jTPS_Transaction{
     
     public String getOldValue(){
         return oldValue;
+    }
+    
+    public TextArea getTA(){
+        return ta;
     }
 }

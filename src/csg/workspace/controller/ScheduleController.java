@@ -10,6 +10,7 @@ import static csg.SchedulePropertyType.*;
 import csg.data.AppData;
 import csg.data.ScheduleItem;
 import csg.transaction.Schedule_AddScheduleItems_Transaction;
+import csg.transaction.Schedule_DateChange_Transaction;
 import djf.modules.AppGUIModule;
 import java.time.LocalDate;
 import javafx.scene.control.ComboBox;
@@ -43,5 +44,10 @@ public class ScheduleController {
         
         Schedule_AddScheduleItems_Transaction addTATransaction = new Schedule_AddScheduleItems_Transaction(data,newItem);
         app.processTransaction(addTATransaction);
+    }
+    
+    public void processPickDate(LocalDate oldValue, LocalDate newValue, DatePicker dp){
+        Schedule_DateChange_Transaction tran = new Schedule_DateChange_Transaction(oldValue,newValue, dp);
+        app.processTransaction(tran);
     }
 }

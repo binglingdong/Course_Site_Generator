@@ -32,4 +32,11 @@ public class Site_EditTextField_Transaction implements jTPS_Transaction{
         tf.setText(oldValue);
     }
     
+    public String getOldValue(){
+        return oldValue;
+    }
+    
+    public TextField getTF(){
+        return tf;
+    }
 }

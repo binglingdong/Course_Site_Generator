@@ -8,14 +8,21 @@ package csg.workspace;
 import csg.CourseSiteGeneratorApp;
 import static csg.SchedulePropertyType.*;
 import csg.workspace.controller.ScheduleController;
+import csg.workspace.foolproof.Schedule_EndDatepickerFoolproof;
+import csg.workspace.foolproof.Schedule_StartDatepickerFoolproof;
 import static csg.workspace.style.Style.*;
+import static djf.AppPropertyType.APP_CLIPBOARD_FOOLPROOF_SETTINGS;
+import djf.modules.AppFoolproofModule;
 import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -69,15 +76,35 @@ public class Schedule {
         mainPane.setFitToWidth(true);
         mainPane.setContent(foregroundPane);
         ScheduleTab.setContent(mainPane);
+        
+        initFoolproofDesign();
     }
     
     public void initCalendarPane(GridPane parentPane){
+        ScheduleController controller = new ScheduleController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         csgBuilder.buildLabel(CALENDAR_BOUNDARIES_LABEL,parentPane, 0, 0, 2, 1, CLASS_MINOR_LABELS, ENABLED);
         csgBuilder.buildLabel(CALENDAR_BOUNDARIES_STARTING_LABEL, parentPane, 0, 1, 1, 1, CLASS_LABEL_BACKGROUND, ENABLED);
         csgBuilder.buildLabel(CALENDAR_BOUNDARIES_ENDING_LABEL, parentPane, 3, 1, 1, 1, CLASS_LABEL_BACKGROUND, ENABLED);
         DatePicker startingDate = csgBuilder.buildDatePicker(CALENDAR_BOUNDARIES_STARTING_DATEPICKER, parentPane, 1, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
         DatePicker endingDate = csgBuilder.buildDatePicker(CALENDAR_BOUNDARIES_ENDING_DATEPICKER, parentPane, 4, 1, 1, 1, CLASS_INPUT_CONTROL, ENABLED);
+        startingDate.setEditable(false);
+        endingDate.setEditable(false);
+        
+        startingDate.valueProperty().addListener((e, oldValue, newValue) -> {
+            if(startingDate.isFocused()){
+                controller.processPickDate(oldValue, newValue, startingDate);
+                app.getFoolproofModule().updateControls(CALENDAR_ENDDATE_FOOLPROOF_SETTING);
+            }
+            
+        });
+        endingDate.valueProperty().addListener((e, oldValue, newValue) -> {
+            if(endingDate.isFocused()){
+                controller.processPickDate(oldValue, newValue, endingDate); 
+                app.getFoolproofModule().updateControls(CALENDAR_STARTDATE_FOOLPROOF_SETTING);
+            }
+           
+        });
     }
     
     public void initScheduleItemsPane(VBox parentPane){
@@ -139,6 +166,13 @@ public class Schedule {
         });
     }
     
+    private void initFoolproofDesign() {
+        AppFoolproofModule foolproofSettings = app.getFoolproofModule(); //has a hashmap of all the settings
+        foolproofSettings.registerModeSettings(CALENDAR_ENDDATE_FOOLPROOF_SETTING,
+                new Schedule_EndDatepickerFoolproof((CourseSiteGeneratorApp)app));
+        foolproofSettings.registerModeSettings(CALENDAR_STARTDATE_FOOLPROOF_SETTING,
+                new Schedule_StartDatepickerFoolproof((CourseSiteGeneratorApp)app));
+    }
     
     ///////////////////////////// STILL NEED MORE IMPLEMENTATION/////////////////////////////
     public void reset(){

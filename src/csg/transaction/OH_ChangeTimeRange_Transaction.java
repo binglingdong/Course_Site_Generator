@@ -85,6 +85,7 @@ public class OH_ChangeTimeRange_Transaction implements jTPS_Transaction {
             }
         }
         
+        currentBox.getSelectionModel().select(newItem);
         ohws.resetOHToMatchTA(data, data.getOfficeHours());
         ohws.removeOHToMatchTA(data, data.getTeachingAssistants(), data.getOfficeHours());
     }

@@ -12,7 +12,7 @@ import csg.data.LocateImages;
 import csg.transaction.Site_EditableComboBox_Transaction;
 import csg.transaction.Site_EditCheckbox_Transaction;
 import csg.transaction.Site_EditImageView_Transaction;
-import csg.transaction.Site_EditTextArea_Transaction;
+import csg.transaction.All_EditTextArea_Transaction;
 import csg.transaction.Site_EditTextField_Transaction;
 import csg.transaction.Site_NormalChangeComboBox_Transaction;
 import csg.transaction.Site_SpecialChangeComboBox_Transaction;
@@ -92,19 +92,28 @@ public class SiteController {
     }
     
     public void textFieldChanged(String oldValue, String newValue, TextField tf){
+        if(app.getMostRecentTransaction()!=null){
+            if(app.getMostRecentTransaction() instanceof Site_EditTextField_Transaction){
+                Site_EditTextField_Transaction oldTran = (Site_EditTextField_Transaction)app.getMostRecentTransaction();
+                if(oldTran.getTF()==tf){
+                    oldValue = oldTran.getOldValue();
+                    app.moveBackPointer();
+                }
+            }
+        }
         Site_EditTextField_Transaction tran = new Site_EditTextField_Transaction(oldValue, newValue,tf);
         app.processTransaction(tran);
     }
     
     public void textAreaChanged(String oldValue, String newValue, TextArea ta){
         if(app.getMostRecentTransaction()!=null){
-            if(app.getMostRecentTransaction() instanceof Site_EditTextArea_Transaction){
-                Site_EditTextArea_Transaction oldTran = (Site_EditTextArea_Transaction)app.getMostRecentTransaction();
+            if(app.getMostRecentTransaction() instanceof All_EditTextArea_Transaction){
+                All_EditTextArea_Transaction oldTran = (All_EditTextArea_Transaction)app.getMostRecentTransaction();
                 oldValue = oldTran.getOldValue();
                 app.moveBackPointer();
             }
         }
-        Site_EditTextArea_Transaction tran = new Site_EditTextArea_Transaction(oldValue, newValue,ta);
+        All_EditTextArea_Transaction tran = new All_EditTextArea_Transaction(oldValue, newValue,ta);
         app.processTransaction(tran);
     }
 }

@@ -16,6 +16,9 @@ import csg.data.Recitation;
 import csg.transaction.MT_AddLab_Transaction;
 import csg.transaction.MT_AddLectures_Transaction;
 import csg.transaction.MT_AddRec_Transaction;
+import csg.transaction.MT_EditLab_Transaction;
+import csg.transaction.MT_EditLecture_Transaction;
+import csg.transaction.MT_EditRec_Transaction;
 import csg.transaction.MT_RemoveLab_Transaction;
 import csg.transaction.MT_RemoveLectures_Transaction;
 import csg.transaction.MT_RemoveRec_Transaction;
@@ -81,4 +84,17 @@ public class MTController {
             app.processTransaction(tran);
         }
     }
+    public void processEditLec(String oldValue, String newValue, Lecture selectedLec, String col){
+        MT_EditLecture_Transaction tran = new MT_EditLecture_Transaction(oldValue,newValue,selectedLec,col);
+            app.processTransaction(tran);
+    }
+    public void processEditLab(String oldValue, String newValue, Lab selectedLab, String col){
+        MT_EditLab_Transaction tran = new MT_EditLab_Transaction(oldValue,newValue,selectedLab,col);
+            app.processTransaction(tran);
+    }
+    public void processEditRec(String oldValue, String newValue, Recitation selectedRec, String col){
+        MT_EditRec_Transaction tran = new MT_EditRec_Transaction(oldValue,newValue,selectedRec,col);
+            app.processTransaction(tran);
+    }
+    
 }

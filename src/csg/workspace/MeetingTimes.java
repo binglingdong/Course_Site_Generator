@@ -14,6 +14,7 @@ import csg.workspace.controller.MTController;
 import static csg.workspace.style.Style.*;
 import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,6 +22,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -104,7 +106,6 @@ public class MeetingTimes {
             controller.processRemoveLab();
         });
         
-        
         sp.setFitToWidth(true);
         sp.setFitToHeight(true);
         sp.setContent(mainPane);
@@ -112,6 +113,8 @@ public class MeetingTimes {
     }
     
     public void initLectureTable(TableView lectures){
+        MTController controller = new MTController(app);
+        lectures.setEditable(true);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         TableColumn lecSectionColumn= csgBuilder.buildTableColumn(MT_LECTURE_SECTION_COLUMN, lectures, CLASS_TABLE_COLUMNS);
         TableColumn lecDaysColumn= csgBuilder.buildTableColumn(MT_LECTURE_DAYS_COLUMN, lectures, CLASS_TABLE_COLUMNS);
@@ -120,18 +123,56 @@ public class MeetingTimes {
         
         lecSectionColumn.setCellValueFactory(new PropertyValueFactory<String, String>("section"));
         lecSectionColumn.prefWidthProperty().bind(lectures.widthProperty().multiply(1.0/4.0));
+        lecSectionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        lecSectionColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lecture, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Lecture, String> t) {
+                    controller.processEditLec(t.getOldValue(), t.getNewValue(), t.getRowValue(), "section");
+                };
+            }
+        );
         
         lecDaysColumn.setCellValueFactory(new PropertyValueFactory<String, String>("days"));
         lecDaysColumn.prefWidthProperty().bind(lectures.widthProperty().multiply(1.0/4.0));
+        lecDaysColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        lecDaysColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lecture, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Lecture, String> t) {
+                    controller.processEditLec(t.getOldValue(), t.getNewValue(), t.getRowValue(), "days");
+                };
+            }
+        );
         
         lecTimeColumn.setCellValueFactory(new PropertyValueFactory<String, String>("time"));
         lecTimeColumn.prefWidthProperty().bind(lectures.widthProperty().multiply(1.0/4.0));
+        lecTimeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        lecTimeColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lecture, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Lecture, String> t) {
+                    controller.processEditLec(t.getOldValue(), t.getNewValue(), t.getRowValue(), "time");
+                };
+            }
+        );
         
         lecRoomColumn.setCellValueFactory(new PropertyValueFactory<String, String>("room"));
         lecRoomColumn.prefWidthProperty().bind(lectures.widthProperty().multiply(1.0/4.0));
+        lecRoomColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        lecRoomColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lecture, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Lecture, String> t) {
+                    controller.processEditLec(t.getOldValue(), t.getNewValue(), t.getRowValue(), "room");
+                };
+            }
+        );
     }
     
     public void initRecTable(TableView recitations){
+        recitations.setEditable(true);
+        MTController controller = new MTController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         TableColumn recSectionColumn= csgBuilder.buildTableColumn(MT_REC_SECTION_COLUMN, recitations, CLASS_TABLE_COLUMNS);
         TableColumn recDaysAndTimeColumn= csgBuilder.buildTableColumn(MT_REC_DAYSANDTIME_COLUMN, recitations, CLASS_TABLE_COLUMNS);
@@ -141,22 +182,68 @@ public class MeetingTimes {
        
         recSectionColumn.setCellValueFactory(new PropertyValueFactory<String, String>("section"));
         recSectionColumn.prefWidthProperty().bind(recitations.widthProperty().multiply(1.0/5.0));
+        recSectionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        recSectionColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Recitation, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Recitation, String> t) {
+                    controller.processEditRec(t.getOldValue(), t.getNewValue(), t.getRowValue(), "section");
+                };
+            }
+        );
         
         recDaysAndTimeColumn.setCellValueFactory(new PropertyValueFactory<String, String>("dayAndTime"));
         recDaysAndTimeColumn.prefWidthProperty().bind(recitations.widthProperty().multiply(1.0/5.0));
+        recDaysAndTimeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        recDaysAndTimeColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Recitation, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Recitation, String> t) {
+                    controller.processEditRec(t.getOldValue(), t.getNewValue(), t.getRowValue(), "day");
+                };
+            }
+        );
         
         recRoomColumn.setCellValueFactory(new PropertyValueFactory<String, String>("room"));
         recRoomColumn.prefWidthProperty().bind(recitations.widthProperty().multiply(1.0/5.0));
+        recRoomColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        recRoomColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Recitation, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Recitation, String> t) {
+                    controller.processEditRec(t.getOldValue(), t.getNewValue(), t.getRowValue(), "room");
+                };
+            }
+        );
         
         recTA1Column.setCellValueFactory(new PropertyValueFactory<String, String>("TA1"));
         recTA1Column.prefWidthProperty().bind(recitations.widthProperty().multiply(1.0/5.0));
+        recTA1Column.setCellFactory(TextFieldTableCell.forTableColumn());
+        recTA1Column.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Recitation, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Recitation, String> t) {
+                    controller.processEditRec(t.getOldValue(), t.getNewValue(), t.getRowValue(), "ta1");
+                };
+            }
+        );
         
         recTA2Column.setCellValueFactory(new PropertyValueFactory<String, String>("TA2"));
         recTA2Column.prefWidthProperty().bind(recitations.widthProperty().multiply(1.0/5.0));
-    
+        recTA2Column.setCellFactory(TextFieldTableCell.forTableColumn());
+        recTA2Column.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Recitation, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Recitation, String> t) {
+                    controller.processEditRec(t.getOldValue(), t.getNewValue(), t.getRowValue(), "ta2");
+                };
+            }
+        );
     }
     
     public void initLabTable(TableView labs){
+        labs.setEditable(true);
+        MTController controller = new MTController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         TableColumn labSectionColumn= csgBuilder.buildTableColumn(MT_LAB_SECTION_COLUMN, labs, CLASS_TABLE_COLUMNS);
         TableColumn labDaysAndTimeColumn= csgBuilder.buildTableColumn(MT_LAB_DAYSANDTIME_COLUMN, labs, CLASS_TABLE_COLUMNS);
@@ -166,18 +253,63 @@ public class MeetingTimes {
        
         labSectionColumn.setCellValueFactory(new PropertyValueFactory<String, String>("section"));
         labSectionColumn.prefWidthProperty().bind(labs.widthProperty().multiply(1.0/5.0));
+        labSectionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        labSectionColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lab, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Lab, String> t) {
+                    controller.processEditLab(t.getOldValue(), t.getNewValue(), t.getRowValue(), "section");
+                };
+            }
+        );
         
         labDaysAndTimeColumn.setCellValueFactory(new PropertyValueFactory<String, String>("dayAndTime"));
         labDaysAndTimeColumn.prefWidthProperty().bind(labs.widthProperty().multiply(1.0/5.0));
+        labDaysAndTimeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        labDaysAndTimeColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lab, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Lab, String> t) {
+                    controller.processEditLab(t.getOldValue(), t.getNewValue(), t.getRowValue(), "day");
+                };
+            }
+        );
         
         labRoomColumn.setCellValueFactory(new PropertyValueFactory<String, String>("room"));
         labRoomColumn.prefWidthProperty().bind(labs.widthProperty().multiply(1.0/5.0));
+        labRoomColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        labRoomColumn.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lab, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Lab, String> t) {
+                    controller.processEditLab(t.getOldValue(), t.getNewValue(), t.getRowValue(), "room");
+                };
+            }
+        );
         
         labTA1Column.setCellValueFactory(new PropertyValueFactory<String, String>("TA1"));
         labTA1Column.prefWidthProperty().bind(labs.widthProperty().multiply(1.0/5.0));
+        labTA1Column.setCellFactory(TextFieldTableCell.forTableColumn());
+        labTA1Column.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lab, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Lab, String> t) {
+                    controller.processEditLab(t.getOldValue(), t.getNewValue(), t.getRowValue(), "ta1");
+                };
+            }
+        );
         
         labTA2Column.setCellValueFactory(new PropertyValueFactory<String, String>("TA2"));
         labTA2Column.prefWidthProperty().bind(labs.widthProperty().multiply(1.0/5.0));
+        labTA2Column.setCellFactory(TextFieldTableCell.forTableColumn());
+        labTA2Column.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Lab, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Lab, String> t) {
+                    controller.processEditLab(t.getOldValue(), t.getNewValue(), t.getRowValue(), "ta2");
+                };
+            }
+        );
     }
     
 }
