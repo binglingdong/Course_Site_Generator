@@ -5,6 +5,8 @@
  */
 package csg.transaction;
 
+import csg.data.AppData;
+import csg.data.ScheduleItem;
 import jtps.jTPS_Transaction;
 
 /**
@@ -12,15 +14,20 @@ import jtps.jTPS_Transaction;
  * @author bingling.dong
  */
 public class Schedule_RemoveScheduleItems_Transaction implements jTPS_Transaction{
-
+    AppData data;
+    ScheduleItem selected;
+    public Schedule_RemoveScheduleItems_Transaction(AppData data, ScheduleItem selected){
+        this.data = data;
+        this.selected = selected;
+    }
     @Override
     public void doTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.removeScheduleItem(selected);
     }
 
     @Override
     public void undoTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        data.addScheduleItem(selected);
     }
     
 }

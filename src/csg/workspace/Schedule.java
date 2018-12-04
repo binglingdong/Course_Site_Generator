@@ -7,22 +7,19 @@ package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
 import static csg.SchedulePropertyType.*;
+import csg.data.ScheduleItem;
 import csg.workspace.controller.ScheduleController;
 import csg.workspace.foolproof.Schedule_EndDatepickerFoolproof;
 import csg.workspace.foolproof.Schedule_StartDatepickerFoolproof;
 import static csg.workspace.style.Style.*;
-import static djf.AppPropertyType.APP_CLIPBOARD_FOOLPROOF_SETTINGS;
 import djf.modules.AppFoolproofModule;
 import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
 import djf.ui.AppNodesBuilder;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -108,12 +105,13 @@ public class Schedule {
     }
     
     public void initScheduleItemsPane(VBox parentPane){
+        ScheduleController controller = new ScheduleController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         HBox hb1 = csgBuilder.buildHBox("", parentPane, CLASS_PANES_FOREGROUND, ENABLED);
         hb1.setSpacing(10);
         Button removeButton = csgBuilder.buildTextButton(CALENDAR_SCHEDULE_ITEMS_REMOVE_BUTTON, hb1, CLASS_ADD_REMOVE_BUTTON, ENABLED);
         csgBuilder.buildLabel(CALENDAR_SCHEDULE_ITMES_LABEL, hb1, CLASS_MINOR_LABELS, ENABLED);
-        TableView scheudleItemsTableView = csgBuilder.buildTableView(CALENDAR_SCHEDULE_ITEMS_TABLEVIEW, parentPane, CLASS_TABLEVIEW, ENABLED);
+        TableView<ScheduleItem> scheudleItemsTableView = csgBuilder.buildTableView(CALENDAR_SCHEDULE_ITEMS_TABLEVIEW, parentPane, CLASS_TABLEVIEW, ENABLED);
         VBox.setVgrow(scheudleItemsTableView, Priority.ALWAYS);
         
         TableColumn typeTableColumn = csgBuilder.buildTableColumn(CALENDAR_SCHEUDLE_ITMES_TYPE_COLUMN, scheudleItemsTableView, CLASS_TABLE_COLUMNS);
@@ -131,6 +129,16 @@ public class Schedule {
         TableColumn topicTableColumn = csgBuilder.buildTableColumn(CALENDAR_SCHEUDLE_ITMES_TOPIC_COLUMN, scheudleItemsTableView, CLASS_TABLE_COLUMNS);
         topicTableColumn.setCellValueFactory(new PropertyValueFactory<String, String>("topic"));
         topicTableColumn.prefWidthProperty().bind(scheudleItemsTableView.widthProperty().multiply(2.0/5.0));
+        removeButton.setOnAction(e->{
+            ScheduleItem selected = scheudleItemsTableView.getSelectionModel().getSelectedItem();
+            controller.processRemove(selected);
+        });
+        scheudleItemsTableView.getSelectionModel().selectedItemProperty().addListener((e, oldValue, newValue)->{
+            if(scheudleItemsTableView.isPressed()){
+                controller.processSelectingItems(oldValue, newValue, scheudleItemsTableView);
+            }
+        });
+        
     }
     
     public void initAddAndEditPane(GridPane parentPane){

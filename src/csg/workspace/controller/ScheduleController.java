@@ -11,10 +11,13 @@ import csg.data.AppData;
 import csg.data.ScheduleItem;
 import csg.transaction.Schedule_AddScheduleItems_Transaction;
 import csg.transaction.Schedule_DateChange_Transaction;
+import csg.transaction.Schedule_RemoveScheduleItems_Transaction;
+import csg.transaction.Schedule_ScheduleSelect_Transaction;
 import djf.modules.AppGUIModule;
 import java.time.LocalDate;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 /**
@@ -46,8 +49,18 @@ public class ScheduleController {
         app.processTransaction(addTATransaction);
     }
     
+    public void processRemove(ScheduleItem selected){
+        Schedule_RemoveScheduleItems_Transaction tran = new Schedule_RemoveScheduleItems_Transaction((AppData)app.getDataComponent(), selected);
+        app.processTransaction(tran);
+    }
+    
     public void processPickDate(LocalDate oldValue, LocalDate newValue, DatePicker dp){
         Schedule_DateChange_Transaction tran = new Schedule_DateChange_Transaction(oldValue,newValue, dp);
+        app.processTransaction(tran);
+    }
+    
+    public void processSelectingItems(ScheduleItem oldItem, ScheduleItem newItem, TableView<ScheduleItem> table){
+        Schedule_ScheduleSelect_Transaction tran = new Schedule_ScheduleSelect_Transaction(oldItem, newItem, table, app.getGUIModule());
         app.processTransaction(tran);
     }
 }
