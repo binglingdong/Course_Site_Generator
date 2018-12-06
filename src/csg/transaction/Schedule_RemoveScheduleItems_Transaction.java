@@ -7,6 +7,7 @@ package csg.transaction;
 
 import csg.data.AppData;
 import csg.data.ScheduleItem;
+import javafx.scene.control.TableView;
 import jtps.jTPS_Transaction;
 
 /**
@@ -16,13 +17,17 @@ import jtps.jTPS_Transaction;
 public class Schedule_RemoveScheduleItems_Transaction implements jTPS_Transaction{
     AppData data;
     ScheduleItem selected;
-    public Schedule_RemoveScheduleItems_Transaction(AppData data, ScheduleItem selected){
+    TableView<ScheduleItem> table;
+    
+    public Schedule_RemoveScheduleItems_Transaction(AppData data, ScheduleItem selected, TableView<ScheduleItem> table){
         this.data = data;
         this.selected = selected;
+        this.table = table;
     }
     @Override
     public void doTransaction() {
         data.removeScheduleItem(selected);
+        table.getSelectionModel().clearSelection();
     }
 
     @Override

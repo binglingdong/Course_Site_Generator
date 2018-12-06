@@ -9,17 +9,18 @@ import csg.CourseSiteGeneratorApp;
 import static csg.SchedulePropertyType.*;
 import csg.data.ScheduleItem;
 import csg.workspace.controller.ScheduleController;
-import csg.workspace.foolproof.Schedule_EndDatepickerFoolproof;
-import csg.workspace.foolproof.Schedule_StartDatepickerFoolproof;
 import static csg.workspace.style.Style.*;
-import djf.modules.AppFoolproofModule;
 import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
+import djf.modules.AppLanguageModule;
 import djf.ui.AppNodesBuilder;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -74,7 +75,6 @@ public class Schedule {
         mainPane.setContent(foregroundPane);
         ScheduleTab.setContent(mainPane);
         
-        initFoolproofDesign();
     }
     
     public void initCalendarPane(GridPane parentPane){
@@ -91,17 +91,63 @@ public class Schedule {
         startingDate.valueProperty().addListener((e, oldValue, newValue) -> {
             if(startingDate.isFocused()){
                 controller.processPickDate(oldValue, newValue, startingDate);
-                app.getFoolproofModule().updateControls(CALENDAR_ENDDATE_FOOLPROOF_SETTING);
             }
-            
         });
+        
         endingDate.valueProperty().addListener((e, oldValue, newValue) -> {
             if(endingDate.isFocused()){
                 controller.processPickDate(oldValue, newValue, endingDate); 
-                app.getFoolproofModule().updateControls(CALENDAR_STARTDATE_FOOLPROOF_SETTING);
             }
-           
         });
+        
+        startingDate.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if(endingDate.getValue()!=null){
+                    setDisable(empty || date.getDayOfWeek() == DayOfWeek.TUESDAY        // THIs is for updating 
+                        ||date.getDayOfWeek() == DayOfWeek.WEDNESDAY
+                        ||date.getDayOfWeek() == DayOfWeek.THURSDAY
+                        ||date.getDayOfWeek() == DayOfWeek.FRIDAY
+                        ||date.getDayOfWeek() == DayOfWeek.SATURDAY
+                        ||date.getDayOfWeek() == DayOfWeek.SUNDAY
+                        ||date.compareTo(endingDate.getValue()) > 0);
+                }  
+                else{
+                     setDisable(empty || date.getDayOfWeek() == DayOfWeek.TUESDAY            //THIS is for initialize
+                        ||date.getDayOfWeek() == DayOfWeek.WEDNESDAY
+                        ||date.getDayOfWeek() == DayOfWeek.THURSDAY
+                        ||date.getDayOfWeek() == DayOfWeek.FRIDAY
+                        ||date.getDayOfWeek() == DayOfWeek.SATURDAY
+                        ||date.getDayOfWeek() == DayOfWeek.SUNDAY);
+                }
+            }
+        });
+        
+        endingDate.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if(startingDate.getValue()!=null){
+                    setDisable(empty || date.getDayOfWeek() == DayOfWeek.TUESDAY                //for= updating
+                        ||date.getDayOfWeek() == DayOfWeek.WEDNESDAY  
+                        ||date.getDayOfWeek() == DayOfWeek.THURSDAY
+                        ||date.getDayOfWeek() == DayOfWeek.MONDAY
+                        ||date.getDayOfWeek() == DayOfWeek.SATURDAY
+                        ||date.getDayOfWeek() == DayOfWeek.SUNDAY
+                        ||date.compareTo(startingDate.getValue()) < 0);
+                }
+                else{
+                    setDisable(empty || date.getDayOfWeek() == DayOfWeek.TUESDAY                    //For initailizing
+                        ||date.getDayOfWeek() == DayOfWeek.WEDNESDAY
+                        ||date.getDayOfWeek() == DayOfWeek.THURSDAY
+                        ||date.getDayOfWeek() == DayOfWeek.MONDAY
+                        ||date.getDayOfWeek() == DayOfWeek.SATURDAY
+                        ||date.getDayOfWeek() == DayOfWeek.SUNDAY); 
+                }
+            }
+        });
+        
     }
     
     public void initScheduleItemsPane(VBox parentPane){
@@ -129,16 +175,31 @@ public class Schedule {
         TableColumn topicTableColumn = csgBuilder.buildTableColumn(CALENDAR_SCHEUDLE_ITMES_TOPIC_COLUMN, scheudleItemsTableView, CLASS_TABLE_COLUMNS);
         topicTableColumn.setCellValueFactory(new PropertyValueFactory<String, String>("topic"));
         topicTableColumn.prefWidthProperty().bind(scheudleItemsTableView.widthProperty().multiply(2.0/5.0));
+        
         removeButton.setOnAction(e->{
             ScheduleItem selected = scheudleItemsTableView.getSelectionModel().getSelectedItem();
-            controller.processRemove(selected);
-        });
-        scheudleItemsTableView.getSelectionModel().selectedItemProperty().addListener((e, oldValue, newValue)->{
-            if(scheudleItemsTableView.isPressed()){
-                controller.processSelectingItems(oldValue, newValue, scheudleItemsTableView);
-            }
+            controller.processRemove(selected, scheudleItemsTableView);
         });
         
+        scheudleItemsTableView.setOnMouseClicked(e->{
+            if(scheudleItemsTableView.getSelectionModel().getSelectedItem()!=null){
+                controller.processSelectingItems(scheudleItemsTableView.getSelectionModel().getSelectedItem(), scheudleItemsTableView);
+                String oldKey =CALENDAR_ADD_BUTTON.toString()+"_TEXT";
+                String newKey = CALENDAR_EDIT_BUTTON.toString()+"_TEXT";
+                AppLanguageModule languageSettings = app.getLanguageModule();
+                Button button = (Button)app.getGUIModule().getGUINode(CALENDAR_ADD_BUTTON);
+                languageSettings.replaceLabeledControlProperty(oldKey, newKey, button.textProperty());
+            }
+        });
+        scheudleItemsTableView.getSelectionModel().selectedItemProperty().addListener((e, oldValue, newValue)->{
+            if(newValue==null){
+                 String newKey =CALENDAR_ADD_BUTTON.toString()+"_TEXT";
+                String oldKey = CALENDAR_EDIT_BUTTON.toString()+"_TEXT";
+                AppLanguageModule languageSettings = app.getLanguageModule();
+                Button button = (Button)app.getGUIModule().getGUINode(CALENDAR_ADD_BUTTON);
+                languageSettings.replaceLabeledControlProperty(oldKey, newKey, button.textProperty());
+            }
+        });
     }
     
     public void initAddAndEditPane(GridPane parentPane){
@@ -164,23 +225,44 @@ public class Schedule {
         TextField topicTF= csgBuilder.buildTextField(CALENDAR_ADD_EDIT_TOPIC_TEXTFIELD, parentPane, 1, 4, 2, 1, CLASS_INPUT_CONTROL, ENABLED);
         TextField linkTF= csgBuilder.buildTextField(CALENDAR_ADD_EDIT_LINK_TEXTFIELD, parentPane, 1, 5, 2, 1, CLASS_INPUT_CONTROL, ENABLED);
         
-        Button addOrUpdateButton = csgBuilder.buildTextButton(CALENDAR_ADD_EDIT_BUTTON, parentPane, 0, 6, 2, 1, CLASS_SCHEDULE_BUTTONS, ENABLED);
+        Button addOrUpdateButton = csgBuilder.buildTextButton(CALENDAR_ADD_BUTTON, parentPane, 0, 6, 2, 1, CLASS_SCHEDULE_BUTTONS, ENABLED);
         Button clearButton = csgBuilder.buildTextButton(CALENDAR_CLEAR_BUTTON, parentPane, 2, 6, 2, 1, CLASS_SCHEDULE_BUTTONS, ENABLED);
         addOrUpdateButton.prefWidthProperty().bind(parentPane.widthProperty().multiply(0.15));
         clearButton.prefWidthProperty().bind(parentPane.widthProperty().multiply(0.13));
+        TableView<ScheduleItem> scheudleItemsTableView = (TableView<ScheduleItem>) app.getGUIModule().getGUINode(CALENDAR_SCHEDULE_ITEMS_TABLEVIEW);
         
         addOrUpdateButton.setOnAction(e->{
-            controller.processAdd();
+            if(scheudleItemsTableView.getSelectionModel().getSelectedItem()==null){
+                controller.processAdd(scheudleItemsTableView); 
+            }
+            else{
+                controller.processEdit(scheudleItemsTableView.getSelectionModel().getSelectedItem());
+            }
+        });
+        clearButton.setOnAction(e->{
+            controller.processClear(scheudleItemsTableView);
+        });
+        
+        DatePicker startingDate = (DatePicker) app.getGUIModule().getGUINode(CALENDAR_BOUNDARIES_STARTING_DATEPICKER);
+        DatePicker endingDate = (DatePicker) app.getGUIModule().getGUINode(CALENDAR_BOUNDARIES_ENDING_DATEPICKER);
+        dp.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if(endingDate.getValue()!=null&& startingDate.getValue()!=null){
+                    setDisable(empty||date.compareTo(endingDate.getValue())>0||
+                    date.compareTo(startingDate.getValue())<0);
+                }
+                else if(startingDate.getValue()!=null){
+                    setDisable(empty||date.compareTo(startingDate.getValue())<0);
+                }
+                else if(endingDate.getValue()!=null){
+                    setDisable(empty||date.compareTo(endingDate.getValue())<0);
+                }
+            }
         });
     }
     
-    private void initFoolproofDesign() {
-        AppFoolproofModule foolproofSettings = app.getFoolproofModule(); //has a hashmap of all the settings
-        foolproofSettings.registerModeSettings(CALENDAR_ENDDATE_FOOLPROOF_SETTING,
-                new Schedule_EndDatepickerFoolproof((CourseSiteGeneratorApp)app));
-        foolproofSettings.registerModeSettings(CALENDAR_STARTDATE_FOOLPROOF_SETTING,
-                new Schedule_StartDatepickerFoolproof((CourseSiteGeneratorApp)app));
-    }
     
     ///////////////////////////// STILL NEED MORE IMPLEMENTATION/////////////////////////////
     public void reset(){
@@ -192,5 +274,10 @@ public class Schedule {
         ((DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_STARTING_DATEPICKER)).setValue(null);
         ((DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_ENDING_DATEPICKER)).setValue(null);
         ((DatePicker)gui.getGUINode(CALENDAR_ADD_EDIT_DATE_DATEPICKER)).setValue(null);
+        String newKey =CALENDAR_ADD_BUTTON.toString()+"_TEXT";
+        String oldKey = CALENDAR_EDIT_BUTTON.toString()+"_TEXT";
+        AppLanguageModule languageSettings = app.getLanguageModule();
+        Button button = (Button)app.getGUIModule().getGUINode(CALENDAR_ADD_BUTTON);
+        languageSettings.replaceLabeledControlProperty(oldKey, newKey, button.textProperty());
     }
 }

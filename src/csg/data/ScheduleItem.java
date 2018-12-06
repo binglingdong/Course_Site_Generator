@@ -28,9 +28,14 @@ public class ScheduleItem {
         this.title= new SimpleStringProperty(title);
         this.topic= new SimpleStringProperty(topic);
         this.link= new SimpleStringProperty(link);
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/dd/uu");
-        String dateS = formatters.format(date);
-        dateString = new SimpleStringProperty(dateS);
+        if(date!=null){
+            DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/dd/uu");
+            String dateS = formatters.format(date);
+            dateString = new SimpleStringProperty(dateS);
+        }
+        else{
+            dateString = new SimpleStringProperty("");
+        }
     }
     
     public String getType() {
@@ -51,6 +56,14 @@ public class ScheduleItem {
 
     public void setDate(LocalDate date) {
         this.date = date;
+        if(date!=null){
+            DateTimeFormatter formatters = DateTimeFormatter.ofPattern("MM/dd/uu");
+            String dateS = formatters.format(date);
+            this.dateString.set(dateS); 
+        }
+        else{
+            this.dateString.set(""); 
+        }
     }
     
     public String getDateString() {

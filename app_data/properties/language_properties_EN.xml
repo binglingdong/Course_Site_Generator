@@ -205,7 +205,8 @@
         <property name="CALENDAR_ADD_EDIT_TITLE_LABEL_TEXT"             value="Title: "></property>
         <property name="CALENDAR_ADD_EDIT_TOPIC_LABEL_TEXT"             value="Topic: "></property>
         <property name="CALENDAR_ADD_EDIT_LINK_LABEL_TEXT"              value="Link: "></property>
-        <property name="CALENDAR_ADD_EDIT_BUTTON_TEXT"                  value="Add/Update"></property>
+        <property name="CALENDAR_ADD_BUTTON_TEXT"                       value="Add"></property>
+        <property name="CALENDAR_EDIT_BUTTON_TEXT"                      value="Update"></property>
         <property name="CALENDAR_CLEAR_BUTTON_TEXT"                     value="Clear"></property>
     
 

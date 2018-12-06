@@ -5,6 +5,8 @@
  */
 package csg.transaction;
 
+import csg.data.ScheduleItem;
+import java.time.LocalDate;
 import jtps.jTPS_Transaction;
 
 /**
@@ -12,15 +14,49 @@ import jtps.jTPS_Transaction;
  * @author bingling.dong
  */
 public class Schedule_EditScheduleItems_Transaction implements jTPS_Transaction{
-
+    ScheduleItem item;
+    String newType;
+    String newTitle;
+    String newTopic;
+    String newLink;
+    LocalDate newDate;
+    String oldType;
+    String oldTitle;
+    String oldTopic;
+    String oldLink;
+    LocalDate oldDate;
+    
+    public Schedule_EditScheduleItems_Transaction(ScheduleItem item, String newType, String newTitle, String newTopic,
+                                                String newLink, LocalDate newDate){
+        this.newLink = newLink;
+        this.newDate = newDate;
+        this.newTitle= newTitle;
+        this.newTopic = newTopic;
+        this.newType = newType;
+        this.item = item;
+        oldType = item.getType();
+        oldTitle = item.getTitle();
+        oldTopic = item.getTopic();
+        oldLink = item.getLink();
+        oldDate = item.getDate();
+    }
+    
     @Override
     public void doTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        item.setDate(newDate);
+        item.setLink(newLink);
+        item.setType(newType);
+        item.setTitle(newTitle);
+        item.setTopic(newTopic);
     }
 
     @Override
     public void undoTransaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        item.setDate(oldDate);
+        item.setLink(oldLink);
+        item.setType(oldType);
+        item.setTitle(oldTitle);
+        item.setTopic(oldTopic);
     }
     
 }

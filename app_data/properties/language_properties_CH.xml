@@ -197,13 +197,14 @@
         <property name="CALENDAR_SCHEUDLE_ITMES_DATE_COLUMN_TEXT"       value="日期"></property>
         <property name="CALENDAR_SCHEUDLE_ITMES_TITLE_COLUMN_TEXT"      value="标题"></property>
         <property name="CALENDAR_SCHEUDLE_ITMES_TOPIC_COLUMN_TEXT"      value="主题"></property>
-        <property name="CALENDAR_ADD_EDIT_LABEL_TEXT"                   value="添加／编辑"></property>
+        <property name="CALENDAR_ADD_EDIT_LABEL_TEXT"                   value="添加"></property>
         <property name="CALENDAR_ADD_EDIT_TYPE_LABEL_TEXT"              value="类型: "></property>
         <property name="CALENDAR_ADD_EDIT_DATE_LABEL_TEXT"              value="日期: "></property>
         <property name="CALENDAR_ADD_EDIT_TITLE_LABEL_TEXT"             value="标题: "></property>
         <property name="CALENDAR_ADD_EDIT_TOPIC_LABEL_TEXT"             value="主题: "></property>
         <property name="CALENDAR_ADD_EDIT_LINK_LABEL_TEXT"              value="链接: "></property>
-        <property name="CALENDAR_ADD_EDIT_BUTTON_TEXT"                  value="添加／更新"></property>
+        <property name="CALENDAR_ADD_BUTTON_TEXT"                       value="添加"></property>
+        <property name="CALENDAR_EDIT_BUTTON_TEXT"                       value="更新"></property>
         <property name="CALENDAR_CLEAR_BUTTON_TEXT"                     value="清除"></property>
     
         
