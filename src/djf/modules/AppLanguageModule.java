@@ -1,7 +1,10 @@
 package djf.modules;
 
+import static djf.AppPropertyType.APP_ERROR_CONTENT;
+import static djf.AppPropertyType.APP_ERROR_TITLE;
 import djf.AppTemplate;
 import static djf.AppPropertyType.LANGUAGE_OPTIONS;
+import djf.ui.dialogs.AppDialogsFacade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.property.StringProperty;
@@ -57,6 +60,17 @@ public class AppLanguageModule {
 
     public void addLabeledControlProperty(Object key, StringProperty textProperty) {
         labeledControlProperties.put(key.toString(), textProperty);
+    }
+    public void replaceLabeledControlProperty(Object oldKey,Object newKey, StringProperty textProperty){
+        try {
+            if(labeledControlProperties.containsKey(oldKey)){
+                labeledControlProperties.remove(oldKey.toString());
+            }
+            labeledControlProperties.put(newKey.toString(), textProperty);
+            resetLanguage();
+        } catch (LanguageException e) {
+            AppDialogsFacade.showStackTraceDialog(app.getGUIModule().getWindow(), e, APP_ERROR_TITLE, APP_ERROR_CONTENT);
+        }
     }
 
     public void loadLanguageSettings(String initLanguage) throws LanguageException {

@@ -1,7 +1,5 @@
 package djf.modules;
 
-import static djf.AppPropertyType.APP_ERROR_CONTENT;
-import static djf.AppPropertyType.APP_ERROR_TITLE;
 import static djf.AppPropertyType.APP_FILE_FOOLPROOF_SETTINGS;
 import static djf.AppPropertyType.APP_FILE_NOT_FOUND_CONTENT;
 import static djf.AppPropertyType.APP_FILE_NOT_FOUND_TITLE;
