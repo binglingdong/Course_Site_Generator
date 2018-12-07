@@ -44,8 +44,8 @@ public class Site_SpecialChangeComboBox_Transaction implements jTPS_Transaction{
             //if it's year combo
             String textString = tx.getText();
             String newString="";
-            int lastUnderscrool = textString.lastIndexOf("_");
-            int thirdUnderScroll = textString.lastIndexOf("_", lastUnderscrool-1);
+            int lastDot = textString.lastIndexOf(".");
+            int thirdUnderScroll = textString.lastIndexOf("_", lastDot-1);
             int secondUnderScroll = textString.lastIndexOf("_", thirdUnderScroll-1);
             int firstUnderScroll =textString.lastIndexOf("_", secondUnderScroll-1);
             if(cb == (ComboBox)app.getGUIModule().getGUINode(SITE_BANNER_COURSE_YEAR_COMBO)){

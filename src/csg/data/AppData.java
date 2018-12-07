@@ -10,6 +10,7 @@ import csg.CourseSiteGeneratorApp;
 import static csg.MeetingTimePropertyType.*;
 import static csg.OfficeHoursPropertyType.*;
 import static csg.SchedulePropertyType.*;
+import static csg.SitePropertyType.SITE_BANNER_EXPORT_DIR_ADDRESS;
 import csg.data.TimeSlot.DayOfWeek;
 import csg.workspace.MainWorkspace;
 import djf.modules.AppGUIModule;
@@ -18,6 +19,7 @@ import java.util.Iterator;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -25,6 +27,7 @@ import javafx.scene.control.TableView;
  */
 public class AppData implements AppDataComponent{
     CourseSiteGeneratorApp app;
+    private String expDir;
     //MT
     private ObservableList<Lecture> lectures;
     private ObservableList<Recitation> recitations;
@@ -60,6 +63,8 @@ public class AppData implements AppDataComponent{
         recitations = recTableView.getItems();
         TableView<Lab> labTableView = (TableView)gui.getGUINode(MT_LAB_TABLEVIEW);
         labs = labTableView.getItems();
+        Text expDirectory = (Text) gui.getGUINode(SITE_BANNER_EXPORT_DIR_ADDRESS);
+        expDir = expDirectory.getText();
         
         // THESE ARE THE DEFAULT OFFICE HOURS
         startHour = MIN_START_HOUR;
@@ -419,6 +424,18 @@ public class AppData implements AppDataComponent{
      */
     public ObservableList<ScheduleItem> getScheduleItem() {
         return scheduleItem;
+    }
+
+    /**
+     * @param s the expDir to set
+     */
+    public void setExpDir(String s) {
+        expDir = s;
+    }
+
+    @Override
+    public String getExportDirectory() {
+        return expDir;
     }
     
 }

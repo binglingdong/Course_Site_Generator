@@ -12,7 +12,9 @@ import csg.files.AppFile;
 import csg.workspace.controller.SiteController;
 import csg.workspace.foolproof.Site_checkBoxFoolproof;
 import static csg.workspace.style.Style.*;
+import static djf.AppPropertyType.APP_EXPORT_PAGE;
 import static djf.AppPropertyType.APP_LEFT_FOOTER;
+import static djf.AppPropertyType.APP_PATH_EXPORT;
 import static djf.AppPropertyType.APP_PATH_IMAGES;
 import static djf.AppPropertyType.APP_RIGHT_FOOTER;
 import static djf.AppPropertyType.APP_SITE_FAVICON;
@@ -34,7 +36,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
@@ -157,10 +158,10 @@ public class Site {
                 controller.textFieldChanged(oldValue, newValue, titleTextField);
             }
         });
-        
+        PropertiesManager prop = PropertiesManager.getPropertiesManager();
         csgBuilder.buildLabel(SITE_BANNER_EXPORT_DIR_LABEL, parentPane, 0, 4, 1, 1, CLASS_MINOR_LABELS, ENABLED);
         Text address  = csgBuilder.buildText(SITE_BANNER_EXPORT_DIR_ADDRESS, parentPane, 1, 4, 4, 1, CLASS_LABEL_BACKGROUND, ENABLED);
-        address.setText(".\\export\\subject_number_semester_year\\public_html");
+        address.setText(prop.getProperty(APP_PATH_EXPORT)+"subject_number_semester_year/"+prop.getProperty(APP_EXPORT_PAGE));
     }
     
     private void createPage(Pane parentPane){
@@ -414,7 +415,7 @@ public class Site {
        
        ((TitledPane)gui.getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TITLEDPANE)).setExpanded(false);
        ((TextArea)gui.getGUINode(SITE_INSTRUCTOR_OFFICEHOUR_TEXTAREA)).clear();
-       
-       ((Text)gui.getGUINode(SITE_BANNER_EXPORT_DIR_ADDRESS)).setText(".\\export\\subject_number_semester_year\\public_html");
+       PropertiesManager prop = PropertiesManager.getPropertiesManager();
+       ((Text)gui.getGUINode(SITE_BANNER_EXPORT_DIR_ADDRESS)).setText(prop.getProperty(APP_PATH_EXPORT)+"subject_number_semester_year/"+prop.getProperty(APP_EXPORT_PAGE));
     }
 }

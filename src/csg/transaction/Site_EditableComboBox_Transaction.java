@@ -8,9 +8,11 @@ package csg.transaction;
 import csg.CourseSiteGeneratorApp;
 import static csg.SitePropertyType.SITE_BANNER_COURSE_SUBJECT_COMBO;
 import static csg.SitePropertyType.SITE_BANNER_EXPORT_DIR_ADDRESS;
+import static djf.AppPropertyType.APP_PATH_EXPORT;
 import javafx.scene.control.ComboBox;
 import javafx.scene.text.Text;
 import jtps.jTPS_Transaction;
+import properties_manager.PropertiesManager;
 
 /**
  *
@@ -35,19 +37,20 @@ public class Site_EditableComboBox_Transaction implements jTPS_Transaction{
     }
     @Override
     public void doTransaction() {
+        PropertiesManager prop = PropertiesManager.getPropertiesManager();
         if(newValue==null||newValue.equals("")){
             cb.getEditor().setText((String)newValue);
+            
             //if it's subject combo
             String textString = tx.getText();
             String newString="";
-            int lastUnderscrool = textString.lastIndexOf("_");
-            int thirdUnderScroll = textString.lastIndexOf("_", lastUnderscrool-1);
+            int lastDot = textString.lastIndexOf(".");
+            int thirdUnderScroll = textString.lastIndexOf("_", lastDot-1);
             int secondUnderScroll = textString.lastIndexOf("_", thirdUnderScroll-1);
             int firstUnderScroll =textString.lastIndexOf("_", secondUnderScroll-1);
-            int preUnderScroll = textString.indexOf("t\\");
             
             if(cb == (ComboBox)app.getGUIModule().getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)){
-                newString = textString.substring(0,preUnderScroll+2)+"subject"+textString.substring(firstUnderScroll);
+                newString = prop.getProperty(APP_PATH_EXPORT)+"subject"+textString.substring(firstUnderScroll);
             }
             // or if it's the number combo
             else{
@@ -61,14 +64,13 @@ public class Site_EditableComboBox_Transaction implements jTPS_Transaction{
             //if it's subject combo
             String textString = tx.getText();
             String newString="";
-            int lastUnderscrool = textString.lastIndexOf("_");
-            int thirdUnderScroll = textString.lastIndexOf("_", lastUnderscrool-1);
+            int lastDot = textString.lastIndexOf(".");
+            int thirdUnderScroll = textString.lastIndexOf("_", lastDot-1);
             int secondUnderScroll = textString.lastIndexOf("_", thirdUnderScroll-1);
             int firstUnderScroll =textString.lastIndexOf("_", secondUnderScroll-1);
-            int preUnderScroll = textString.indexOf("t\\");
             
             if(cb == (ComboBox)app.getGUIModule().getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)){
-                newString = textString.substring(0,preUnderScroll+2)+newValue+textString.substring(firstUnderScroll);
+                newString = prop.getProperty(APP_PATH_EXPORT)+newValue+textString.substring(firstUnderScroll);
             }
             // or if it's the number combo
             else{

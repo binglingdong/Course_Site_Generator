@@ -26,6 +26,8 @@ import csg.data.TimeSlot.DayOfWeek;
 import static csg.files.AppFileProperties.*;
 import csg.workspace.MainWorkspace;
 import csg.workspace.OfficeHours;
+import static djf.AppPropertyType.APP_EXPORT_PAGE;
+import static djf.AppPropertyType.APP_PATH_EXPORT;
 import djf.modules.AppGUIModule;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -62,6 +64,7 @@ import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
 import properties_manager.PropertiesManager;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -104,6 +107,7 @@ public class AppFile implements AppFileComponent {
         
         Text tx = (Text)app.getGUIModule().getGUINode(SITE_BANNER_EXPORT_DIR_ADDRESS);
         tx.setText(exportDir);
+        ((AppData)app.getDataComponent()).setExpDir(tx.getText());
         
         if(!subject.equals("")&&!subject.equals("null")){
             ((ComboBox)gui.getGUINode(SITE_BANNER_COURSE_SUBJECT_COMBO)).getSelectionModel().select(subject);
@@ -431,6 +435,8 @@ public class AppFile implements AppFileComponent {
         Text text = (Text)app.getGUIModule().getGUINode(SITE_BANNER_EXPORT_DIR_ADDRESS);
         ComboBox<String> cssSheet = (ComboBox) app.getGUIModule().getGUINode(SITE_STYLE_FONT_COLORS_COMBO);
         
+        //UPDates the exp dir 
+        ((AppData)app.getDataComponent()).setExpDir(text.getText());
         //IMAGEVIEWS
         JsonObject faviconObject = Json.createObjectBuilder().add("src", fav.getURL()).build();
         JsonObject navbarObject = Json.createObjectBuilder().add("src", nav.getURL()).build();
@@ -761,6 +767,21 @@ public class AppFile implements AppFileComponent {
 
     @Override
     public void exportData(AppDataComponent data, String filePath) throws IOException {
+        AppData appData = (AppData)data;
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String src = props.getProperty(APP_PATH_EXPORT)+"html";
+        File srcDir = new File(src);
+        
+        String dest = appData.getExportDirectory();
+        int indexForPost = dest.indexOf(props.getProperty(APP_EXPORT_PAGE));
+        dest = dest.substring(0,indexForPost);
+        File destDir = new File(dest);
+        
+        try {
+            FileUtils.copyDirectory(srcDir, destDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
     
