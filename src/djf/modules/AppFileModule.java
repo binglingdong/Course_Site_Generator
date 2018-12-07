@@ -76,8 +76,6 @@ public class AppFileModule {
     public void newWork() {
         // RESET THE DATA
         app.getDataComponent().reset();
-        //app.getGUIModule().getGUINode(OH_OFFICE_HOURS_TABLE_VIEW);
-        
         
         // CLEAR OUT ANY OLD TRANSACTIONS
         app.getTPS().clearAllTransactions();

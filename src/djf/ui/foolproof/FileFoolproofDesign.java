@@ -35,7 +35,7 @@ public class FileFoolproofDesign implements FoolproofDesign {
         enableIfInUse(HAS_LOAD,     LOAD_BUTTON,    true);
         enableIfInUse(HAS_CLOSE,    CLOSE_BUTTON,   app.getWorkspaceComponent().isActivated());
         enableIfInUse(HAS_SAVE,     SAVE_BUTTON,    !app.getFileModule().isSaved());
-        enableIfInUse(HAS_EXPORT,   EXPORT_BUTTON,  app.getWorkspaceComponent().isActivated());
+        enableIfInUse(HAS_EXPORT,   EXPORT_BUTTON,  app.getFileModule().getWorkFile()!=null&&app.getFileModule().isSaved());
         enableIfInUse(HAS_EXIT,     EXIT_BUTTON,    true);
     }
     

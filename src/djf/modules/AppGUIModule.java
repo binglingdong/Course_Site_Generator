@@ -16,7 +16,6 @@ import djf.components.AppClipboardComponent;
 import static djf.modules.AppLanguageModule.FILE_PROTOCOL;
 import djf.modules.AppLanguageModule.LanguageException;
 import djf.ui.AppNodesBuilder;
-import java.awt.Window;
 import java.net.URL;
 import java.util.HashMap;
 import javafx.collections.ObservableList;
