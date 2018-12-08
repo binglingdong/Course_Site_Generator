@@ -809,37 +809,96 @@ public class AppFile implements AppFileComponent {
         File scheduleDataFile = new File(exportPath+"ScheduleData.json");
         scheduleDataFile.createNewFile();
         
-        //exportSectionsData(json.getJsonObject(JSON_MT_TAB), dataManager, sectionDataFile.getPath());
-       // exportSyllabusData(json.getJsonObject(JSON_SYLLABUS_TAB), dataManager, syllabusDataFile.getPath());
-       // exportOH(json.getJsonObject(JSON_OH_TAB), dataManager, OHDataFile.getPath());
-        exportPageData(json.getJsonObject(JSON_SITE_TAB), dataManager, pageDataFile.getPath());
-        //exportScheduleData(json.getJsonObject(JSON_SCHEDULE_TAB), dataManager, scheduleDataFile.getPath());
+        JsonObject instructorArray = exportPageData(json.getJsonObject(JSON_SITE_TAB), pageDataFile.getPath());
+        exportSyllabusData(json.getJsonObject(JSON_SYLLABUS_TAB), syllabusDataFile.getPath());
+        exportSectionsData(json.getJsonObject(JSON_MT_TAB), sectionDataFile.getPath());
+        exportOH(json.getJsonObject(JSON_OH_TAB),instructorArray,OHDataFile.getPath());
+        exportScheduleData(json.getJsonObject(JSON_SCHEDULE_TAB), scheduleDataFile.getPath());
     }
     
-    public void exportSectionsData(JsonObject json, AppData dataManager, String filePath) throws IOException{
-        
+    public void exportSectionsData(JsonObject json, String filePath) throws IOException{
+        JsonArray lecturesArray = json.getJsonArray(JSON_MT_LECTURES);
+        JsonArray recArray = json.getJsonArray(JSON_MT_RECITATIONS);
+        JsonArray labArray = json.getJsonArray(JSON_MT_LABS);
         
 	JsonObject dataManagerJSO = Json.createObjectBuilder()
-		.add(JSON_SITE_TAB, buildJsonSite(dataManager))
+		.add(JSON_MT_LECTURES, lecturesArray)
+                .add(JSON_MT_RECITATIONS, recArray)
+                .add(JSON_MT_LABS, labArray)
 		.build();
         exportWriteFile(dataManagerJSO, filePath);
     }
-    public void exportSyllabusData(JsonObject json, AppData dataManager, String filePath)throws IOException{
-	JsonObject dataManagerJSO = Json.createObjectBuilder()
-		.add(JSON_SITE_TAB, buildJsonSite(dataManager))
-		.build();
+    
+    public void exportSyllabusData(JsonObject json, String filePath)throws IOException{
+        AppGUIModule gui= app.getGUIModule();
+        String des = json.getString(JSON_SYL_DES);
         
+        String topics = json.getString(JSON_SYL_TOPICS);
+        JsonArray topicsArray = Json.createArrayBuilder().build();
+        if(!topics.equals("")){
+            JsonReader jr = Json.createReader(new StringReader(topics));
+            topicsArray = jr.readArray();
+        }
+        String prereq = json.getString(JSON_SYL_PREREQ);
+        
+        String outcomes = json.getString(JSON_SYL_OUTCOMES);
+        JsonArray outComesArray = Json.createArrayBuilder().build();
+        if(!outcomes.equals("")){
+            JsonReader jr = Json.createReader(new StringReader(outcomes));
+            outComesArray = jr.readArray();
+        }
+        
+        String tb = json.getString(JSON_SYL_TB);
+        JsonArray tbArray = Json.createArrayBuilder().build();
+        if(!tb.equals("")){
+            JsonReader jr = Json.createReader(new StringReader(tb));
+            tbArray = jr.readArray();
+        }
+        
+        String gc = json.getString(JSON_SYL_GC);
+        JsonArray gcArray = Json.createArrayBuilder().build();
+        if(!gc.equals("")){
+            JsonReader jr = Json.createReader(new StringReader(gc));
+            gcArray = jr.readArray();
+        }
+        
+        String gn = json.getString(JSON_SYL_GN);
+        String acaDis = json.getString(JSON_SYL_ACADIS);
+        String sa = json.getString(JSON_SYL_SA);
+        
+	JsonObject dataManagerJSO = Json.createObjectBuilder()
+		.add(JSON_SYL_DES, des)
+                .add(JSON_SYL_TOPICS, topicsArray)
+                .add(JSON_SYL_PREREQ, prereq)
+                .add(JSON_SYL_OUTCOMES, outComesArray)
+                .add(JSON_SYL_TB, tbArray)
+                .add(JSON_SYL_GC, gcArray)
+                .add(JSON_SYL_GN, gn)
+                .add(JSON_SYL_ACADIS, acaDis)
+                .add(JSON_SYL_SA, sa)
+		.build();
         exportWriteFile(dataManagerJSO, filePath);
     }
-    public void exportOH(JsonObject json, AppData dataManager, String filePath)throws IOException{
+    
+    public void exportOH(JsonObject json, JsonObject instructorArray, String filePath)throws IOException{
+        String startHour = json.getString(JSON_OH_START_HOUR);
+        String endHour = json.getString(JSON_OH_END_HOUR);
+        JsonArray jsonUnderTAArray = json.getJsonArray(JSON_OH_UNDERGRAD_TAS);
+        JsonArray jsonGradTAArray = json.getJsonArray(JSON_OH_GRAD_TAS);
+        JsonArray jsonOHArray= json.getJsonArray(JSON_OH_OFFICE_HOURS);
         
 	JsonObject dataManagerJSO = Json.createObjectBuilder()
-		.add(JSON_SITE_TAB, buildJsonSite(dataManager))
+		.add(JSON_OH_START_HOUR,startHour)
+                .add(JSON_OH_END_HOUR, endHour)
+                .add(JSON_SITE_INSTRUCTOR, instructorArray)
+                .add(JSON_OH_GRAD_TAS, jsonGradTAArray)
+                .add(JSON_OH_UNDERGRAD_TAS,jsonUnderTAArray)
+                .add(JSON_OH_OFFICE_HOURS, jsonOHArray)
 		.build();
-        
         exportWriteFile(dataManagerJSO, filePath);
     }
-    public void exportPageData(JsonObject json, AppData dataManager, String filePath)throws IOException{
+    
+    public JsonObject exportPageData(JsonObject json, String filePath)throws IOException{
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         String subject = json.getString(JSON_SITE_SUBJECT);
         String number = json.getString(JSON_SITE_NUMBER);
@@ -895,11 +954,31 @@ public class AppFile implements AppFileComponent {
 		.build();
         
         exportWriteFile(dataManagerJSO, filePath);
+        return newInstructorObject;
     }
-    public void exportScheduleData(JsonObject json, AppData dataManager, String filePath)throws IOException{
+    
+    public void exportScheduleData(JsonObject json, String filePath)throws IOException{
+        int startingMonth = (int)json.getInt(JSON_STARTING_MONDAY_MONTH);
+        int startingDay = (int)json.getInt(JSON_STARTING_MONDAY_DAY);
+        int endingMonth = (int)json.getInt(JSON_ENDING_FRIDAY_MONTH);
+        int endingDay = (int)json.getInt(JSON_ENDING_FRIDAY_DAY);
+            
+        JsonArray holidaysArray = json.getJsonArray(JSON_HOLIDAYS);
+        JsonArray lecturesArray = json.getJsonArray(JSON_LECTURES);
+        JsonArray referencesArray = json.getJsonArray(JSON_REFERENCE);
+        JsonArray recitationsArray = json.getJsonArray(JSON_RECITATIONS);
+        JsonArray hwsArray = json.getJsonArray(JSON_HWS);
         
 	JsonObject dataManagerJSO = Json.createObjectBuilder()
-		.add(JSON_SITE_TAB, buildJsonSite(dataManager))
+		.add(JSON_STARTING_MONDAY_MONTH, startingMonth)
+                .add(JSON_STARTING_MONDAY_DAY, startingDay)
+                .add(JSON_ENDING_FRIDAY_MONTH, endingMonth)
+                .add(JSON_ENDING_FRIDAY_DAY, endingDay)
+                .add(JSON_HOLIDAYS, holidaysArray)
+                .add(JSON_LECTURES, lecturesArray)
+                .add(JSON_REFERENCE, referencesArray)
+                .add(JSON_RECITATIONS, recitationsArray)
+                .add(JSON_HWS, hwsArray)
 		.build();
         exportWriteFile(dataManagerJSO, filePath);
     }

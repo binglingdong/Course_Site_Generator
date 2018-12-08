@@ -1,4 +1,2 @@
-w-work/w.json
-ee-work/ee.json
-Untitled-work/Untitled.json
-d-work/d.json
+test-work/test.json
+yy-work/yy.json

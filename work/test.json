@@ -1,0 +1,506 @@
+
+{
+    "site_tab":{
+        "subject":"CSE",
+        "number":"219",
+        "semester":"Fall",
+        "year":"2018",
+        "title":"Computer Science III",
+        "export_dir":"./export/subject_number_semester_year/index.html",
+        "logos":{
+            "favicon":{
+                "src":"./images//SBU.png"
+            },
+            "navbar":{
+                "src":"./images//SBUDarkRedShieldLogo.png"
+            },
+            "bottom_left":{
+                "src":"./images//SBUWhiteShieldLogo.jpg"
+            },
+            "bottom_right":{
+                "src":"./images//SBUCSLogo.png"
+            }
+        },
+        "style_sheet":"christmas_theme.css",
+        "instructor":{
+            "name":"Richard McKenna",
+            "link":"http://www.cs.stonybrook.edu/~richard",
+            "email":"richard@cs.stonybrook.edu",
+            "room":"New CS 216",
+            "hours":"[\n            { \"day\": \"Tuesday\",     \"time\": \"1:00pm-2:20pm\"    },\n            { \"day\": \"Wednesday\",   \"time\": \"2pm-3pm\"       },\n            { \"day\": \"Thursday\",      \"time\": \"1:00pm-2:20pm\"    }\n        ]\n"
+        },
+        "pages":[
+            {
+                "name":"Home",
+                "link":"index.html"
+            },
+            {
+                "name":"Syllabus",
+                "link":"syllabus.html"
+            },
+            {
+                "name":"Schedule",
+                "link":"schedule.html"
+            },
+            {
+                "name":"HWs",
+                "link":"hws.html"
+            }
+        ]
+    },
+    "syllabus_tab":{
+        "description":"Development of the basic concepts and techniques from Computer Science I and II into practical programming skills that include a systematic approach to program design, coding, testing, and debugging. Application of these skills to the construction of robust programs of thousands of lines of source code. Use of programming environments and tools to aid in the software development process.",
+        "topics":"[\n        \"Programming style and its impact on readability, reliability, maintainability, and portability.\",\n        \"Decomposing problems into modular designs with simple, narrow interfaces.\",\n        \"Determining the proper objects in an object-oriented design.\",\n        \"Selecting appropriate algorithms and data structures.\",\n        \"Reusing code, including external libraries designed and built by others.\",\n        \"Learning systematic testing and debugging techniques.\",\n        \"Maintaining a repository of code during incremental development of a software project.\",\n        \"Learning how to use threads to synchronize several tasks.\",\n        \"Improving program performance.\",\n        \"Making effective use of a programming environment, including:<br /><ul><li>Syntax-directed editor</li><li>Build tools</li><li>Debugging tools</li><li>Testing tools</li><li>Source code management tools</li><li>Profiling tools</li></ul>\"\n    ]",
+        "prerequisites":"You must have taken CSE 214 and received a grade of 'C' or better in order to take this course. In more detail, you are expected to have the following knowledge and skills at the beginning of the course:<br /><ul><li>Ability to write programs of a few hundred lines of code in the Java programming language.</li><li>Understanding of fundamental data structures, including lists, binary trees, hash tables, and graphs, and the ability to employ these data structures in the form provided by the standard Java API.</li><li>Ability to construct simple command-based user interfaces, and to use files for the input and output of data.</li><li>Mastery of basic mathematical and geometric reasoning using pre-calculus concepts.</li></ul>",
+        "outcomes":" [\n        \"Ability to systematically design, code, debug, and test programs of about two thousand lines of code.\",\n        \"Sensitivity to the issues of programming style and modularity and their relationship to the construction and evolution of robust software.\",\n        \"Knowledge of basic ideas and techniques of object-oriented programming.\",\n        \"Familiarity with the capabilities and use of programming tools such as syntax-directed editors, debuggers, execution profilers, documentation generators, and revison-control systems.\"\n    ]",
+        "textbooks":"[\n        {\n            \"title\": \"Head First Object Oriented Analysis and Design\",\n            \"link\": \"http://proquestcombo.safaribooksonline.com.proxy.library.stonybrook.edu/0596008678\",\n            \"photo\": \"./images/HeadFirstOOAAD.jpg\",\n            \"authors\": [\n                \"Brett McLaughlin\", \"Gary Pollice\", \"David West\"\n            ],\n            \"publisher\": \"O'Reilly Media, Inc.\",\n            \"year\": \"2006\"\n        },\n        {\n            \"title\": \"Head First Design Patterns\",\n            \"link\": \"http://proquestcombo.safaribooksonline.com.proxy.library.stonybrook.edu/0596007124\",\n            \"photo\": \"./images/HeadFirstDesignPatterns.gif\",\n            \"authors\": [\n                \"Eric T Freeman\", \"Elisabeth Robson\", \"Bert Bates\", \"Kathy Sierra\"\n            ],\n            \"publisher\": \"O'Reilly Media, Inc.\",\n            \"year\": \"2004\"\n        }\n    ]",
+        "gradedComponents":"[\n        {\n            \"name\": \"Recitations\",\n            \"description\": \"Students will attend weekly recitations that will introduce use of essential development tools and will require completion of an exercise for submission.\",\n            \"weight\": \"10\"\n        },\n        {\n            \"name\": \"Homework Assignments\",\n            \"description\": \"The assignments will develop a students ability to design and implement object-oriented systems. Grading will be based on functionality and proper use specific tools. Submitted code that does not compile will receive no credit. Late submissions will NOT be accepted. Programming assignments will be handed in electronically, instructions for which will be provided early in the semester.\",\n            \"weight\": \"20\"\n        },\n        {\n            \"name\": \"Final Project\",\n            \"description\": \"The assignments will build to the final project, which will be a fully functioning application.\",\n            \"weight\": \"20\"\n        },\n        {\n            \"name\": \"Midterm Exam\",\n            \"description\": \"The midterm will cover all lecture, quizzes, and homework materials covered during the first 1/2 of the semester.\",\n            \"weight\": \"20\"\n        },\n        {\n            \"name\": \"Final Exam\",\n            \"description\": \"The final will be cumulative and will cover all lecture, reading, and homework material.\",\n            \"weight\": \"30\"\n        }\n    ]",
+        "gradingNote":"<strong>Note CEAS Policy:</strong> The Pass/No Credit (P/NC) option is not available for this course.",
+        "academicDishonesty":"You may <em>discuss</em> the homework in this course with anyone you like, however each student's submissionmust be ones own work.<br /><br />The College of Engineering and Applied Sciences regards academic dishonesty as a very serious matter, and provides for substantial penalties in such cases. For more information, obtain a copy of the CEAS guidelines on academic dishonesty from the CEAS office.<br /><br /><strong>Be advised that any evidence of academic dishonesty will be treated with utmost seriousness. If you have a situation that may tempt you into doing something academically dishonest, resist the urge and speak with your instructor during office hours for help.</strong><br /><br />",
+        "specialAssistance":"If you have a physical, psychological, medical or learning disability that may impact on your ability to carry out assigned course work, I would urge that you contact the staff at the <a href='https://www.stonybrook.edu/dss/'>Student Accessibility Support Center</a> (SASC) in the ECC building, 632-6748. SASC will review your concerns and determine with you what accommodations are necessary and appropriate. All information and documentation of disability are confidential.<br /><br /><br /><br />"
+    },
+    "meeting_times_tab":{
+        "lectures":[
+            {
+                "section":"L01",
+                "days":"Tuesdays &amp; Thursdays",
+                "time":"10:00am-11:20pm",
+                "room":"Humanities 1006"
+            }
+        ],
+        "labs":[
+            {
+                "section":"ac ",
+                "day_time":"ed",
+                "location":"sdf",
+                "ta_1":"sdf",
+                "ta_2":"dfs"
+            }
+        ],
+        "recitations":[
+            {
+                "section":"<strong>R06</strong> (McKenna)",
+                "day_time":"Mondays, 10:00am-10:53am",
+                "location":"New CS 115",
+                "ta_1":"Lei Song",
+                "ta_2":"Qihong Jiang"
+            },
+            {
+                "section":"<strong>R07</strong> (McKenna)",
+                "day_time":"Wednesdays, 10:00am-10:53am",
+                "location":"New CS 115",
+                "ta_1":"Mankirat Gulati",
+                "ta_2":"Sammi Wu Leung"
+            },
+            {
+                "section":"<strong>R08</strong> (McKenna)",
+                "day_time":"Wednesdays, 2:30pm-3:23pm",
+                "location":"New CS 115",
+                "ta_1":"Sammi Wu Leung",
+                "ta_2":"Qihong Jiang"
+            }
+        ]
+    },
+    "office_hours_tab":{
+        "startHour":"8",
+        "endHour":"23",
+        "undergrad_tas":[
+            {
+                "name":"Abraham Rosloff",
+                "email":"abraham.rosloff@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Anghel De Las Casas",
+                "email":"anghel.delascasas@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Dhruv Sheth",
+                "email":"dhruv.sheth@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Heng An Lin",
+                "email":"Hengan.lin@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Lei Song",
+                "email":"lei.song@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Mankirat Gulati",
+                "email":"mankirat.gulati@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Melanie Logan",
+                "email":"melanie.logan@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Michael McDonagh",
+                "email":"Michael.J.McDonagh@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Qihong Jiang",
+                "email":"qihong.jiang@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Sammi Wu Leung",
+                "email":"sammi.wuleung@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Stephen Chen",
+                "email":"stephen.chen@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Weihao Li",
+                "email":"weihao.li@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Xiangying Liu",
+                "email":"xiangying.liu@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Xiaoxiao Liu",
+                "email":"xiao.x.liu@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Zengxian Lin",
+                "email":"zengxian.lin@stonybrook.edu",
+                "type":"Undergraduate"
+            },
+            {
+                "name":"Zihao Wang",
+                "email":"zihao.wang.3@stonybrook.edu",
+                "type":"Undergraduate"
+            }
+        ],
+        "grad_tas":[
+            {
+                "name":"Aarin Chase",
+                "email":"Aarin.Chase@stonybrook.edu",
+                "type":"Graduate"
+            },
+            {
+                "name":"Bo Cao",
+                "email":"Bo.Cao.1@stonybrook.edu",
+                "type":"Graduate"
+            },
+            {
+                "name":"Kaho Kui",
+                "email":"kaho.kui@stonybrook.edu",
+                "type":"Graduate"
+            },
+            {
+                "name":"Richard Huang",
+                "email":"yueyang.huang@stonybrook.edu",
+                "type":"Graduate"
+            }
+        ],
+        "officeHours":[
+            {
+                "time":"9_00am",
+                "day":"MONDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            },
+            {
+                "time":"9_30am",
+                "day":"TUESDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            },
+            {
+                "time":"9_30am",
+                "day":"TUESDAY",
+                "name":"Abraham Rosloff",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"9_30am",
+                "day":"FRIDAY",
+                "name":"Zihao Wang",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"10_00am",
+                "day":"MONDAY",
+                "name":"Abraham Rosloff",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"10_00am",
+                "day":"MONDAY",
+                "name":"Zengxian Lin",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"10_00am",
+                "day":"WEDNESDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            },
+            {
+                "time":"10_00am",
+                "day":"THURSDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"10_30am",
+                "day":"WEDNESDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            },
+            {
+                "time":"10_30am",
+                "day":"FRIDAY",
+                "name":"Abraham Rosloff",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"10_30am",
+                "day":"FRIDAY",
+                "name":"Zihao Wang",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"11_30am",
+                "day":"MONDAY",
+                "name":"Abraham Rosloff",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"11_30am",
+                "day":"MONDAY",
+                "name":"Zengxian Lin",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"11_30am",
+                "day":"THURSDAY",
+                "name":"Xiangying Liu",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"12_00pm",
+                "day":"TUESDAY",
+                "name":"Zengxian Lin",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"12_30pm",
+                "day":"THURSDAY",
+                "name":"Abraham Rosloff",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"12_30pm",
+                "day":"FRIDAY",
+                "name":"Xiangying Liu",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"4_30pm",
+                "day":"WEDNESDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"6_00pm",
+                "day":"TUESDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            },
+            {
+                "time":"7_00pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"8_00pm",
+                "day":"TUESDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            },
+            {
+                "time":"8_00pm",
+                "day":"WEDNESDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            }
+        ],
+        "combo_start_time":"9:00am",
+        "combo_end_time":"9:00pm",
+        "combo_start_list":[
+            "9:00am",
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm",
+            "9:00am",
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm"
+        ],
+        "combo_end_list":[
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm",
+            "9:00pm",
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm",
+            "9:00pm"
+        ]
+    },
+    "schedule_tab":{
+        "startingMondayMonth":8,
+        "startingMondayDay":27,
+        "startingMondayYear":2018,
+        "endingFridayMonth":12,
+        "endingFridayDays":28,
+        "endingFridayYear":2018,
+        "holidays":[
+            {
+                "month":12,
+                "day":19,
+                "year":2018,
+                "title":"",
+                "topic":"Holiday",
+                "link":""
+            }
+        ],
+        "lectures":[
+            {
+                "month":12,
+                "day":3,
+                "year":2018,
+                "title":"ad",
+                "topic":"Lecture",
+                "link":"d"
+            }
+        ],
+        "references":[
+            {
+                "month":12,
+                "day":19,
+                "year":2018,
+                "title":"",
+                "topic":"Reference",
+                "link":""
+            }
+        ],
+        "recitations":[
+            {
+                "month":12,
+                "day":19,
+                "year":2018,
+                "title":"",
+                "topic":"Recitation",
+                "link":""
+            }
+        ],
+        "hws":[
+            {
+                "month":12,
+                "day":19,
+                "year":2018,
+                "title":"",
+                "topic":"HW",
+                "link":""
+            }
+        ]
+    }
+}
