@@ -43,18 +43,22 @@
         <property name="ABOUT_BUTTON_TOOLTIP"       value="关于"></property>
 
         <!-- NEW FEEDBACK DIALOGS -->	
-        <property name="NEW_SUCCESS_TITLE"      value="新完成"></property>
-        <property name="NEW_SUCCESS_CONTENT"	value="工作已创建但尚未保存"></property>
-        <property name="NEW_ERROR_TITLE"        value="警告：错误"></property>
-        <property name="NEW_ERROR_CONTENT"      value="创建新工作时出错"></property>
+        <property name="NEW_SUCCESS_TITLE"          value="新完成"></property>
+        <property name="NEW_SUCCESS_CONTENT"        value="工作已创建但尚未保存"></property>
+        <property name="NEW_ERROR_TITLE"            value="警告：错误"></property>
+        <property name="NEW_ERROR_CONTENT"          value="创建新工作时出错"></property>
 
         <!-- LOAD FEEDBACK DIALOGS -->
-        <property name="LOAD_WORK_TITLE"        value="加载中"></property>
-        <property name="LOAD_SUCCESS_TITLE"     value="加载完"></property>
-        <property name="LOAD_SUCCESS_CONTENT"   value="文件已成功加载，现在可以编辑"></property>
-        <property name="LOAD_ERROR_TITLE"       value="加载出错"></property>        
-        <property name="LOAD_ERROR_CONTENT"     value="加载失败。 可能存在文件格式问题。"></property>
-
+        <property name="LOAD_WORK_TITLE"            value="加载中"></property>
+        <property name="LOAD_SUCCESS_TITLE"         value="加载完"></property>
+        <property name="LOAD_SUCCESS_CONTENT"       value="文件已成功加载，现在可以编辑"></property>
+        <property name="LOAD_ERROR_TITLE"           value="加载出错"></property>        
+        <property name="LOAD_ERROR_CONTENT"         value="加载失败。 可能存在文件格式问题。"></property>
+ 
+        <!-- EXPORT DIALOG -->
+        <property name="EXPORT_ERROR_TITLE"         value="上传失败"></property>
+        <property name="EXPORT_ERROR_CONTENT"       value="上传失败。可能存在文件格式问题。"></property>
+       
         <!-- SAVE FEEDBACK DIALOGS -->
         <property name="SAVE_WORK_TITLE"        value="保存中"></property>
         <property name="SAVE_SUCCESS_TITLE"     value="已保存"></property>

@@ -63,7 +63,11 @@
         <property name="SAVE_ERROR_CONTENT"                 value="Saving has Failed. Likely due to a file access problem."></property>
         <property name="SAVE_VERIFY_TITLE"                  value="Save unsaved work?"></property>
         <property name="SAVE_VERIFY_CONTENT"                value="Would you like to save your unsaved work first?"></property>
-
+        
+        <!-- EXPORT DIALOG -->
+        <property name="EXPORT_ERROR_TITLE"                 value="Export Error"></property>
+        <property name="EXPORT_ERROR_CONTENT"               value="Export has Failed. Likely due to a file access problem."></property>
+        
         <!-- ABOUT DIALOG -->
         <property name="ABOUT_TITLE"                        value="About Course Site Generator"></property>
         <property name="ABOUT_CONTENT"                      value="Course Site Generator - Debugging Enterprises - © 2018"></property>

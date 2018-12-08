@@ -27,17 +27,25 @@ import static csg.files.AppFileProperties.*;
 import csg.workspace.MainWorkspace;
 import csg.workspace.OfficeHours;
 import static djf.AppPropertyType.APP_EXPORT_PAGE;
+import static djf.AppPropertyType.APP_EXPORT_PATH_CSS;
 import static djf.AppPropertyType.APP_PATH_EXPORT;
+import static djf.AppPropertyType.APP_PATH_JSON;
+import static djf.AppPropertyType.APP_STIE_STYLE_CSS_PATH;
 import djf.modules.AppGUIModule;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -344,6 +352,7 @@ public class AppFile implements AppFileComponent {
         loadScheduleItems(recitationsArray, dataManager.getScheduleItem(), "Recitation");
         loadScheduleItems(hwsArray, dataManager.getScheduleItem(), "HW");
     }
+    
     // HELPER METHOD FOR LOADING DATA FROM A JSON FORMAT
     private JsonObject loadJSONFile(String jsonFilePath) throws IOException{
 	InputStream is = new FileInputStream(jsonFilePath);
@@ -766,22 +775,180 @@ public class AppFile implements AppFileComponent {
     }
 
     @Override
+    /**
+     * @param filePath The filePath here represents the file that was just saved. 
+     */
     public void exportData(AppDataComponent data, String filePath) throws IOException {
-        AppData appData = (AppData)data;
+        AppData dataManager = (AppData)data;
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        //CREATE A NEW DIRECTORY AND COPY ALL THE DEFAULT FILES INTO THE DIRECTORY
         String src = props.getProperty(APP_PATH_EXPORT)+"html";
         File srcDir = new File(src);
-        
-        String dest = appData.getExportDirectory();
+        String dest = dataManager.getExportDirectory();
         int indexForPost = dest.indexOf(props.getProperty(APP_EXPORT_PAGE));
-        dest = dest.substring(0,indexForPost);
+        dest = dest.substring(0,indexForPost-1);
         File destDir = new File(dest);
-        
         try {
             FileUtils.copyDirectory(srcDir, destDir);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        JsonObject json = loadJSONFile(filePath);
+        
+        //CREATE THE FIVE FILES INTO /JS/
+        String exportPath = dest+props.getProperty(APP_PATH_JSON);
+        File sectionDataFile = new File(exportPath+"SectionsData.json");
+        sectionDataFile.createNewFile();
+        File syllabusDataFile = new File(exportPath+"SyllabusData.json");
+        syllabusDataFile.createNewFile();
+        File OHDataFile = new File(exportPath+"OfficeHoursData.json");
+        OHDataFile.createNewFile();
+        File pageDataFile = new File(exportPath+"PageData.json");
+        pageDataFile.createNewFile();
+        File scheduleDataFile = new File(exportPath+"ScheduleData.json");
+        scheduleDataFile.createNewFile();
+        
+        //exportSectionsData(json.getJsonObject(JSON_MT_TAB), dataManager, sectionDataFile.getPath());
+       // exportSyllabusData(json.getJsonObject(JSON_SYLLABUS_TAB), dataManager, syllabusDataFile.getPath());
+       // exportOH(json.getJsonObject(JSON_OH_TAB), dataManager, OHDataFile.getPath());
+        exportPageData(json.getJsonObject(JSON_SITE_TAB), dataManager, pageDataFile.getPath());
+        //exportScheduleData(json.getJsonObject(JSON_SCHEDULE_TAB), dataManager, scheduleDataFile.getPath());
     }
-}
+    
+    public void exportSectionsData(JsonObject json, AppData dataManager, String filePath) throws IOException{
+        
+        
+	JsonObject dataManagerJSO = Json.createObjectBuilder()
+		.add(JSON_SITE_TAB, buildJsonSite(dataManager))
+		.build();
+        exportWriteFile(dataManagerJSO, filePath);
+    }
+    public void exportSyllabusData(JsonObject json, AppData dataManager, String filePath)throws IOException{
+	JsonObject dataManagerJSO = Json.createObjectBuilder()
+		.add(JSON_SITE_TAB, buildJsonSite(dataManager))
+		.build();
+        
+        exportWriteFile(dataManagerJSO, filePath);
+    }
+    public void exportOH(JsonObject json, AppData dataManager, String filePath)throws IOException{
+        
+	JsonObject dataManagerJSO = Json.createObjectBuilder()
+		.add(JSON_SITE_TAB, buildJsonSite(dataManager))
+		.build();
+        
+        exportWriteFile(dataManagerJSO, filePath);
+    }
+    public void exportPageData(JsonObject json, AppData dataManager, String filePath)throws IOException{
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String subject = json.getString(JSON_SITE_SUBJECT);
+        String number = json.getString(JSON_SITE_NUMBER);
+        String semester = json.getString(JSON_SITE_SEMESTER);
+        String year = json.getString(JSON_SITE_YEAR);
+        String title = json.getString(JSON_SITE_TITLE);
+        JsonObject logoImages = json.getJsonObject(JSON_SITE_LOGOS);
+        //Get the Instructor object and change its oh into array from string. 
+        JsonObject oldInstructorObject = json.getJsonObject(JSON_SITE_INSTRUCTOR);
+        String inName = oldInstructorObject.getString(JSON_SITE_NAME);
+        String inLink = oldInstructorObject.getString(JSON_SITE_LINK);
+        String inEmail = oldInstructorObject.getString(JSON_SITE_EMAIL);
+        String inRoom = oldInstructorObject.getString(JSON_SITE_ROOM);
+        String inHours = oldInstructorObject.getString(JSON_SITE_HOURS);
+        JsonArray hoursArray= Json.createArrayBuilder().build();
+        if(!inHours.equals("")){
+            JsonReader jr = Json.createReader(new StringReader(inHours));
+            hoursArray = jr.readArray();
+        }
+        JsonObject newInstructorObject = Json.createObjectBuilder()
+                .add(JSON_SITE_NAME, inName)
+                .add(JSON_SITE_LINK, inLink)
+                .add(JSON_SITE_EMAIL, inEmail)
+                .add(JSON_SITE_ROOM, inRoom)
+                .add(JSON_SITE_HOURS, hoursArray)
+                .build();
+               
+        JsonArray pagesArray = json.getJsonArray(JSON_SITE_PAGES);
+        
+        //NEXT CHANGE THE CSS FILE INSIDE THE HTML FILE
+        String cssFileName = json.getString(JSON_SITE_STYLE_SHEET);
+        if(!cssFileName.equals("")&&!cssFileName.equals("null")){
+            File cssToBeCopied = new File(props.getProperty(APP_STIE_STYLE_CSS_PATH)+cssFileName); //This is the css to be copied
+            String exportIndexHTML = json.getString(JSON_SITE_EXPORT_DIR);      //Get the index.html filepath
+
+            String exportCSSFile = exportIndexHTML.substring(0,exportIndexHTML.indexOf(props.getProperty(APP_EXPORT_PAGE))-1)
+                    + props.getProperty(APP_EXPORT_PATH_CSS)+cssFileName;
+            File exportTo = new File(exportCSSFile);
+            FileUtils.copyFile(cssToBeCopied, exportTo);                        //Copy the css file into export dir
+            
+            changeHTMLFileContent(exportIndexHTML, cssFileName);                //Update the new css file chosen for index.html
+        }
+        
+	JsonObject dataManagerJSO = Json.createObjectBuilder()
+		.add(JSON_SITE_SUBJECT, subject)
+                .add(JSON_SITE_NUMBER, number)
+                .add(JSON_SITE_SEMESTER, semester)
+                .add(JSON_SITE_YEAR, year)
+                .add(JSON_SITE_TITLE, title)
+                .add(JSON_SITE_LOGOS, logoImages)
+                .add(JSON_SITE_INSTRUCTOR,newInstructorObject)
+                .add(JSON_SITE_PAGES, pagesArray)
+		.build();
+        
+        exportWriteFile(dataManagerJSO, filePath);
+    }
+    public void exportScheduleData(JsonObject json, AppData dataManager, String filePath)throws IOException{
+        
+	JsonObject dataManagerJSO = Json.createObjectBuilder()
+		.add(JSON_SITE_TAB, buildJsonSite(dataManager))
+		.build();
+        exportWriteFile(dataManagerJSO, filePath);
+    }
+    
+     public void exportWriteFile(JsonObject dataManagerJSO, String filePath) throws IOException{
+	// AND NOW OUTPUT IT TO A JSON FILE WITH PRETTY PRINTING
+	Map<String, Object> properties = new HashMap<>(1);
+	properties.put(JsonGenerator.PRETTY_PRINTING, true);
+	JsonWriterFactory writerFactory = Json.createWriterFactory(properties);
+	StringWriter sw = new StringWriter();
+	JsonWriter jsonWriter = writerFactory.createWriter(sw);
+	jsonWriter.writeObject(dataManagerJSO);
+	jsonWriter.close();
+        
+	// INIT THE WRITER
+	OutputStream os = new FileOutputStream(filePath);
+	JsonWriter jsonFileWriter = Json.createWriter(os);
+	jsonFileWriter.writeObject(dataManagerJSO);
+	String prettyPrinted = sw.toString();
+	PrintWriter pw = new PrintWriter(filePath);
+	pw.write(prettyPrinted);
+	pw.close();
+    }
+     
+    public void changeHTMLFileContent(String originalFilePath, String originalFileName) throws IOException{
+        String tempFilePath = originalFilePath+"2";
+        File oldFile = new File(originalFilePath);
+        File newFile = new File(tempFilePath);
+        BufferedReader br = new BufferedReader(new FileReader(oldFile));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(newFile));
+        String line;
+        while ((line = br.readLine()) != null) {
+            if (line.contains("<link href=\"./css/sea_wolf.css\" rel=\"stylesheet\" type=\"text/css\">")){
+                line = line.replace("sea_wolf.css", originalFileName);
+            }
+            bw.write(line+"\n");
+        }
+        br.close();
+        bw.close();
+        
+        oldFile.delete();
+        newFile.renameTo(oldFile);
+      }
+    }
+    
+    
+    
+    
+    
+    
+
     

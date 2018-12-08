@@ -1,5 +1,4 @@
+w-work/w.json
+ee-work/ee.json
 Untitled-work/Untitled.json
-2-work/2.json
-99-work/99.json
-ww-work/ww.json
-m-work/m.json
+d-work/d.json

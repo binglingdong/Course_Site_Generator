@@ -22,6 +22,8 @@
         <property name="APP_PATH_IMAGES"         value="./images/"></property>
         <property name="APP_PATH_WEB"            value="./app_data/web/"></property>
         <property name="APP_STIE_STYLE_CSS_PATH" value="./work/css/"></property>
+        <property name="APP_PATH_JSON"           value="/js/"></property>
+        <property name="APP_EXPORT_PATH_CSS"     value="/css/"></property>
         <property name="PREF_WIDTH"              value="1200"></property>
         <property name="PREF_HEIGHT"             value="800"></property>
         <property name="START_MAXIMIZED"         value="true"></property>
