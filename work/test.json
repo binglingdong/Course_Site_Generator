@@ -1,21 +1,21 @@
 
 {
     "site_tab":{
-        "subject":"CSE",
-        "number":"219",
-        "semester":"Fall",
+        "subject":"ISE",
+        "number":"220",
+        "semester":"Winter",
         "year":"2018",
         "title":"Computer Science III",
-        "export_dir":"./export/subject_number_semester_year/index.html",
+        "export_dir":"./export/ISE_220_Winter_2018/index.html",
         "logos":{
             "favicon":{
-                "src":"./images//SBU.png"
+                "src":"/Users/bingling.dong/Desktop/Screen Shot 2018-11-18 at 5.50.59 PM.png"
             },
             "navbar":{
                 "src":"./images//SBUDarkRedShieldLogo.png"
             },
             "bottom_left":{
-                "src":"./images//SBUWhiteShieldLogo.jpg"
+                "src":"/Users/bingling.dong/Desktop/CSE219/Project/Wg/apps/WebsiteGenerator/images/icons/Export.png"
             },
             "bottom_right":{
                 "src":"./images//SBUCSLogo.png"
@@ -70,30 +70,30 @@
         ],
         "labs":[
             {
-                "section":"ac ",
-                "day_time":"ed",
-                "location":"sdf",
-                "ta_1":"sdf",
-                "ta_2":"dfs"
+                "section":"Lab-01",
+                "day_time":"Tuesday",
+                "location":"NCS 220",
+                "ta_1":"Bingling Dong",
+                "ta_2":"Mandy"
             }
         ],
         "recitations":[
             {
-                "section":"<strong>R06</strong> (McKenna)",
+                "section":"R06 (McKenna)",
                 "day_time":"Mondays, 10:00am-10:53am",
                 "location":"New CS 115",
                 "ta_1":"Lei Song",
                 "ta_2":"Qihong Jiang"
             },
             {
-                "section":"<strong>R07</strong> (McKenna)",
+                "section":"R07 (McKenna)",
                 "day_time":"Wednesdays, 10:00am-10:53am",
                 "location":"New CS 115",
                 "ta_1":"Mankirat Gulati",
                 "ta_2":"Sammi Wu Leung"
             },
             {
-                "section":"<strong>R08</strong> (McKenna)",
+                "section":"R08 (McKenna)",
                 "day_time":"Wednesdays, 2:30pm-3:23pm",
                 "location":"New CS 115",
                 "ta_1":"Sammi Wu Leung",
@@ -216,6 +216,42 @@
                 "type":"Graduate"
             },
             {
+                "time":"9_00am",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"9_00am",
+                "day":"TUESDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"9_00am",
+                "day":"WEDNESDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"9_00am",
+                "day":"THURSDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"9_00am",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"9_30am",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
                 "time":"9_30am",
                 "day":"TUESDAY",
                 "name":"Bo Cao",
@@ -229,9 +265,21 @@
             },
             {
                 "time":"9_30am",
+                "day":"WEDNESDAY",
+                "name":"Heng An Lin",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"9_30am",
                 "day":"FRIDAY",
                 "name":"Zihao Wang",
                 "type":"Undergraduate"
+            },
+            {
+                "time":"9_30am",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
             },
             {
                 "time":"10_00am",
@@ -244,6 +292,12 @@
                 "day":"MONDAY",
                 "name":"Zengxian Lin",
                 "type":"Undergraduate"
+            },
+            {
+                "time":"10_00am",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
             },
             {
                 "time":"10_00am",
@@ -254,14 +308,38 @@
             {
                 "time":"10_00am",
                 "day":"THURSDAY",
+                "name":"Dhruv Sheth",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"10_00am",
+                "day":"FRIDAY",
                 "name":"Aarin Chase",
                 "type":"Graduate"
+            },
+            {
+                "time":"10_30am",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"10_30am",
+                "day":"TUESDAY",
+                "name":"Heng An Lin",
+                "type":"Undergraduate"
             },
             {
                 "time":"10_30am",
                 "day":"WEDNESDAY",
                 "name":"Bo Cao",
                 "type":"Graduate"
+            },
+            {
+                "time":"10_30am",
+                "day":"THURSDAY",
+                "name":"Sammi Wu Leung",
+                "type":"Undergraduate"
             },
             {
                 "time":"10_30am",
@@ -276,6 +354,30 @@
                 "type":"Undergraduate"
             },
             {
+                "time":"10_30am",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"11_00am",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"11_00am",
+                "day":"WEDNESDAY",
+                "name":"Qihong Jiang",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"11_00am",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
                 "time":"11_30am",
                 "day":"MONDAY",
                 "name":"Abraham Rosloff",
@@ -285,6 +387,30 @@
                 "time":"11_30am",
                 "day":"MONDAY",
                 "name":"Zengxian Lin",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"11_30am",
+                "day":"MONDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            },
+            {
+                "time":"11_30am",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"11_30am",
+                "day":"TUESDAY",
+                "name":"Lei Song",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"11_30am",
+                "day":"WEDNESDAY",
+                "name":"Anghel De Las Casas",
                 "type":"Undergraduate"
             },
             {
@@ -292,6 +418,18 @@
                 "day":"THURSDAY",
                 "name":"Xiangying Liu",
                 "type":"Undergraduate"
+            },
+            {
+                "time":"11_30am",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"12_00pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
             },
             {
                 "time":"12_00pm",
@@ -300,6 +438,24 @@
                 "type":"Undergraduate"
             },
             {
+                "time":"12_00pm",
+                "day":"TUESDAY",
+                "name":"Kaho Kui",
+                "type":"Graduate"
+            },
+            {
+                "time":"12_00pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"12_30pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
                 "time":"12_30pm",
                 "day":"THURSDAY",
                 "name":"Abraham Rosloff",
@@ -312,8 +468,212 @@
                 "type":"Undergraduate"
             },
             {
-                "time":"4_30pm",
+                "time":"12_30pm",
+                "day":"FRIDAY",
+                "name":"Richard Huang",
+                "type":"Graduate"
+            },
+            {
+                "time":"12_30pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"1_00pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"1_00pm",
+                "day":"TUESDAY",
+                "name":"Michael McDonagh",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"1_00pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"1_30pm",
+                "day":"MONDAY",
+                "name":"Melanie Logan",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"1_30pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"1_30pm",
                 "day":"WEDNESDAY",
+                "name":"Melanie Logan",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"1_30pm",
+                "day":"THURSDAY",
+                "name":"Mankirat Gulati",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"1_30pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"2_00pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"2_00pm",
+                "day":"FRIDAY",
+                "name":"Xiaoxiao Liu",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"2_00pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"2_30pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"2_30pm",
+                "day":"TUESDAY",
+                "name":"Kaho Kui",
+                "type":"Graduate"
+            },
+            {
+                "time":"2_30pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"3_00pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"3_00pm",
+                "day":"TUESDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            },
+            {
+                "time":"3_00pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"3_30pm",
+                "day":"MONDAY",
+                "name":"Weihao Li",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"3_30pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"3_30pm",
+                "day":"WEDNESDAY",
+                "name":"Xiaoxiao Liu",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"3_30pm",
+                "day":"THURSDAY",
+                "name":"Richard Huang",
+                "type":"Graduate"
+            },
+            {
+                "time":"3_30pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"4_00pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"4_00pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"4_30pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"4_30pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"5_00pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"5_00pm",
+                "day":"TUESDAY",
+                "name":"Xiaoxiao Liu",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"5_00pm",
+                "day":"THURSDAY",
+                "name":"Bo Cao",
+                "type":"Graduate"
+            },
+            {
+                "time":"5_00pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"5_30pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"5_30pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"6_00pm",
+                "day":"MONDAY",
                 "name":"Aarin Chase",
                 "type":"Graduate"
             },
@@ -324,8 +684,68 @@
                 "type":"Graduate"
             },
             {
+                "time":"6_00pm",
+                "day":"FRIDAY",
+                "name":"Weihao Li",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"6_00pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"6_30pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"6_30pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"7_00pm",
+                "day":"MONDAY",
+                "name":"Stephen Chen",
+                "type":"Undergraduate"
+            },
+            {
+                "time":"7_00pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"7_00pm",
+                "day":"WEDNESDAY",
+                "name":"Mankirat Gulati",
+                "type":"Undergraduate"
+            },
+            {
                 "time":"7_00pm",
                 "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"7_30pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"7_30pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"8_00pm",
+                "day":"MONDAY",
                 "name":"Aarin Chase",
                 "type":"Graduate"
             },
@@ -340,11 +760,119 @@
                 "day":"WEDNESDAY",
                 "name":"Bo Cao",
                 "type":"Graduate"
+            },
+            {
+                "time":"8_00pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"8_30pm",
+                "day":"MONDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"8_30pm",
+                "day":"TUESDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"8_30pm",
+                "day":"WEDNESDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"8_30pm",
+                "day":"THURSDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
+            },
+            {
+                "time":"8_30pm",
+                "day":"FRIDAY",
+                "name":"Aarin Chase",
+                "type":"Graduate"
             }
         ],
         "combo_start_time":"9:00am",
         "combo_end_time":"9:00pm",
         "combo_start_list":[
+            "9:00am",
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm",
+            "9:00am",
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm",
+            "9:00am",
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm",
             "9:00am",
             "9:30am",
             "10:00am",
@@ -442,21 +970,205 @@
             "7:30pm",
             "8:00pm",
             "8:30pm",
+            "9:00pm",
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm",
+            "9:00pm",
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm",
+            "9:00pm",
+            "9:30am",
+            "10:00am",
+            "10:30am",
+            "11:00am",
+            "11:30am",
+            "12:00pm",
+            "12:30pm",
+            "1:00pm",
+            "1:30pm",
+            "2:00pm",
+            "2:30pm",
+            "3:00pm",
+            "3:30pm",
+            "4:00pm",
+            "4:30pm",
+            "5:00pm",
+            "5:30pm",
+            "6:00pm",
+            "6:30pm",
+            "7:00pm",
+            "7:30pm",
+            "8:00pm",
+            "8:30pm",
             "9:00pm"
         ]
     },
     "schedule_tab":{
-        "startingMondayMonth":8,
-        "startingMondayDay":27,
-        "startingMondayYear":2018,
-        "endingFridayMonth":12,
-        "endingFridayDays":28,
-        "endingFridayYear":2018,
+        "startingMondayMonth":"8",
+        "startingMondayDay":"27",
+        "startingMondayYear":"2018",
+        "endingFridayMonth":"12",
+        "endingFridayDay":"28",
+        "endingFridayYear":"2018",
         "holidays":[
             {
-                "month":12,
-                "day":19,
-                "year":2018,
+                "month":"9",
+                "day":"3",
+                "year":"2018",
+                "title":"LABOR DAY",
+                "topic":"Holiday",
+                "link":"https://www.stonybrook.edu/commcms/registrar/calendars/academic_calendars"
+            },
+            {
+                "month":"10",
+                "day":"8",
+                "year":"2018",
+                "title":"FALL BREAK?<br /><br /><br />",
+                "topic":"Holiday",
+                "link":"https://www.stonybrook.edu/commcms/registrar/calendars/academic_calendars"
+            },
+            {
+                "month":"10",
+                "day":"9",
+                "year":"2018",
+                "title":"FALL BREAK?",
+                "topic":"Holiday",
+                "link":"https://www.stonybrook.edu/commcms/registrar/calendars/academic_calendars"
+            },
+            {
+                "month":"11",
+                "day":"21",
+                "year":"2018",
+                "title":"TRAVEL DAY",
+                "topic":"Holiday",
+                "link":"https://www.stonybrook.edu/commcms/registrar/calendars/academic_calendars"
+            },
+            {
+                "month":"11",
+                "day":"22",
+                "year":"2018",
+                "title":"THANKSGIVING",
+                "topic":"Holiday",
+                "link":"https://www.stonybrook.edu/commcms/registrar/calendars/academic_calendars"
+            },
+            {
+                "month":"11",
+                "day":"23",
+                "year":"2018",
+                "title":"BLACK FRIDAY",
+                "topic":"Holiday",
+                "link":"https://www.stonybrook.edu/commcms/registrar/calendars/academic_calendars"
+            },
+            {
+                "month":"12",
+                "day":"11",
+                "year":"2018",
+                "title":"READING DAY",
+                "topic":"Holiday",
+                "link":"https://www.stonybrook.edu/commcms/registrar/calendars/academic_calendars"
+            },
+            {
+                "month":"12",
+                "day":"12",
+                "year":"2018",
+                "title":"",
+                "topic":"Holiday",
+                "link":""
+            },
+            {
+                "month":"12",
+                "day":"13",
+                "year":"2018",
+                "title":"",
+                "topic":"Holiday",
+                "link":""
+            },
+            {
+                "month":"12",
+                "day":"14",
+                "year":"2018",
+                "title":"",
+                "topic":"Holiday",
+                "link":""
+            },
+            {
+                "month":"12",
+                "day":"17",
+                "year":"2018",
+                "title":"",
+                "topic":"Holiday",
+                "link":""
+            },
+            {
+                "month":"12",
+                "day":"18",
+                "year":"2018",
+                "title":"",
+                "topic":"Holiday",
+                "link":""
+            },
+            {
+                "month":"12",
+                "day":"19",
+                "year":"2018",
+                "title":"",
+                "topic":"Holiday",
+                "link":""
+            },
+            {
+                "month":"12",
+                "day":"20",
+                "year":"2018",
+                "title":"",
+                "topic":"Holiday",
+                "link":""
+            },
+            {
+                "month":"12",
+                "day":"21",
+                "year":"2018",
                 "title":"",
                 "topic":"Holiday",
                 "link":""
@@ -464,42 +1176,546 @@
         ],
         "lectures":[
             {
-                "month":12,
-                "day":3,
-                "year":2018,
-                "title":"ad",
+                "month":"8",
+                "day":"28",
+                "year":"2018",
+                "title":"Lecture 1",
                 "topic":"Lecture",
-                "link":"d"
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4583144-dt-content-rid-31807868_1/xid-31807868_1"
+            },
+            {
+                "month":"8",
+                "day":"30",
+                "year":"2018",
+                "title":"Lecture 2",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4588421-dt-content-rid-31820795_1/xid-31820795_1"
+            },
+            {
+                "month":"9",
+                "day":"4",
+                "year":"2018",
+                "title":"Lecture 3",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4591754-dt-content-rid-31835006_1/xid-31835006_1"
+            },
+            {
+                "month":"9",
+                "day":"6",
+                "year":"2018",
+                "title":"Lecture 4",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4595769-dt-content-rid-31868074_1/xid-31868074_1"
+            },
+            {
+                "month":"9",
+                "day":"11",
+                "year":"2018",
+                "title":"Lecture 5",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4598618-dt-content-rid-31897815_1/xid-31897815_1"
+            },
+            {
+                "month":"9",
+                "day":"13",
+                "year":"2018",
+                "title":"Lecture 6",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"9",
+                "day":"18",
+                "year":"2018",
+                "title":"Lecture 7",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4598619-dt-content-rid-31897816_1/xid-31897816_1"
+            },
+            {
+                "month":"9",
+                "day":"20",
+                "year":"2018",
+                "title":"Lecture 8",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"9",
+                "day":"25",
+                "year":"2018",
+                "title":"Lecture 9",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4611824-dt-content-rid-32139187_1/xid-32139187_1"
+            },
+            {
+                "month":"9",
+                "day":"27",
+                "year":"2018",
+                "title":"Lecture 10",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4612756-dt-content-rid-32163006_1/xid-32163006_1"
+            },
+            {
+                "month":"10",
+                "day":"2",
+                "year":"2018",
+                "title":"Lecture 11",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"4",
+                "year":"2018",
+                "title":"Lecture 13",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"11",
+                "year":"2018",
+                "title":"Lecture 13",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4618222-dt-content-rid-32348762_1/xid-32348762_1"
+            },
+            {
+                "month":"10",
+                "day":"16",
+                "year":"2018",
+                "title":"Midterm Exam",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"18",
+                "year":"2018",
+                "title":"Lecture 15",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"23",
+                "year":"2018",
+                "title":"Lecture 16",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4626374-dt-content-rid-32609229_1/xid-32609229_1"
+            },
+            {
+                "month":"10",
+                "day":"25",
+                "year":"2018",
+                "title":"Lecture 17",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"30",
+                "year":"2018",
+                "title":"Lecture 18",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4626375-dt-content-rid-32609231_1/xid-32609231_1"
+            },
+            {
+                "month":"11",
+                "day":"1",
+                "year":"2018",
+                "title":"Lecture 19",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4626392-dt-content-rid-32609832_1/xid-32609832_1"
+            },
+            {
+                "month":"11",
+                "day":"6",
+                "year":"2018",
+                "title":"Lecture 20",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"8",
+                "year":"2018",
+                "title":"Lecture 21",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4635794-dt-content-rid-32927240_1/xid-32927240_1"
+            },
+            {
+                "month":"11",
+                "day":"13",
+                "year":"2018",
+                "title":"Lecture 22",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"15",
+                "year":"2018",
+                "title":"Lecture 23",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4640178-dt-content-rid-33042979_1/xid-33042979_1"
+            },
+            {
+                "month":"11",
+                "day":"20",
+                "year":"2018",
+                "title":"NO LECTURE",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"27",
+                "year":"2018",
+                "title":"Lecture 25",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4640179-dt-content-rid-33042980_1/xid-33042980_1"
+            },
+            {
+                "month":"11",
+                "day":"29",
+                "year":"2018",
+                "title":"Lecture 26",
+                "topic":"Lecture",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4640180-dt-content-rid-33042981_1/xid-33042981_1"
+            },
+            {
+                "month":"12",
+                "day":"4",
+                "year":"2018",
+                "title":"Guest Lecture",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"12",
+                "day":"6",
+                "year":"2018",
+                "title":"No Lecture",
+                "topic":"Lecture",
+                "link":"none"
+            },
+            {
+                "month":"12",
+                "day":"20",
+                "year":"2018",
+                "title":"<a href='https://www.stonybrook.edu/commcms/registrar/registration/_exams/fall18-finals.php'>FINAL EXAM</a>",
+                "topic":"Lecture",
+                "link":"none"
             }
         ],
         "references":[
             {
-                "month":12,
-                "day":19,
-                "year":2018,
-                "title":"",
+                "month":"8",
+                "day":"30",
+                "year":"2018",
+                "title":"Reference",
                 "topic":"Reference",
-                "link":""
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4588427-dt-content-rid-31820796_1/xid-31820796_1"
+            },
+            {
+                "month":"9",
+                "day":"11",
+                "year":"2018",
+                "title":"Reference",
+                "topic":"Reference",
+                "link":"https://blackboard.stonybrook.edu/bbcswebdav/pid-4598620-dt-content-rid-31897817_1/xid-31897817_1"
+            },
+            {
+                "month":"10",
+                "day":"26",
+                "year":"2018",
+                "title":"Drop Deadline",
+                "topic":"Reference",
+                "link":"https://www.stonybrook.edu/commcms/registrar/calendars/academic_calendars"
+            },
+            {
+                "month":"10",
+                "day":"15",
+                "year":"2018",
+                "title":"Midterm Review",
+                "topic":"Reference",
+                "link":"none"
             }
         ],
         "recitations":[
             {
-                "month":12,
-                "day":19,
-                "year":2018,
-                "title":"",
+                "month":"8",
+                "day":"27",
+                "year":"2018",
+                "title":"NO RECITATION",
                 "topic":"Recitation",
-                "link":""
+                "link":"none"
+            },
+            {
+                "month":"8",
+                "day":"29",
+                "year":"2018",
+                "title":"NO RECITATION",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"9",
+                "day":"5",
+                "year":"2018",
+                "title":"Recitation 1",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"9",
+                "day":"10",
+                "year":"2018",
+                "title":"Recitation 1",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"9",
+                "day":"12",
+                "year":"2018",
+                "title":"Recitation 2",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"9",
+                "day":"17",
+                "year":"2018",
+                "title":"Recitation 2",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"9",
+                "day":"19",
+                "year":"2018",
+                "title":"Recitation 3",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"9",
+                "day":"24",
+                "year":"2018",
+                "title":"Recitation 3",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"9",
+                "day":"26",
+                "year":"2018",
+                "title":"Recitation 4",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"1",
+                "year":"2018",
+                "title":"Recitation 4",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"3",
+                "year":"2018",
+                "title":"Recitation 5",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"10",
+                "year":"2018",
+                "title":"NO RECITATION",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"15",
+                "year":"2018",
+                "title":"Recitation 5",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"17",
+                "year":"2018",
+                "title":"Recitation 6",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"22",
+                "year":"2018",
+                "title":"Recitation 6",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"24",
+                "year":"2018",
+                "title":"NO RECITATION",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"29",
+                "year":"2018",
+                "title":"Recitation 7",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"31",
+                "year":"2018",
+                "title":"Recitation 7",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"5",
+                "year":"2018",
+                "title":"Recitation 8",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"7",
+                "year":"2018",
+                "title":"Recitation 8",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"12",
+                "year":"2018",
+                "title":"Recitation 9",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"14",
+                "year":"2018",
+                "title":"Recitation 9",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"19",
+                "year":"2018",
+                "title":"NO RECITATION",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"26",
+                "year":"2018",
+                "title":"Recitation 10",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"11",
+                "day":"28",
+                "year":"2018",
+                "title":"Recitation 10",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"12",
+                "day":"3",
+                "year":"2018",
+                "title":"Recitation 11",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"12",
+                "day":"5",
+                "year":"2018",
+                "title":"Recitation 11",
+                "topic":"Recitation",
+                "link":"none"
+            },
+            {
+                "month":"12",
+                "day":"10",
+                "year":"2018",
+                "title":"NO RECITATION",
+                "topic":"Recitation",
+                "link":"none"
             }
         ],
         "hws":[
             {
-                "month":12,
-                "day":19,
-                "year":2018,
-                "title":"",
+                "month":"9",
+                "day":"21",
+                "year":"2018",
+                "title":"<a href='./hw/HW1.html'>HW 1</a><br />(<a href='https://blackboard.stonybrook.edu/bbcswebdav/pid-4611779-dt-content-rid-32136873_1/xid-32136873_1'>Solutions</a>)",
                 "topic":"HW",
-                "link":""
+                "link":"./hw/HW1.html"
+            },
+            {
+                "month":"10",
+                "day":"10",
+                "year":"2018",
+                "title":"<a href='./hw/HW2.html'>HW 2</a><br />(<a href='https://blackboard.stonybrook.edu/bbcswebdav/pid-4630510-dt-content-rid-32757913_1/xid-32757913_1'>Solutions</a>)",
+                "topic":"HW",
+                "link":"none"
+            },
+            {
+                "month":"10",
+                "day":"26",
+                "year":"2018",
+                "title":"HW 3",
+                "topic":"HW",
+                "link":"./hw/HW3.html"
+            },
+            {
+                "month":"11",
+                "day":"7",
+                "year":"2018",
+                "title":"HW 4",
+                "topic":"HW",
+                "link":"./hw/HW4.html"
+            },
+            {
+                "month":"11",
+                "day":"20",
+                "year":"2018",
+                "title":"HW 5",
+                "topic":"HW",
+                "link":"./hw/HW5.html"
+            },
+            {
+                "month":"12",
+                "day":"10",
+                "year":"2018",
+                "title":"Final Project",
+                "topic":"HW",
+                "link":"./hw/HW6.html"
             }
         ]
     }

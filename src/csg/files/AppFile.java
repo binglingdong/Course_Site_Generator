@@ -29,6 +29,7 @@ import csg.workspace.OfficeHours;
 import static djf.AppPropertyType.APP_EXPORT_PAGE;
 import static djf.AppPropertyType.APP_EXPORT_PATH_CSS;
 import static djf.AppPropertyType.APP_PATH_EXPORT;
+import static djf.AppPropertyType.APP_PATH_IMAGES;
 import static djf.AppPropertyType.APP_PATH_JSON;
 import static djf.AppPropertyType.APP_STIE_STYLE_CSS_PATH;
 import djf.modules.AppGUIModule;
@@ -45,6 +46,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -319,10 +321,11 @@ public class AppFile implements AppFileComponent {
     
     public void loadSch(JsonObject json, AppData dataManager){
         AppGUIModule gui= app.getGUIModule();
-        int startingMonth = (int)json.getInt(JSON_STARTING_MONDAY_MONTH);
-        if(startingMonth!=0){
-            int startingDay = (int)json.getInt(JSON_STARTING_MONDAY_DAY);
-            int startingYear = (int)json.getInt(JSON_STARTING_MONDAY_YEAR); 
+        String startingMonthStr = json.getString(JSON_STARTING_MONDAY_MONTH);
+        if(!startingMonthStr.equals("0")){
+            int startingMonth = Integer.parseInt(startingMonthStr);
+            int startingDay = Integer.parseInt(json.getString(JSON_STARTING_MONDAY_DAY));
+            int startingYear = Integer.parseInt(json.getString(JSON_STARTING_MONDAY_YEAR)); 
             LocalDate startingDate = LocalDate.of(startingYear,startingMonth,startingDay);
             ((DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_STARTING_DATEPICKER)).setValue(startingDate);
         }
@@ -330,10 +333,11 @@ public class AppFile implements AppFileComponent {
             ((DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_STARTING_DATEPICKER)).setValue(null);
         }
         
-        int endingMonth = (int)json.getInt(JSON_ENDING_FRIDAY_MONTH);
-        if(endingMonth!=0){
-            int endingDay = (int)json.getInt(JSON_ENDING_FRIDAY_DAY);
-            int endingYear = (int)json.getInt(JSON_ENDING_FIRDAY_YEAR);
+        String endingMonthStr = json.getString(JSON_ENDING_FRIDAY_MONTH);
+        if(!endingMonthStr.equals("0")){
+            int endingMonth = Integer.parseInt(endingMonthStr);
+            int endingDay = Integer.parseInt(json.getString(JSON_ENDING_FRIDAY_DAY));
+            int endingYear = Integer.parseInt(json.getString(JSON_ENDING_FIRDAY_YEAR));
             LocalDate endingDate = LocalDate.of(endingYear,endingMonth,endingDay);
             ((DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_ENDING_DATEPICKER)).setValue(endingDate);
         }
@@ -375,9 +379,9 @@ public class AppFile implements AppFileComponent {
     private void loadScheduleItems(JsonArray array, ObservableList<ScheduleItem> list, String type){
         for(int i= 0; i<array.size(); i++){
             JsonObject item = array.getJsonObject(i);
-            int month = (int)item.getInt(JSON_SCHEDULE_MONTH);
-            int day = (int)item.getInt(JSON_SCHEDULE_DAY);
-            int year = (int)item.getInt(JSON_SCHEDULE_YEAR);
+            int month = Integer.parseInt(item.getString(JSON_SCHEDULE_MONTH));
+            int day = Integer.parseInt(item.getString(JSON_SCHEDULE_DAY));
+            int year = Integer.parseInt(item.getString(JSON_SCHEDULE_YEAR));
             String title = item.getString(JSON_SCHEDULE_TITLE);
             String topic = item.getString(JSON_SCHEDULT_TOPIC);
             String link = item.getString(JSON_SCHEDULE_LINK);
@@ -637,20 +641,20 @@ public class AppFile implements AppFileComponent {
         DatePicker endingDate = (DatePicker)gui.getGUINode(CALENDAR_BOUNDARIES_ENDING_DATEPICKER);
         JsonObjectBuilder ScheduleTabBuilder = Json.createObjectBuilder();
         if(startingDate.getValue()!=null){
-            ScheduleTabBuilder.add(JSON_STARTING_MONDAY_MONTH, startingDate.getValue().getMonthValue())
-                              .add(JSON_STARTING_MONDAY_DAY, startingDate.getValue().getDayOfMonth())
-                              .add(JSON_STARTING_MONDAY_YEAR, startingDate.getValue().getYear());
+            ScheduleTabBuilder.add(JSON_STARTING_MONDAY_MONTH, startingDate.getValue().getMonthValue()+"")
+                              .add(JSON_STARTING_MONDAY_DAY, startingDate.getValue().getDayOfMonth()+"")
+                              .add(JSON_STARTING_MONDAY_YEAR, startingDate.getValue().getYear()+"");
         }else{
-            ScheduleTabBuilder.add(JSON_STARTING_MONDAY_MONTH, 0)
-                              .add(JSON_STARTING_MONDAY_DAY, 0);
+            ScheduleTabBuilder.add(JSON_STARTING_MONDAY_MONTH, 0+"")
+                              .add(JSON_STARTING_MONDAY_DAY, 0+"");
         }
         if(endingDate.getValue()!=null){
-            ScheduleTabBuilder.add(JSON_ENDING_FRIDAY_MONTH, endingDate.getValue().getMonthValue())
-                              .add(JSON_ENDING_FRIDAY_DAY, endingDate.getValue().getDayOfMonth())
-                              .add(JSON_ENDING_FIRDAY_YEAR, endingDate.getValue().getYear());
+            ScheduleTabBuilder.add(JSON_ENDING_FRIDAY_MONTH, endingDate.getValue().getMonthValue()+"")
+                              .add(JSON_ENDING_FRIDAY_DAY, endingDate.getValue().getDayOfMonth()+"")
+                              .add(JSON_ENDING_FIRDAY_YEAR, endingDate.getValue().getYear()+"");
         }else{
-            ScheduleTabBuilder.add(JSON_ENDING_FRIDAY_MONTH, 0)
-                              .add(JSON_ENDING_FRIDAY_DAY, 0);
+            ScheduleTabBuilder.add(JSON_ENDING_FRIDAY_MONTH, 0+"")
+                              .add(JSON_ENDING_FRIDAY_DAY, 0+"");
         }
         
         JsonArrayBuilder holidays = Json.createArrayBuilder();
@@ -689,9 +693,9 @@ public class AppFile implements AppFileComponent {
     
     public void buildScheduleArray(JsonArrayBuilder thisArray, ScheduleItem item){
         JsonObject newObject = Json.createObjectBuilder()
-                .add(JSON_SCHEDULE_MONTH, item.getDate().getMonthValue())
-                .add(JSON_SCHEDULE_DAY, item.getDate().getDayOfMonth())
-                .add(JSON_SCHEDULE_YEAR, item.getDate().getYear())
+                .add(JSON_SCHEDULE_MONTH, item.getDate().getMonthValue()+"")
+                .add(JSON_SCHEDULE_DAY, item.getDate().getDayOfMonth()+"")
+                .add(JSON_SCHEDULE_YEAR, item.getDate().getYear()+"")
                 .add(JSON_SCHEDULE_TITLE, item.getTitle())
                 .add(JSON_SCHEDULT_TOPIC, item.getType())
                 .add(JSON_SCHEDULE_LINK, item.getLink()).build();
@@ -906,6 +910,7 @@ public class AppFile implements AppFileComponent {
         String year = json.getString(JSON_SITE_YEAR);
         String title = json.getString(JSON_SITE_TITLE);
         JsonObject logoImages = json.getJsonObject(JSON_SITE_LOGOS);
+        JsonObject newlogoImages = moveImages(logoImages,  json.getString(JSON_SITE_EXPORT_DIR)); 
         //Get the Instructor object and change its oh into array from string. 
         JsonObject oldInstructorObject = json.getJsonObject(JSON_SITE_INSTRUCTOR);
         String inName = oldInstructorObject.getString(JSON_SITE_NAME);
@@ -932,14 +937,16 @@ public class AppFile implements AppFileComponent {
         String cssFileName = json.getString(JSON_SITE_STYLE_SHEET);
         if(!cssFileName.equals("")&&!cssFileName.equals("null")){
             File cssToBeCopied = new File(props.getProperty(APP_STIE_STYLE_CSS_PATH)+cssFileName); //This is the css to be copied
-            String exportIndexHTML = json.getString(JSON_SITE_EXPORT_DIR);      //Get the index.html filepath
-
-            String exportCSSFile = exportIndexHTML.substring(0,exportIndexHTML.indexOf(props.getProperty(APP_EXPORT_PAGE))-1)
-                    + props.getProperty(APP_EXPORT_PATH_CSS)+cssFileName;
+            String indexHTML = json.getString(JSON_SITE_EXPORT_DIR);      //Get the index.html filepath
+            String prePath = indexHTML.substring(0,indexHTML.indexOf(props.getProperty(APP_EXPORT_PAGE))-1);
+            String exportCSSFile = prePath + props.getProperty(APP_EXPORT_PATH_CSS)+cssFileName;
             File exportTo = new File(exportCSSFile);
             FileUtils.copyFile(cssToBeCopied, exportTo);                        //Copy the css file into export dir
             
-            changeHTMLFileContent(exportIndexHTML, cssFileName);                //Update the new css file chosen for index.html
+            changeHTMLFileContent(indexHTML, cssFileName);                      //Update the new css file chosen for index.html
+            changeHTMLFileContent(prePath+"/syllabus.html", cssFileName);                      //Update the new css file chosen for index.html
+            changeHTMLFileContent(prePath+"/schedule.html", cssFileName);                      //Update the new css file chosen for index.html
+            changeHTMLFileContent(prePath+"/hws.html", cssFileName);                      //Update the new css file chosen for index.html
         }
         
 	JsonObject dataManagerJSO = Json.createObjectBuilder()
@@ -948,7 +955,7 @@ public class AppFile implements AppFileComponent {
                 .add(JSON_SITE_SEMESTER, semester)
                 .add(JSON_SITE_YEAR, year)
                 .add(JSON_SITE_TITLE, title)
-                .add(JSON_SITE_LOGOS, logoImages)
+                .add(JSON_SITE_LOGOS, newlogoImages)
                 .add(JSON_SITE_INSTRUCTOR,newInstructorObject)
                 .add(JSON_SITE_PAGES, pagesArray)
 		.build();
@@ -958,10 +965,10 @@ public class AppFile implements AppFileComponent {
     }
     
     public void exportScheduleData(JsonObject json, String filePath)throws IOException{
-        int startingMonth = (int)json.getInt(JSON_STARTING_MONDAY_MONTH);
-        int startingDay = (int)json.getInt(JSON_STARTING_MONDAY_DAY);
-        int endingMonth = (int)json.getInt(JSON_ENDING_FRIDAY_MONTH);
-        int endingDay = (int)json.getInt(JSON_ENDING_FRIDAY_DAY);
+        int startingMonth = Integer.parseInt(json.getString(JSON_STARTING_MONDAY_MONTH));
+        int startingDay = Integer.parseInt(json.getString(JSON_STARTING_MONDAY_DAY));
+        int endingMonth = Integer.parseInt(json.getString(JSON_ENDING_FRIDAY_MONTH));
+        int endingDay = Integer.parseInt(json.getString(JSON_ENDING_FRIDAY_DAY));
             
         JsonArray holidaysArray = json.getJsonArray(JSON_HOLIDAYS);
         JsonArray lecturesArray = json.getJsonArray(JSON_LECTURES);
@@ -1022,7 +1029,51 @@ public class AppFile implements AppFileComponent {
         oldFile.delete();
         newFile.renameTo(oldFile);
       }
+    
+    public JsonObject moveImages(JsonObject logoImages, String prePath) throws IOException{
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String pre= prePath.substring(0,prePath.indexOf(props.getProperty(APP_EXPORT_PAGE)))+"images/";
+        String exportURL = props.getProperty(APP_PATH_IMAGES);
+        
+        JsonObject favicon = logoImages.getJsonObject(JSON_SITE_FAVICON);
+        String faviconPath = favicon.getString("src");
+        File faviconFile = new File (faviconPath);
+        File exportFaviconFile = new File(pre+faviconFile.getName());
+        FileUtils.copyFile(faviconFile, exportFaviconFile);
+                
+        JsonObject navbar = logoImages.getJsonObject(JSON_SITE_NAVBAR);
+        String navbarPath = navbar.getString("src");
+        File navbarFile = new File (navbarPath);
+        File exportNavbarFile = new File(pre+navbarFile.getName());
+        FileUtils.copyFile(navbarFile, exportNavbarFile);
+        
+        JsonObject left = logoImages.getJsonObject(JSON_SITE_BOTTOM_LEFT);
+        String leftPath = left.getString("src");
+        File leftFile = new File (leftPath);
+        File exportLeftFile = new File(pre+leftFile.getName());
+        FileUtils.copyFile(leftFile, exportLeftFile);
+        
+        JsonObject right = logoImages.getJsonObject(JSON_SITE_BOTTOM_RIGHT);
+        String rightPath = right.getString("src");
+        File rightFile = new File (rightPath);
+        File exportRightFile = new File(pre+rightFile.getName());
+        FileUtils.copyFile(rightFile, exportRightFile);
+        
+        JsonObject faviconObject = Json.createObjectBuilder().add("src", exportURL+faviconFile.getName()).build();
+        JsonObject navbarObject = Json.createObjectBuilder().add("src", exportURL+navbarFile.getName()).build();
+        JsonObject bottomLeftObject = Json.createObjectBuilder().add("src", exportURL+leftFile.getName()).build();
+        JsonObject bottomRightObject = Json.createObjectBuilder().add("src", exportURL+rightFile.getName()).build();
+        JsonObject logosObject = Json.createObjectBuilder()
+                                .add(JSON_SITE_FAVICON, faviconObject)
+                                .add(JSON_SITE_NAVBAR, navbarObject)
+                                .add(JSON_SITE_BOTTOM_LEFT, bottomLeftObject)
+                                .add(JSON_SITE_BOTTOM_RIGHT, bottomRightObject)
+                                .build();
+        return logosObject;
     }
+}
+
+    
     
     
     

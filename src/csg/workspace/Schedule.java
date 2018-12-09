@@ -8,6 +8,7 @@ package csg.workspace;
 import csg.CourseSiteGeneratorApp;
 import static csg.SchedulePropertyType.*;
 import csg.data.ScheduleItem;
+import csg.data.TeachingAssistantPrototype;
 import csg.workspace.controller.ScheduleController;
 import static csg.workspace.style.Style.*;
 import djf.modules.AppGUIModule;
@@ -17,6 +18,8 @@ import djf.ui.AppNodesBuilder;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -151,6 +154,10 @@ public class Schedule {
     }
     
     public void initScheduleItemsPane(VBox parentPane){
+//         Comparator<TeachingAssistantPrototype> comparator = (TeachingAssistantPrototype o1, TeachingAssistantPrototype o2) -> {
+//                return o1.getName().compareTo(o2.getName());
+//        };
+//        Collections.sort(allTAs, comparator);
         ScheduleController controller = new ScheduleController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         HBox hb1 = csgBuilder.buildHBox("", parentPane, CLASS_PANES_FOREGROUND, ENABLED);
