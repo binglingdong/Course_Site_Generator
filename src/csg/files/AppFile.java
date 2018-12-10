@@ -819,12 +819,12 @@ public class AppFile implements AppFileComponent {
         
         JsonObject instructorArray = exportPageData(json.getJsonObject(JSON_SITE_TAB), pageDataFile.getPath());
         exportSyllabusData(json.getJsonObject(JSON_SYLLABUS_TAB), syllabusDataFile.getPath());
-        exportSectionsData(json.getJsonObject(JSON_MT_TAB), sectionDataFile.getPath());
-        exportOH(json.getJsonObject(JSON_OH_TAB),instructorArray,OHDataFile.getPath());
+        JsonArray lecturesArray = exportSectionsData(json.getJsonObject(JSON_MT_TAB), sectionDataFile.getPath());
+        exportOH(json.getJsonObject(JSON_OH_TAB),instructorArray,lecturesArray,dataManager,OHDataFile.getPath());
         exportScheduleData(json.getJsonObject(JSON_SCHEDULE_TAB), scheduleDataFile.getPath());
     }
     
-    public void exportSectionsData(JsonObject json, String filePath) throws IOException{
+    public JsonArray exportSectionsData(JsonObject json, String filePath) throws IOException{
         JsonArray lecturesArray = json.getJsonArray(JSON_MT_LECTURES);
         JsonArray recArray = json.getJsonArray(JSON_MT_RECITATIONS);
         JsonArray labArray = json.getJsonArray(JSON_MT_LABS);
@@ -835,9 +835,10 @@ public class AppFile implements AppFileComponent {
                 .add(JSON_MT_LABS, labArray)
 		.build();
         exportWriteFile(dataManagerJSO, filePath);
+        return lecturesArray;
     }
     
-    public void exportSyllabusData(JsonObject json, String filePath)throws IOException{
+    public void exportSyllabusData(JsonObject json,String filePath)throws IOException{
         AppGUIModule gui= app.getGUIModule();
         String des = json.getString(JSON_SYL_DES);
         
@@ -888,12 +889,50 @@ public class AppFile implements AppFileComponent {
         exportWriteFile(dataManagerJSO, filePath);
     }
     
-    public void exportOH(JsonObject json, JsonObject instructorArray, String filePath)throws IOException{
+    public void exportOH(JsonObject json, JsonObject instructorArray,JsonArray lecturesArray, AppData data,String filePath)throws IOException{
         String startHour = json.getString(JSON_OH_START_HOUR);
         String endHour = json.getString(JSON_OH_END_HOUR);
         JsonArray jsonUnderTAArray = json.getJsonArray(JSON_OH_UNDERGRAD_TAS);
         JsonArray jsonGradTAArray = json.getJsonArray(JSON_OH_GRAD_TAS);
         JsonArray jsonOHArray= json.getJsonArray(JSON_OH_OFFICE_HOURS);
+        JsonArrayBuilder newOHArray = Json.createArrayBuilder();
+        for(int i= 0; i<jsonOHArray.size(); i++){                               //Copy the original OH into the JsonArray
+            JsonObject timeJson= jsonOHArray.getJsonObject(i);
+            newOHArray.add(timeJson);
+        }
+        JsonArray jsonInstructorOHArray = instructorArray.getJsonArray(JSON_SITE_HOURS);
+        String instructorName = instructorArray.getString(JSON_SITE_NAME);
+        for(int i=0; i<jsonInstructorOHArray.size();i++){                       // Add the Instructor's oh in the file
+            JsonObject jsonOH= jsonInstructorOHArray.getJsonObject(i);
+            String day= jsonOH.getString("day");
+            day = day.toUpperCase();
+            String time= jsonOH.getString("time");
+            ArrayList<String> times= data.exportTimeToOHTime(time);             //Now the arraylist contains all the times for the oh. 
+            
+            for(String s: times){       
+                JsonObject newOHObject = Json.createObjectBuilder().add(JSON_OH_DAY_OF_WEEK, day)
+                                            .add(JSON_OH_TIMESLOT_START_TIME, s)
+                                            .add(JSON_OH_NAME, instructorName).build();
+                newOHArray.add(newOHObject);
+            }
+        }
+        
+        //NOW ADD THE LECTURE TIMES INTO THE FILE
+        for(int i= 0; i<lecturesArray.size(); i++){
+            JsonObject jsonLecture = lecturesArray.getJsonObject(i);
+            String day = jsonLecture.getString(JSON_MT_DAYS);
+            String time = jsonLecture.getString(JSON_MT_TIME);
+            ArrayList<String> times= data.exportTimeToOHTime(time);
+            for(String s: times){
+                ArrayList<String> days= data.exportDayToOHDay(day);
+                for(String f: days){
+                    JsonObject newOHObject = Json.createObjectBuilder().add(JSON_OH_DAY_OF_WEEK, f)
+                                            .add(JSON_OH_TIMESLOT_START_TIME, s)
+                                            .add(JSON_OH_NAME, "Lecture").build();
+                    newOHArray.add(newOHObject);
+                }
+            }
+        }
         
 	JsonObject dataManagerJSO = Json.createObjectBuilder()
 		.add(JSON_OH_START_HOUR,startHour)
@@ -901,7 +940,7 @@ public class AppFile implements AppFileComponent {
                 .add(JSON_SITE_INSTRUCTOR, instructorArray)
                 .add(JSON_OH_GRAD_TAS, jsonGradTAArray)
                 .add(JSON_OH_UNDERGRAD_TAS,jsonUnderTAArray)
-                .add(JSON_OH_OFFICE_HOURS, jsonOHArray)
+                .add(JSON_OH_OFFICE_HOURS, newOHArray.build())
 		.build();
         exportWriteFile(dataManagerJSO, filePath);
     }

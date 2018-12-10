@@ -294,6 +294,17 @@ public class AppData implements AppDataComponent{
         return null;
     }
     
+    public TimeSlot getTimeSlotFromOHBackup(String startTime) {
+        Iterator<TimeSlot> timeSlotsIterator = OHBackup.iterator();
+        while (timeSlotsIterator.hasNext()) {
+            TimeSlot timeSlot = timeSlotsIterator.next();
+            String timeSlotStartTime = timeSlot.getStartTime().replace(":", "_");
+            if (timeSlotStartTime.equals(startTime))
+                return timeSlot;
+        }
+        return null;
+    }
+    
     public TimeSlot getStartTimeSlotUsingRegularTime(String startTime) {
         Iterator<TimeSlot> timeSlotsIterator = officeHours.iterator();
         while (timeSlotsIterator.hasNext()) {
@@ -356,6 +367,60 @@ public class AppData implements AppDataComponent{
                 break;
             default:                               
         }
+    }
+    
+    public ArrayList<String> exportTimeToOHTime(String from){
+        String[] StringTimes = from.split("-");
+        for(int i= 0; i<StringTimes.length; i++){         //String[] contains the starting and ending time of the oh
+            String s= StringTimes[i];
+            if(s.contains(":")){
+                StringTimes[i]= s.replace(":", "_");
+            }
+            s = StringTimes[i];
+            if(s.contains("_")){
+                int indexForUnderScroll = s.indexOf("_");
+                String postTime = s.substring(indexForUnderScroll+1);
+                if(!postTime.contains("00")&&!postTime.contains("30")){
+                    String digitStr = postTime.substring(0,2);
+                    int digit = Integer.parseInt(digitStr);
+                    if(digit<30){
+                        StringTimes[i] = s.substring(0,indexForUnderScroll+1)+"00"+s.substring(s.length()-2, s.length());
+                    }
+                    else if(digit>30){
+                         StringTimes[i] = s.substring(0,indexForUnderScroll+1)+"30"+s.substring(s.length()-2, s.length());
+                    }
+                }
+            }
+        }//Now s contains start and end time in the correct format.
+        ArrayList<String> result = new ArrayList<>();
+        String startTime = StringTimes[0];
+        String endTime = StringTimes[1];
+        TimeSlot startTimeSlot = getTimeSlotFromOHBackup(startTime);
+        TimeSlot endTimeSlot = getTimeSlotFromOHBackup(endTime);
+        int startIndexInOHArray = OHBackup.indexOf(startTimeSlot);
+        int endIndexInOHArray = OHBackup.indexOf(endTimeSlot);
+        
+        for(int i = startIndexInOHArray; i<=endIndexInOHArray; i++){
+            String time = OHBackup.get(i).getStartTime();
+            result.add(time.replace(":", "_"));
+        }
+        return result;
+    }
+    
+    public ArrayList<String> exportDayToOHDay(String day){
+        ArrayList<String> result = new ArrayList<>();
+        String[] times = day.split(" &amp; ");
+        for(String s: times){
+            String a;
+            if(s.contains("days")){
+                a = s.substring(0, s.length()-1);
+            }
+            else{
+                a = s;
+            }
+            result.add(a.toUpperCase());
+        }
+        return result;
     }
       
     /**
