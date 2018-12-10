@@ -16,7 +16,6 @@ import csg.workspace.controller.OHController;
 import csg.workspace.dialogs.OfficeHoursDialogs;
 import csg.workspace.foolproof.OH_OfficeHoursFoolproofDesign;
 import static csg.workspace.style.Style.*;
-import static djf.AppPropertyType.APP_CLIPBOARD_FOOLPROOF_SETTINGS;
 import djf.modules.AppFoolproofModule;
 import djf.modules.AppGUIModule;
 import static djf.modules.AppGUIModule.ENABLED;
@@ -141,7 +140,6 @@ public class OfficeHours {
                     OfficeHoursDialogs.editTADialog(app.getGUIModule().getWindow(), OH_EDIT_TITLE, OH_EDIT_HEADER, taTable, this,app);
                 }
             }
-            app.getFoolproofModule().updateControls(APP_CLIPBOARD_FOOLPROOF_SETTINGS);
         });
         
         
@@ -226,7 +224,6 @@ public class OfficeHours {
                 }
                 ((TableView)(app.getGUIModule().getGUINode(OH_OFFICE_HOURS_TABLE_VIEW))).refresh();
             }
-            app.getFoolproofModule().updateControls(APP_CLIPBOARD_FOOLPROOF_SETTINGS);
             updateBgColorForCell();
         }); 
         
@@ -247,7 +244,6 @@ public class OfficeHours {
             resetOHToMatchTA(data,originalOH);
             //remove the ones that are not in the ta list. 
             removeOHToMatchTA(data,allTAs,originalOH);
-            app.getFoolproofModule().updateControls(APP_CLIPBOARD_FOOLPROOF_SETTINGS);
             
             officeHoursTable.refresh();
             updateBgColorForCell();

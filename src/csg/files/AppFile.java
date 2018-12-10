@@ -384,8 +384,12 @@ public class AppFile implements AppFileComponent {
             String title = item.getString(JSON_SCHEDULE_TITLE);
             String topic = item.getString(JSON_SCHEDULT_TOPIC);
             String link = item.getString(JSON_SCHEDULE_LINK);
-            
-            LocalDate date= LocalDate.of(year,month,day);
+            LocalDate date;
+            if(month!=0){
+                date= LocalDate.of(year,month,day);
+            }else{
+                date=null;
+            }
             ScheduleItem schItem = new ScheduleItem(type, date, title, topic,link);
             list.add(schItem);
             ((AppData)app.getDataComponent()).getScheduleItemBackup().add(schItem);
@@ -692,14 +696,23 @@ public class AppFile implements AppFileComponent {
     }
     
     public void buildScheduleArray(JsonArrayBuilder thisArray, ScheduleItem item){
-        JsonObject newObject = Json.createObjectBuilder()
-                .add(JSON_SCHEDULE_MONTH, item.getDate().getMonthValue()+"")
+        JsonObjectBuilder newObject = Json.createObjectBuilder();
+        if(item.getDate()!=null){
+            newObject.add(JSON_SCHEDULE_MONTH, item.getDate().getMonthValue()+"")
                 .add(JSON_SCHEDULE_DAY, item.getDate().getDayOfMonth()+"")
                 .add(JSON_SCHEDULE_YEAR, item.getDate().getYear()+"")
                 .add(JSON_SCHEDULE_TITLE, item.getTitle())
                 .add(JSON_SCHEDULT_TOPIC, item.getTopic())
-                .add(JSON_SCHEDULE_LINK, item.getLink()).build();
-        thisArray.add(newObject);
+                .add(JSON_SCHEDULE_LINK, item.getLink());
+        }else{
+            newObject.add(JSON_SCHEDULE_MONTH, "0")
+                .add(JSON_SCHEDULE_DAY, "0")
+                .add(JSON_SCHEDULE_YEAR, "0")
+                .add(JSON_SCHEDULE_TITLE, item.getTitle())
+                .add(JSON_SCHEDULT_TOPIC, item.getTopic())
+                .add(JSON_SCHEDULE_LINK, item.getLink());
+        }
+        thisArray.add(newObject.build());
     }
     
     public void saveItemsInComboBox() throws IOException{

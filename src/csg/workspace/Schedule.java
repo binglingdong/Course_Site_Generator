@@ -282,26 +282,38 @@ public class Schedule {
         if(start.getValue()!=null){
             LocalDate startDate = start.getValue();
             for(ScheduleItem item: data.getScheduleItemBackup()){
-                if(item.getDate().compareTo(startDate)<0){
-                    if(table.getItems().contains(item)){
-                        table.getItems().remove(item);
+                if(item.getDate()!=null){
+                    if(item.getDate().compareTo(startDate)<0){
+                        if(table.getItems().contains(item)){
+                            table.getItems().remove(item);
+                        }
                     }
                 }
+                
             }
         }
         if(end.getValue()!=null){
             LocalDate endDate = end.getValue();
             for(ScheduleItem item: data.getScheduleItemBackup()){
-                if(item.getDate().compareTo(endDate)>0){
-                    if(table.getItems().contains(item)){
-                        table.getItems().remove(item);
-                    }
+                if(item.getDate()!=null){
+                    if(item.getDate().compareTo(endDate)>0){
+                      if(table.getItems().contains(item)){
+                          table.getItems().remove(item);
+                      }
+                    }  
                 }
             }
         }
         
         Comparator<ScheduleItem> comparator = (ScheduleItem o1, ScheduleItem o2) -> {
+            if(o1.getDate()!=null&&o2.getDate()!=null){
                 return o1.getDate().compareTo(o2.getDate());
+            }
+            else if(o1.getDate()==null){
+                return 1;
+            }else{
+                return -1;
+            }
         };
         Collections.sort(table.getItems(), comparator);
     }

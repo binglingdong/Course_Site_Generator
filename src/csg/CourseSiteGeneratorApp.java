@@ -12,7 +12,6 @@ import djf.components.AppFileComponent;
 import djf.components.AppWorkspaceComponent;
 import java.util.Locale;
 import static javafx.application.Application.launch;
-import csg.clipboard.AppClipboard;
 import csg.data.AppData;
 import csg.files.AppFile;
 import csg.workspace.MainWorkspace;
@@ -39,7 +38,7 @@ public class CourseSiteGeneratorApp extends AppTemplate {
 
     @Override
     public AppClipboardComponent buildClipboardComponent(AppTemplate app) {
-        return new AppClipboard(this);
+        return null;
     }
 
     @Override
