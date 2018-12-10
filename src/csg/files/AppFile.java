@@ -46,8 +46,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.math.BigDecimal;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -355,6 +353,7 @@ public class AppFile implements AppFileComponent {
         loadScheduleItems(referencesArray, dataManager.getScheduleItem(), "Reference");
         loadScheduleItems(recitationsArray, dataManager.getScheduleItem(), "Recitation");
         loadScheduleItems(hwsArray, dataManager.getScheduleItem(), "HW");
+        ((MainWorkspace)app.getWorkspaceComponent()).getSchedule().updateScheduleItems();
     }
     
     // HELPER METHOD FOR LOADING DATA FROM A JSON FORMAT
@@ -389,6 +388,7 @@ public class AppFile implements AppFileComponent {
             LocalDate date= LocalDate.of(year,month,day);
             ScheduleItem schItem = new ScheduleItem(type, date, title, topic,link);
             list.add(schItem);
+            ((AppData)app.getDataComponent()).getScheduleItemBackup().add(schItem);
         }
     }
     
@@ -663,7 +663,7 @@ public class AppFile implements AppFileComponent {
         JsonArrayBuilder recitations = Json.createArrayBuilder();
         JsonArrayBuilder hws = Json.createArrayBuilder();
         
-        ObservableList<ScheduleItem> scheduleItems = dataManager.getScheduleItem();
+        ArrayList<ScheduleItem> scheduleItems = dataManager.getScheduleItemBackup();
         for(ScheduleItem item: scheduleItems){
             switch(item.getType()){
                 case "Holiday": buildScheduleArray(holidays,item);
@@ -697,7 +697,7 @@ public class AppFile implements AppFileComponent {
                 .add(JSON_SCHEDULE_DAY, item.getDate().getDayOfMonth()+"")
                 .add(JSON_SCHEDULE_YEAR, item.getDate().getYear()+"")
                 .add(JSON_SCHEDULE_TITLE, item.getTitle())
-                .add(JSON_SCHEDULT_TOPIC, item.getType())
+                .add(JSON_SCHEDULT_TOPIC, item.getTopic())
                 .add(JSON_SCHEDULE_LINK, item.getLink()).build();
         thisArray.add(newObject);
     }
@@ -723,16 +723,21 @@ public class AppFile implements AppFileComponent {
         String newNumber = courseNumberCombo.getEditor().getText();
         
         if(!subjectCombo.getItems().contains(newSubject)&& !newSubject.equals("")){
+            subjectpw.println();
             subjectpw.println(newSubject);
             subjectCombo.getItems().add(newSubject);
+            subjectpw.flush();
         }
         if(!courseNumberCombo.getItems().contains(newNumber)&&!newNumber.equals("")){
+            numberpw.println();
             numberpw.println(newNumber);
             courseNumberCombo.getItems().add(newNumber);
+            numberpw.flush();
         }
-        
         numberpw.close();
         subjectpw.close();
+        numberfw.close();
+        subjectfw.close();
     }
     
     
@@ -748,19 +753,18 @@ public class AppFile implements AppFileComponent {
         courseNumberCombo.getItems().clear();
         
         File numberItems = new File(NumberfilePath);
-        
         File subjectItems = new File(SubjectfilePath);
         Scanner numberSC = new Scanner(numberItems);
         while (numberSC.hasNext()) {
             String numberItem = numberSC.nextLine();
-            if(!courseNumberCombo.getItems().contains(numberItem)&&!numberItem.equals("")){
+            if(!courseNumberCombo.getItems().contains(numberItem)&&!numberItem.equals("")&&!numberItem.equals("\n")){
                 courseNumberCombo.getItems().add(numberItem);
             }        
         }
         Scanner subjectSC = new Scanner(subjectItems);
         while (subjectSC.hasNext()) {
             String subjectItem = subjectSC.nextLine();
-            if(!subjectCombo.getItems().contains(subjectItem)&& !subjectItem.equals("")){
+            if(!subjectCombo.getItems().contains(subjectItem)&& !subjectItem.equals("")&&!subjectItem.equals("\n")){
                 subjectCombo.getItems().add(subjectItem);
             }        
         }

@@ -7,8 +7,8 @@ package csg.workspace;
 
 import csg.CourseSiteGeneratorApp;
 import static csg.SchedulePropertyType.*;
+import csg.data.AppData;
 import csg.data.ScheduleItem;
-import csg.data.TeachingAssistantPrototype;
 import csg.workspace.controller.ScheduleController;
 import static csg.workspace.style.Style.*;
 import djf.modules.AppGUIModule;
@@ -124,6 +124,7 @@ public class Schedule {
                         ||date.getDayOfWeek() == DayOfWeek.SATURDAY
                         ||date.getDayOfWeek() == DayOfWeek.SUNDAY);
                 }
+                updateScheduleItems();
             }
         });
         
@@ -148,16 +149,15 @@ public class Schedule {
                         ||date.getDayOfWeek() == DayOfWeek.SATURDAY
                         ||date.getDayOfWeek() == DayOfWeek.SUNDAY); 
                 }
+                updateScheduleItems();
             }
+            
         });
         
     }
     
     public void initScheduleItemsPane(VBox parentPane){
-//         Comparator<TeachingAssistantPrototype> comparator = (TeachingAssistantPrototype o1, TeachingAssistantPrototype o2) -> {
-//                return o1.getName().compareTo(o2.getName());
-//        };
-//        Collections.sort(allTAs, comparator);
+        
         ScheduleController controller = new ScheduleController(app);
         AppNodesBuilder csgBuilder = app.getGUIModule().getNodesBuilder();
         HBox hb1 = csgBuilder.buildHBox("", parentPane, CLASS_PANES_FOREGROUND, ENABLED);
@@ -185,7 +185,7 @@ public class Schedule {
         
         removeButton.setOnAction(e->{
             ScheduleItem selected = scheudleItemsTableView.getSelectionModel().getSelectedItem();
-            controller.processRemove(selected, scheudleItemsTableView);
+            controller.processRemove(selected, scheudleItemsTableView,this);
         });
         
         scheudleItemsTableView.setOnMouseClicked(e->{
@@ -240,10 +240,10 @@ public class Schedule {
         
         addOrUpdateButton.setOnAction(e->{
             if(scheudleItemsTableView.getSelectionModel().getSelectedItem()==null){
-                controller.processAdd(scheudleItemsTableView); 
+                controller.processAdd(scheudleItemsTableView,this); 
             }
             else{
-                controller.processEdit(scheudleItemsTableView.getSelectionModel().getSelectedItem());
+                controller.processEdit(scheudleItemsTableView.getSelectionModel().getSelectedItem(), this);
             }
         });
         clearButton.setOnAction(e->{
@@ -270,6 +270,41 @@ public class Schedule {
         });
     }
     
+    public void updateScheduleItems(){
+        DatePicker start= ((DatePicker)app.getGUIModule().getGUINode(CALENDAR_BOUNDARIES_STARTING_DATEPICKER));
+        DatePicker end= ((DatePicker)app.getGUIModule().getGUINode(CALENDAR_BOUNDARIES_ENDING_DATEPICKER));
+        AppData data= (AppData)app.getDataComponent();
+        TableView<ScheduleItem> table= ((TableView)app.getGUIModule().getGUINode(CALENDAR_SCHEDULE_ITEMS_TABLEVIEW));
+        table.getItems().clear();
+        for(ScheduleItem item: data.getScheduleItemBackup()){
+            table.getItems().add(item);
+        }
+        if(start.getValue()!=null){
+            LocalDate startDate = start.getValue();
+            for(ScheduleItem item: data.getScheduleItemBackup()){
+                if(item.getDate().compareTo(startDate)<0){
+                    if(table.getItems().contains(item)){
+                        table.getItems().remove(item);
+                    }
+                }
+            }
+        }
+        if(end.getValue()!=null){
+            LocalDate endDate = end.getValue();
+            for(ScheduleItem item: data.getScheduleItemBackup()){
+                if(item.getDate().compareTo(endDate)>0){
+                    if(table.getItems().contains(item)){
+                        table.getItems().remove(item);
+                    }
+                }
+            }
+        }
+        
+        Comparator<ScheduleItem> comparator = (ScheduleItem o1, ScheduleItem o2) -> {
+                return o1.getDate().compareTo(o2.getDate());
+        };
+        Collections.sort(table.getItems(), comparator);
+    }
     
     ///////////////////////////// STILL NEED MORE IMPLEMENTATION/////////////////////////////
     public void reset(){

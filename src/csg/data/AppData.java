@@ -45,6 +45,7 @@ public class AppData implements AppDataComponent{
     public static final int MAX_END_HOUR = 20;
     //SCHEDULE
     private ObservableList<ScheduleItem> scheduleItem;
+    private ArrayList<ScheduleItem> scheduleItemBackup = new ArrayList<>();
    
     
     
@@ -180,6 +181,7 @@ public class AppData implements AppDataComponent{
         recitations.clear();
         labs.clear();
         scheduleItem.clear();
+        scheduleItemBackup.clear();
         
         for (int i = 0; i < officeHours.size(); i++) {
             TimeSlot timeSlot = officeHours.get(i);
@@ -437,5 +439,18 @@ public class AppData implements AppDataComponent{
     public String getExportDirectory() {
         return expDir;
     }
-    
+
+    /**
+     * @return the scheduleItemBackup
+     */
+    public ArrayList<ScheduleItem> getScheduleItemBackup() {
+        return scheduleItemBackup;
+    }
+
+    /**
+     * @param scheduleItemBackup the scheduleItemBackup to set
+     */
+    public void setScheduleItemBackup(ArrayList<ScheduleItem> scheduleItemBackup) {
+        this.scheduleItemBackup = scheduleItemBackup;
+    }
 }

@@ -13,6 +13,7 @@ import csg.transaction.Schedule_AddScheduleItems_Transaction;
 import csg.transaction.Schedule_DateChange_Transaction;
 import csg.transaction.Schedule_EditScheduleItems_Transaction;
 import csg.transaction.Schedule_RemoveScheduleItems_Transaction;
+import csg.workspace.Schedule;
 import djf.modules.AppGUIModule;
 import djf.modules.AppLanguageModule;
 import java.time.LocalDate;
@@ -31,7 +32,7 @@ public class ScheduleController {
     public ScheduleController(CourseSiteGeneratorApp App){
         this.app= App;
     }
-    public void processAdd(TableView<ScheduleItem> table){
+    public void processAdd(TableView<ScheduleItem> table, Schedule sch){
         AppData data = (AppData)app.getDataComponent();
         AppGUIModule gui = app.getGUIModule();
         ComboBox<String> typeCombo =(ComboBox)gui.getGUINode(CALENDAR_ADD_EDIT_TYPE_COMBO);
@@ -47,11 +48,11 @@ public class ScheduleController {
         String link = linkTF.getText();
         ScheduleItem newItem = new ScheduleItem(type, date, title, topic, link);
 
-        Schedule_AddScheduleItems_Transaction addTATransaction = new Schedule_AddScheduleItems_Transaction(data,newItem, table);
+        Schedule_AddScheduleItems_Transaction addTATransaction = new Schedule_AddScheduleItems_Transaction(sch,data,newItem, table);
         app.processTransaction(addTATransaction);
     }
     
-    public void processEdit(ScheduleItem selectedItem){
+    public void processEdit(ScheduleItem selectedItem, Schedule sch){
         String newType = (String)((ComboBox)app.getGUIModule().getGUINode(CALENDAR_ADD_EDIT_TYPE_COMBO)).getSelectionModel().getSelectedItem();
         String newTitle = ((TextField)app.getGUIModule().getGUINode(CALENDAR_ADD_EDIT_TITLE_TEXTFIELD)).getText();
         String newTopic =((TextField)app.getGUIModule().getGUINode(CALENDAR_ADD_EDIT_TOPIC_TEXTFIELD)).getText();
@@ -61,13 +62,13 @@ public class ScheduleController {
         if(!selectedItem.getType().equals(newType)||selectedItem.getDate()!=newDate||!selectedItem.getLink().equals(newLink)
                     ||!selectedItem.getTopic().equals(newTopic)||!selectedItem.getTitle().equals(newTitle)){
             Schedule_EditScheduleItems_Transaction tran = new Schedule_EditScheduleItems_Transaction(
-                                                    selectedItem, newType, newTitle, newTopic, newLink, newDate);
+                                                    selectedItem, newType, newTitle, newTopic, newLink, newDate, sch);
             app.processTransaction(tran);
         }
     }
     
-    public void processRemove(ScheduleItem selected, TableView<ScheduleItem> table){
-        Schedule_RemoveScheduleItems_Transaction tran = new Schedule_RemoveScheduleItems_Transaction((AppData)app.getDataComponent(), selected, table);
+    public void processRemove(ScheduleItem selected, TableView<ScheduleItem> table, Schedule sch){
+        Schedule_RemoveScheduleItems_Transaction tran = new Schedule_RemoveScheduleItems_Transaction((AppData)app.getDataComponent(), selected, table, sch);
         app.processTransaction(tran);
     }
     

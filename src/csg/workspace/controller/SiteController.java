@@ -8,7 +8,6 @@ package csg.workspace.controller;
 import csg.CourseSiteGeneratorApp;
 import static csg.SitePropertyType.INVALID_IMAGE_TITLE;
 import static csg.SitePropertyType.IO_IMAGE_EXCEPTION_CONTENT;
-import csg.data.AppData;
 import csg.data.LocateImages;
 import csg.transaction.Site_EditableComboBox_Transaction;
 import csg.transaction.Site_EditCheckbox_Transaction;

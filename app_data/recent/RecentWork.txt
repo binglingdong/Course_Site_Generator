@@ -1,2 +1,1 @@
 test-work/test.json
-yy-work/yy.json

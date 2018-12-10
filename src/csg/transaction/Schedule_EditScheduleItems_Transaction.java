@@ -6,6 +6,7 @@
 package csg.transaction;
 
 import csg.data.ScheduleItem;
+import csg.workspace.Schedule;
 import java.time.LocalDate;
 import jtps.jTPS_Transaction;
 
@@ -25,9 +26,10 @@ public class Schedule_EditScheduleItems_Transaction implements jTPS_Transaction{
     String oldTopic;
     String oldLink;
     LocalDate oldDate;
+    Schedule sch;
     
     public Schedule_EditScheduleItems_Transaction(ScheduleItem item, String newType, String newTitle, String newTopic,
-                                                String newLink, LocalDate newDate){
+                                                String newLink, LocalDate newDate, Schedule sch){
         this.newLink = newLink;
         this.newDate = newDate;
         this.newTitle= newTitle;
@@ -39,6 +41,7 @@ public class Schedule_EditScheduleItems_Transaction implements jTPS_Transaction{
         oldTopic = item.getTopic();
         oldLink = item.getLink();
         oldDate = item.getDate();
+        this.sch = sch;
     }
     
     @Override
@@ -48,6 +51,7 @@ public class Schedule_EditScheduleItems_Transaction implements jTPS_Transaction{
         item.setType(newType);
         item.setTitle(newTitle);
         item.setTopic(newTopic);
+        sch.updateScheduleItems();
     }
 
     @Override
@@ -57,6 +61,7 @@ public class Schedule_EditScheduleItems_Transaction implements jTPS_Transaction{
         item.setType(oldType);
         item.setTitle(oldTitle);
         item.setTopic(oldTopic);
+        sch.updateScheduleItems();
     }
     
 }
