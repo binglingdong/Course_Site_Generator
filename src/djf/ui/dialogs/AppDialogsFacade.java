@@ -47,8 +47,9 @@ public class AppDialogsFacade {
     public static void showExportDialog(AppTemplate app) throws IOException {
         AppWebDialog dialog = new AppWebDialog(app);
         String dirPath = app.getDataComponent().getExportDirectory();
+        dialog.minHeightProperty().bind(app.getGUIModule().getWindow().heightProperty());
+        dialog.minWidthProperty().bind(app.getGUIModule().getWindow().widthProperty());
         dialog.showWebDialog(dirPath);
-        dialog.setResizable(true);
     }
 
     public static void showHelpDialog(AppTemplate app) {

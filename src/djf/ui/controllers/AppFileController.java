@@ -131,7 +131,7 @@ public class AppFileController {
 
     public void processExportRequest() {
         AppFileModule fileSettings = app.getFileModule();
-        String workFileName = fileSettings.getWorkFile().getName();
+        String workFileName = fileSettings.getWorkFile().getPath();
         try {
             app.getFileComponent().exportData(app.getDataComponent(), workFileName);
             AppDialogsFacade.showExportDialog(app);

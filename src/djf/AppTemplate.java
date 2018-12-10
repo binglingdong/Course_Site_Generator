@@ -302,7 +302,7 @@ public abstract class AppTemplate extends Application {
     }
     
     /**
-     * A way to delete the most recent transaction without really calling delete. 
+     * A way to delete the most recent transaction without really calling delete. Indirectly
      */
     public void moveBackPointer(){
         tps.moveMostRecentPointerBackwards();

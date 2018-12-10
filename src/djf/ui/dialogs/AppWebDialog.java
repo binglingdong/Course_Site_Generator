@@ -18,7 +18,7 @@ public class AppWebDialog extends Stage {
 
     AppTemplate app;
     WebView webView;
-
+    
     public AppWebDialog(AppTemplate initApp) {
         // KEEP THIS TO ACCESS THINGS
         app = initApp;
@@ -29,7 +29,7 @@ public class AppWebDialog extends Stage {
         // NOW PUT THE GRID IN THE SCENE AND THE SCENE IN THE DIALOG
         Scene scene = new Scene(webView);
         this.setScene(scene);
-
+        
         // MAKE IT MODAL
         this.initOwner(app.getGUIModule().getWindow());
         this.initModality(Modality.APPLICATION_MODAL);
